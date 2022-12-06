@@ -10,7 +10,16 @@
  */
 const config = {
   root: true,
-  extends: ['./.eslintrc.base.cjs']
+  extends: ['./.eslintrc.base.cjs'],
+  overrides: [
+    ...require('./.eslintrc.base.cjs').overrides,
+    {
+      files: ['./src/internal/node-error.ts'],
+      rules: {
+        'unicorn/custom-error-definition': 0
+      }
+    }
+  ]
 }
 
 module.exports = config
