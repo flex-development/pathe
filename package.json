@@ -80,6 +80,9 @@
     "typecheck": "vitest typecheck --run",
     "typecheck:watch": "vitest typecheck"
   },
+  "dependencies": {
+    "node-inspect-extracted": "2.0.0"
+  },
   "devDependencies": {
     "@commitlint/cli": "17.3.0",
     "@commitlint/config-conventional": "17.3.0",
