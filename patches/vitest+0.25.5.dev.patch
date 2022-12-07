@@ -1,7 +1,7 @@
-diff --git a/dist/chunk-vite-node-externalize.ddcbafa3.js b/dist/chunk-vite-node-externalize.ddcbafa3.js
-index v0.25.4..v0.25.4 100644
---- a/dist/chunk-vite-node-externalize.ddcbafa3.js
-+++ b/dist/chunk-vite-node-externalize.ddcbafa3.js
+diff --git a/dist/chunk-vite-node-externalize.ca4784be.js b/dist/chunk-vite-node-externalize.ca4784be.js
+index v0.25.5..v0.25.5 100644
+--- a/dist/chunk-vite-node-externalize.ca4784be.js
++++ b/dist/chunk-vite-node-externalize.ca4784be.js
 @@ -8312,7 +8312,7 @@ class DefaultReporter extends BaseReporter {
      super.onWatcherStart();
    }

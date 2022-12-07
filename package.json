@@ -149,7 +149,7 @@
     "version-bump-prompt": "6.1.0",
     "vite": "3.2.5",
     "vite-tsconfig-paths": "3.6.0",
-    "vitest": "0.25.4",
+    "vitest": "0.25.5",
     "vitest-github-actions-reporter": "0.9.0",
     "yaml-eslint-parser": "1.1.0"
   },
@@ -157,7 +157,7 @@
     "@ardatan/sync-fetch": "larsgw/sync-fetch#head=worker_threads",
     "esbuild": "0.15.18",
     "vite": "3.2.5",
-    "vitest@npm:0.25.4": "patch:vitest@npm%3A0.25.4#patches/vitest+0.25.4.dev.patch"
+    "vitest@npm:0.25.5": "patch:vitest@npm%3A0.25.5#patches/vitest+0.25.5.dev.patch"
   },
   "engines": {
     "node": ">=14",

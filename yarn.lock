@@ -943,7 +943,7 @@ __metadata:
     version-bump-prompt: "npm:6.1.0"
     vite: "npm:3.2.5"
     vite-tsconfig-paths: "npm:3.6.0"
-    vitest: "npm:0.25.4"
+    vitest: "npm:0.25.5"
     vitest-github-actions-reporter: "npm:0.9.0"
     yaml-eslint-parser: "npm:1.1.0"
   languageName: unknown
@@ -8411,9 +8411,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:0.25.4":
-  version: 0.25.4
-  resolution: "vitest@npm:0.25.4"
+"vitest@npm:0.25.5":
+  version: 0.25.5
+  resolution: "vitest@npm:0.25.5"
   dependencies:
     "@types/chai": "npm:^4.3.3"
     "@types/chai-subset": "npm:^1.3.3"
@@ -8448,13 +8448,13 @@ __metadata:
       optional: true
   bin:
     vitest: vitest.mjs
-  checksum: 55cbc45e6f4d838fa8911c4f32db5841259f40ff0577df7209cca04e2b4085246a41ecf15f3cb20cd2bfa4589da9cf266677266b10b80cd13f47c6e72e505af0
+  checksum: 9d05d48319982f8598e060262e0697786f2aea60c2d7fc65c5676e229753362c5cdc11aac02d1be7695a2af238771b5fc29359a048d7f758ef257bac243fa9c6
   languageName: node
   linkType: hard
 
-"vitest@patch:vitest@npm%3A0.25.4#patches/vitest+0.25.4.dev.patch::locator=%40flex-development%2Fpathe%40workspace%3A.":
-  version: 0.25.4
-  resolution: "vitest@patch:vitest@npm%3A0.25.4#patches/vitest+0.25.4.dev.patch::version=0.25.4&hash=afa3e1&locator=%40flex-development%2Fpathe%40workspace%3A."
+"vitest@patch:vitest@npm%3A0.25.5#patches/vitest+0.25.5.dev.patch::locator=%40flex-development%2Fpathe%40workspace%3A.":
+  version: 0.25.5
+  resolution: "vitest@patch:vitest@npm%3A0.25.5#patches/vitest+0.25.5.dev.patch::version=0.25.5&hash=65054c&locator=%40flex-development%2Fpathe%40workspace%3A."
   dependencies:
     "@types/chai": "npm:^4.3.3"
     "@types/chai-subset": "npm:^1.3.3"
@@ -8489,7 +8489,7 @@ __metadata:
       optional: true
   bin:
     vitest: vitest.mjs
-  checksum: 25db350d27e431117d1c8bc32871afeb19763df145434632ed489fc74b230c666f51b6b7e77ccf481159824045c6440103c1aa73ca91ff55b60e1537b51a9951
+  checksum: 066cd00ea3841fa371d64a2bd37d998e95679e301c42c6ec527cf4e7c51f4efb898088074e8763e0489100ca6a2fd0d23787c7a27abd79a8a4704e274d9b88c7
   languageName: node
   linkType: hard
 
