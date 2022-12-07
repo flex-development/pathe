@@ -900,7 +900,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:5.45.1"
     "@vates/toggle-scripts": "npm:1.0.0"
     "@vitest/coverage-c8": "npm:0.25.5"
-    "@vitest/ui": "npm:0.25.4"
+    "@vitest/ui": "npm:0.25.5"
     chai: "npm:4.3.7"
     chai-each: "npm:0.0.1"
     chai-quantifiers: "npm:1.0.17"
@@ -1968,12 +1968,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/ui@npm:0.25.4":
-  version: 0.25.4
-  resolution: "@vitest/ui@npm:0.25.4"
+"@vitest/ui@npm:0.25.5":
+  version: 0.25.5
+  resolution: "@vitest/ui@npm:0.25.5"
   dependencies:
     sirv: "npm:^2.0.2"
-  checksum: b223c523bf768c1ac741ddb6627af5168a64390bf17bb2c5313cad7054114bf39ed6835ae1fc182201a3b95d8c0cacec2e0c8409257d0f80f43849b42311e4d4
+  checksum: 50fb57ccdec804d7fec717c93b0f5a38d61b0a561215cfddf838cb26ad2ae92799420236608972d74939d6185ee69031e1dc43fbf6ce5154d817119e9ac7623a
   languageName: node
   linkType: hard
 
