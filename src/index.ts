@@ -3,4 +3,4 @@
  * @module pathe
  */
 
-export {}
+export * from './types'
