@@ -4,3 +4,4 @@
  */
 
 export { default as delimiter } from './delimiter'
+export { default as sep } from './sep'
