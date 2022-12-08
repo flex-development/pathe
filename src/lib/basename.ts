@@ -5,8 +5,8 @@
 
 import ensurePosix from '#src/internal/ensure-posix'
 import isDrivePath from '#src/internal/is-drive-path'
+import isSep from '#src/internal/is-sep'
 import validateString from '#src/internal/validate-string'
-import sep from './sep'
 
 /**
  * Returns the last portion of a path, similar to the Unix `basename` command.
@@ -55,7 +55,7 @@ const basename = (path: string, suffix?: string): string => {
   // get basename without attempting to remove suffix
   if (!suffix || suffix.length > path.length) {
     for (let i = path.length - 1; i >= start; --i) {
-      if (path.charAt(i) === sep) {
+      if (isSep(path.charAt(i))) {
         // if separator was reached, and is not a trailing separator, exit early
         if (!sep_match) {
           start = i + 1
@@ -94,7 +94,7 @@ const basename = (path: string, suffix?: string): string => {
      */
     const char: string = path.charAt(i)
 
-    if (char === sep) {
+    if (isSep(char)) {
       // if separator was reached, and is not a trailing separator, exit early
       if (!sep_match) {
         start = i + 1
