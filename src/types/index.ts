@@ -5,3 +5,4 @@
 
 export type { default as Delimiter } from './delimiter'
 export type { default as Ext } from './ext'
+export type { default as Sep } from './sep'
