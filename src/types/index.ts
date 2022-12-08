@@ -3,4 +3,5 @@
  * @module pathe/types
  */
 
+export type { default as Delimiter } from './delimiter'
 export type { default as Ext } from './ext'
