@@ -42,8 +42,8 @@
   "types": "./dist/index.d.mts",
   "typesVersions": {
     "*": {
-      "./utils/*": [
-        "./dist/utils/*.d.mts"
+      "./utils": [
+        "./dist/utils/index.d.mts"
       ]
     }
   },
