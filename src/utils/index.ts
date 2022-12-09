@@ -3,4 +3,5 @@
  * @module pathe/utils
  */
 
+export { default as addExt } from './add-ext'
 export { default as formatExt } from './format-ext'
