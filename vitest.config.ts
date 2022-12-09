@@ -39,6 +39,7 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
           '**/__mocks__/**',
           '**/__tests__/**',
           '**/index.ts',
+          'src/interfaces/',
           'src/types/'
         ],
         extension: ['.ts'],
