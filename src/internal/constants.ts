@@ -4,6 +4,13 @@
  */
 
 /**
+ * Dot character.
+ *
+ * @const {string} DOT
+ */
+const DOT: string = '.'
+
+/**
  * Drive path regex.
  *
  * Determines if a path starts with a [drive letter][1].
@@ -25,6 +32,6 @@ const DRIVE_PATH_REGEX: RegExp = /^(?<drive>(?<letter>[a-z]):)/i
  * @const {RegExp} UNC_PATH_REGEX
  */
 const UNC_PATH_REGEX: RegExp =
-  /^[/\\]{2,}(?<host>[^/\\]+)[/\\]+(?<share>[^/\\]+)(?:[/\\]+(?<dir>[^\n/\\]+))?(?:[/\\]+(?<file>[^\n/\\]+))?[/\\]*(?=\n?$)/
+  /^[/\\]{2,}(?<host>[^/\\]+)(?:[/\\]+(?<share>[^/\\]+))?(?:[/\\]+(?<dir>[^\n/\\]+))?(?:[/\\]+(?<file>[^\n/\\]+))?[/\\]*(?:(?=\b$)|.+(?=\n?$))/
 
-export { DRIVE_PATH_REGEX, UNC_PATH_REGEX }
+export { DOT, DRIVE_PATH_REGEX, UNC_PATH_REGEX }
