@@ -16,6 +16,7 @@
         "esm",
         "exports",
         "github",
+        "interfaces",
         "internal",
         "lib",
         "patches",
