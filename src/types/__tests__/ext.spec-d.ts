@@ -6,6 +6,10 @@
 import type TestSubject from '../ext'
 
 describe('unit-d:types/Ext', () => {
+  it('should allow dot character', () => {
+    assertType<TestSubject>('.')
+  })
+
   it('should allow string beginning with dot character', () => {
     assertType<TestSubject>('.cjs')
     assertType<TestSubject>('.cts')
