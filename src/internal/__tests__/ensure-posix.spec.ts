@@ -14,18 +14,6 @@ describe('unit:internal/ensurePosix', () => {
     path = 'C:\\Windows\\system32;C:\\Windows;C:\\Program Files\\node\\'
   })
 
-  it('should consolidate duplicate posix path segment separators', () => {
-    expect(testSubject(path)).to.not.include('//')
-  })
-
-  it('should convert windows path delimiters', () => {
-    expect(testSubject(path)).to.not.include(';')
-  })
-
-  it('should convert windows path segment separators', () => {
-    expect(testSubject(path)).to.not.include('\\')
-  })
-
   it('should return path that meets posix standards', () => {
     // Arrange
     const segments: string[] = [

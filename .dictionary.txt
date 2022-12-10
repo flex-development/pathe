@@ -25,6 +25,8 @@ pathe
 pkgs
 posix
 preid
+seglen
+sepidx
 syncer
 vates
 vsicons
