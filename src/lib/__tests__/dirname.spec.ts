@@ -59,6 +59,7 @@ describe('unit:lib/dirname', () => {
         ['\\foo\\bar\\baz'],
         ['a'],
         ['c:'],
+        ['c:.'],
         ['c:\\'],
         ['c:\\foo bar\\baz'],
         ['c:\\foo'],

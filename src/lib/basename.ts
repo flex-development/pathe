@@ -90,7 +90,7 @@ const basename = (path: string, suffix?: string): string => {
     /**
      * Character at {@linkcode i} in {@linkcode path}.
      *
-     * @const {string} code
+     * @const {string} char
      */
     const char: string = path.charAt(i)
 

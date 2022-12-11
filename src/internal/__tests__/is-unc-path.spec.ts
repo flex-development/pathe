@@ -11,6 +11,13 @@ describe('unit:internal/isUncPath', () => {
   })
 
   it('should return true if path is UNC path', () => {
-    expect(testSubject('\\\\Server2\\Share\\Test\\Foo.txt')).to.be.true
+    expect(testSubject('\\\\\\Server2\\Share\\Test\\Foo.txt', false)).to.be.true
+  })
+
+  describe('exact', () => {
+    it('should return true if path starts with exactly two separators', () => {
+      expect(testSubject('//host/share/file.ext', true)).to.be.true
+      expect(testSubject('\\\\host\\share\\file.ext', true)).to.be.true
+    })
   })
 })

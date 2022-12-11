@@ -7,8 +7,8 @@ import { DOT } from '#src/internal/constants'
 import ensurePosix from '#src/internal/ensure-posix'
 import isDrivePath from '#src/internal/is-drive-path'
 import isSep from '#src/internal/is-sep'
-import isUncPath from '#src/internal/is-unc-path'
 import validateString from '#src/internal/validate-string'
+import isAbsolute from './is-absolute'
 import sep from './sep'
 
 /**
@@ -35,18 +35,18 @@ const dirname = (path: string): string => {
   if (path.length === 1) return isSep(path) ? path : DOT
 
   /**
-   * UNC path check.
+   * Drive path check.
    *
-   * @const {boolean} unc
+   * @const {boolean} drive
    */
-  const unc: boolean = isUncPath(path)
+  const drive: boolean = isDrivePath(path)
 
   /**
    * Leading path separator check.
    *
    * @const {boolean} root
    */
-  const root: boolean = isSep(path[0])
+  const root: boolean = isSep(path.charAt(0))
 
   /**
    * Start index of directory name.
@@ -69,17 +69,22 @@ const dirname = (path: string): string => {
    */
   let sep_match: boolean = true
 
-  // adjust start index if path starts with drive letter
-  if (isDrivePath(path)) {
-    start = path.length > 2 && isSep(path.charAt(2)) ? 3 : 2
-  }
+  /**
+   * UNC path check.
+   *
+   * @var {boolean} unc
+   */
+  let unc: boolean = false
 
-  // adjust start index if path is unc path
-  if (unc) {
+  // adjust start index if path starts with drive letter
+  if (drive) start = path.length > 2 && isAbsolute(path) ? 3 : 2
+
+  // adjust start index if path is absolute
+  if (isSep(path.charAt(0))) {
     // reset start index of directory name
     start = 1
 
-    // match unc roots
+    // adjust start and end indices if path is unc path
     if (isSep(path.charAt(1))) {
       /**
        * Current position in {@linkcode path}.
@@ -99,14 +104,14 @@ const dirname = (path: string): string => {
       while (j < path.length && !isSep(path.charAt(j))) j++
 
       if (j < path.length && j !== last) {
-        // set index of non-directory separator match
+        // set last visited position to index of directory separator
         last = j
 
         // match 1 or more directory separators
         while (j < path.length && isSep(path.charAt(j))) j++
 
         if (j < path.length && j !== last) {
-          // set index of separator match
+          // set last visited position to index of non-directory separator
           last = j
 
           // match 1 or more non-directory separators
@@ -118,7 +123,10 @@ const dirname = (path: string): string => {
           // matched unc root with leftovers
           // offset by 1 to include the separator after the root so that it is
           // treated as a "normal root" on top of a unc root
-          if (j !== last) end = start = j + 1
+          if (j !== last) {
+            unc = true
+            end = start = j + 1
+          }
         }
       }
     }
@@ -141,10 +149,8 @@ const dirname = (path: string): string => {
   return end === -1
     ? root && !unc
       ? sep
-      : isDrivePath(path)
-      ? path.length <= 3
-        ? path
-        : path.slice(0, start)
+      : drive
+      ? path.slice(0, start)
       : DOT
     : root && end === 1
     ? sep + sep
