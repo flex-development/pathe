@@ -21,7 +21,7 @@ const DOT: string = '.'
  *
  * @const {RegExp} DRIVE_PATH_REGEX
  */
-const DRIVE_PATH_REGEX: RegExp = /^(?<drive>(?<letter>[a-z]):)/i
+const DRIVE_PATH_REGEX: RegExp = /^(?<drive>(?<letter>[a-z]):)(?:\/|\\{2})?/i
 
 /**
  * Universal naming convention (UNC) path regex.
@@ -32,6 +32,6 @@ const DRIVE_PATH_REGEX: RegExp = /^(?<drive>(?<letter>[a-z]):)/i
  * @const {RegExp} UNC_PATH_REGEX
  */
 const UNC_PATH_REGEX: RegExp =
-  /^[/\\]{2,}(?<host>[^/\\]+)(?:[/\\]+(?<share>[^/\\]+))?(?:[/\\]+(?<dir>[^\n/\\]+))?(?:[/\\]+(?<file>[^\n/\\]+))?[/\\]*(?:(?=\b$)|.+(?=\n?$))/
+  /^(?<volume>(?<root>[/\\]{2,})(?<host>[^/\\]+)[/\\]+(?<share>[^/\\]+))[/\\]*(?:(?<dir>.+?)[/\\]*(?<file>[^/\\]+\..[^/\\]+)?[/\\]*(?=[/\\]*\n?$))?/
 
 export { DOT, DRIVE_PATH_REGEX, UNC_PATH_REGEX }
