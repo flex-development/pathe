@@ -14,11 +14,11 @@ import ERR_INVALID_ARG_TYPE from './err-invalid-arg-type'
  *
  * @param {unknown} value - Possible string value
  * @param {string} name - `value` label
- * @return {boolean} `true` if `value` is a string
+ * @return {string} `value` if `value` is a string
  * @throws {ERR_INVALID_ARG_TYPE}
  */
-const validateString = (value: unknown, name: string): value is string => {
-  if (typeof value === 'string') return true
+const validateString = (value: unknown, name: string): string => {
+  if (typeof value === 'string') return value
   throw new ERR_INVALID_ARG_TYPE(name, 'string', value)
 }
 

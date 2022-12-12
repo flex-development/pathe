@@ -22,9 +22,11 @@ import validateString from './validate-string'
  *
  * @param {string} path - Path to evaluate
  * @return {boolean} `true` if path starts with [drive letter][1]
+ * @throws {TypeError} If `path` is not a string
  */
 const isDrivePath = (path: string): boolean => {
-  return validateString(path, 'path') && DRIVE_PATH_REGEX.test(path)
+  validateString(path, 'path')
+  return DRIVE_PATH_REGEX.test(path)
 }
 
 export default isDrivePath

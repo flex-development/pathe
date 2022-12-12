@@ -23,10 +23,14 @@ import validateString from './validate-string'
  * [1]: {@link ../lib/sep.ts}
  *
  * @param {string} path - Path to normalize
+ * @param {boolean} [allow_above_root=!isAbsolute(path)] - Normalize past root
  * @return {string} Normalized `path`
  * @throws {TypeError} If `path` is not a string
  */
-const normalizeString = (path: string): string => {
+const normalizeString = (
+  path: string,
+  allow_above_root: boolean = !isAbsolute(path)
+): string => {
   validateString(path, 'path')
 
   // exit early if path is empty string
@@ -37,13 +41,6 @@ const normalizeString = (path: string): string => {
 
   // exit early if path does not contain dot characters or separators
   if (!path.includes(DOT) && !path.includes(sep)) return path
-
-  /**
-   * Absolute path check.
-   *
-   * @const {boolean} absolute
-   */
-  const absolute: boolean = isAbsolute(path)
 
   /**
    * Current character in {@link path} being processed.
@@ -134,8 +131,8 @@ const normalizeString = (path: string): string => {
           }
         }
 
-        // resolve past root if path is not absolute
-        if (!absolute) {
+        // resolve past root
+        if (allow_above_root) {
           res += `${!res ? '' : sep}${DOT.repeat(2)}`
           seglen = 2
         }
