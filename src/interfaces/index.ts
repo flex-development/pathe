@@ -8,3 +8,4 @@ export type {
   default as FormatInputPathObject,
   default as PathObject
 } from './path-object'
+export type { default as PlatformPath } from './platform-path'
