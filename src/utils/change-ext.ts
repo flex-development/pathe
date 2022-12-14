@@ -11,20 +11,19 @@ import addExt from './add-ext'
 import formatExt from './format-ext'
 
 /**
- * Changes the file extension of the given `path`.
+ * Changes the file extension of the given `path`. If `path` does not have an
+ * extension, the new file extension will be added instead.
  *
  * Does nothing if a file extension isn't provided.
  *
  * @example
  *  changeExt('file') // 'file'
  * @example
- *  changeExt('file', 'cjs') // 'file.cjs'
+ *  changeExt('file', 'mjs') // 'file.mjs'
  * @example
  *  changeExt('file', '.mjs') // 'file.mjs'
  * @example
  *  changeExt('file.mts', '.d.mts') // 'file.d.mts'
- * @example
- *  changeExt('file.min.cjs', 'mjs') // 'file.min.mjs'
  *
  * @param {string} path - Path to evaluate
  * @param {Nullable<string>} [ext] - File extension to add

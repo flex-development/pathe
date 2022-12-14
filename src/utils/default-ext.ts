@@ -11,7 +11,7 @@ import addExt from './add-ext'
 import formatExt from './format-ext'
 
 /**
- * Adds a file extension to the given `path` if and only if the path does not
+ * Appends a file extension to the given `path` if and only if the path does not
  * already have an extension. Force adding an extension can be accomplished by
  * passing an array of extensions to ignore.
  *

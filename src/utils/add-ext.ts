@@ -8,21 +8,19 @@ import type { Nullable } from '@flex-development/tutils'
 import formatExt from './format-ext'
 
 /**
- * Adds a file extension to a path if and only if the path does not already end
- * with the file extension.
+ * Appends file extension `ext` to the given `path` if and only if the path does
+ * not already have that exact file extension.
  *
- * Does nothing if a file extension isn't provided.
+ * Does nothing if a file extension is not provided.
  *
  * @example
  *  addExt('file') // 'file'
  * @example
  *  addExt('file', 'mjs') // 'file.mjs'
  * @example
- *  addExt('file.mjs', '.mjs') // 'file.mjs'
- * @example
  *  addExt('file.min', '.mjs') // 'file.min.mjs'
  * @example
- *  addExt('file.min.', '.mjs') // 'file.min.mjs'
+ *  addExt('file.min.mjs', '.mjs') // 'file.min.mjs'
  *
  * @param {string} path - Path to evaluate
  * @param {Nullable<string>} [ext] - File extension to add

@@ -13,6 +13,8 @@ import type { EmptyString } from '@flex-development/tutils'
  *
  * - Prepending a `.` (dot) character if not already present
  *
+ * Does nothing if a file extension isn't provided.
+ *
  * @param {string} [ext=''] - File extension to format
  * @return {EmptyString | Ext} Formatted file extension or empty string
  */
