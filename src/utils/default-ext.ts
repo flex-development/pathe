@@ -41,8 +41,9 @@ const defaultExt = (
 ): string => {
   validateString(path, 'path')
 
-  // exit early if extension isn't provided or validate ext
+  // exit early if extension isn't provided
   if (ext === null || ext === undefined) return path
+  // validate file extension
   else validateString(ext, 'ext')
 
   // exit early if extension is empty string
@@ -62,12 +63,15 @@ const defaultExt = (
         .filter(ignorable => ignorable.trim().length > 0)
     : []
 
+  // ensure path does not end with dot character
+  path = path.replace(/\.$/, '')
+
   /**
    * File extension of {@linkcode path}.
    *
    * @const {EmptyString | Ext} extension
    */
-  const extension: EmptyString | Ext = extname((path = path.replace(/\.$/, '')))
+  const extension: EmptyString | Ext = extname(path)
 
   return extension && !ignore.includes(extension) ? path : addExt(path, ext)
 }

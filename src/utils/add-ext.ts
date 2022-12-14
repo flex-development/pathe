@@ -30,8 +30,9 @@ import formatExt from './format-ext'
 const addExt = (path: string, ext?: Nullable<string>): string => {
   validateString(path, 'path')
 
-  // exit early if extension isn't provided or validate ext
+  // exit early if extension isn't provided
   if (ext === null || ext === undefined) return path
+  // validate file extension
   else validateString(ext, 'ext')
 
   // exit early if extension is empty string or path already ends with extension
