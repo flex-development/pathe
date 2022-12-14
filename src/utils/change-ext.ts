@@ -11,8 +11,7 @@ import addExt from './add-ext'
 import formatExt from './format-ext'
 
 /**
- * Changes the file extension of the given `path`. If `path` does not have an
- * extension, the new file extension will be added instead.
+ * Changes the file extension of the given `path`.
  *
  * Does nothing if a file extension isn't provided.
  *

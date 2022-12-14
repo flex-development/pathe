@@ -8,8 +8,8 @@ import type { Nullable } from '@flex-development/tutils'
 import formatExt from './format-ext'
 
 /**
- * Appends file extension `ext` to the given `path` if and only if the path does
- * not already have that exact file extension.
+ * Appends a file extension to the given `path` if and only if the path does not
+ * already have that exact file extension.
  *
  * Does nothing if a file extension is not provided.
  *

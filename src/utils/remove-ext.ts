@@ -10,8 +10,8 @@ import formatExt from './format-ext'
 /**
  * Removes a file extension from the given `path`.
  *
- * Does nothing if the `path` does not end with the provided file extension, or
- * if a file extension isn't provided.
+ * Does nothing if `path` does not end with the provided file extension, or if a
+ * file extension isn't provided.
  *
  * @example
  *  removeExt('file') // 'file'
