@@ -4,6 +4,7 @@ cefc
 commitlintrc
 dawidd
 dedupe
+deduped
 dessant
 dohm
 esbenp

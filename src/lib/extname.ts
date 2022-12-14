@@ -35,28 +35,14 @@ const extname = (path: string): EmptyString | Ext => {
   path = ensurePosix(path)
 
   /**
-   * Start index of extension.
-   *
-   * @var {number} start
-   */
-  let start: number = -1
-
-  /**
-   * End index of extension.
-   *
-   * @var {number} end
-   */
-  let end: number = -1
-
-  /**
-   * Extension search offset.
+   * Index to begin searching for extension.
    *
    * @var {number} offset
    */
   let offset: number = 0
 
   /**
-   * Start index of path component before extension.
+   * Start index of {@linkcode path}'s basename.
    *
    * @var {number} part
    */
@@ -77,12 +63,27 @@ const extname = (path: string): EmptyString | Ext => {
    */
   let sep_match: boolean = true
 
-  // check for drive path so as not to mistake a following path separator as an
-  // extra separator at the end of the path that can be disregarded
+  /**
+   * Start index of extension.
+   *
+   * @var {number} start
+   */
+  let start: number = -1
+
+  /**
+   * End index of extension.
+   *
+   * @var {number} end
+   */
+  let end: number = -1
+
+  // check for drive path so as not to mistake the following path separator as
+  // an extra separator at the end of the path that can be disregarded
   if (path.length >= 2 && isDrivePath(path)) {
     offset = part = 2
   }
 
+  // get start and end indices of extension
   for (let i = path.length - 1; i >= offset; --i) {
     /**
      * Character at {@linkcode i} in {@linkcode path}.
@@ -91,9 +92,10 @@ const extname = (path: string): EmptyString | Ext => {
      */
     const char: string = path.charAt(i)
 
-    // adjust start index of path component before extension
+    // adjust start index of basename
     if (isSep(char)) {
       if (!sep_match) {
+        // encountered separator that is not trailing separator
         part = i + 1
         break
       }
@@ -113,8 +115,8 @@ const extname = (path: string): EmptyString | Ext => {
       if (start === -1) start = i
       else if (predot !== 1) predot = 1
     } else if (start !== -1) {
-      // a non-dot and non-separator was encountered before the dot character,
-      // so there is a good chance at having a non-empty extension
+      // a non-dot and non-separator character was encountered before the dot
+      // character, so there is a good chance at having a non-empty extension
       predot = -1
     }
   }

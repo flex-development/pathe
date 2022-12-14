@@ -36,56 +36,29 @@ const dirname = (path: string): string => {
   if (path.length === 1) return isSep(path) ? path : DOT
 
   /**
-   * Drive path check.
+   * Index to begin searching for directory name.
    *
-   * @const {boolean} drive
+   * @var {number} offset
    */
-  const drive: boolean = isDrivePath(path)
+  let offset: number = 0
 
   /**
-   * Leading path separator check.
+   * End index of {@linkcode path} root.
    *
-   * @const {boolean} root
+   * @var {number} root_end
    */
-  const root: boolean = isSep(path.charAt(0))
+  let root_end: number = -1
 
-  /**
-   * Start index of directory name.
-   *
-   * @var {number} start
-   */
-  let start: number = root ? 1 : 0
+  // adjust offset if path is drive path
+  if (isDrivePath(path)) {
+    offset = root_end = path.length > 2 && isAbsolute(path) ? 3 : 2
+  }
 
-  /**
-   * End index of directory name.
-   *
-   * @var {number} end
-   */
-  let end: number = -1
-
-  /**
-   * Directory separator match check.
-   *
-   * @var {boolean} sep_match
-   */
-  let sep_match: boolean = true
-
-  /**
-   * UNC path check.
-   *
-   * @var {boolean} unc
-   */
-  let unc: boolean = false
-
-  // adjust start index if path starts with drive letter
-  if (drive) start = path.length > 2 && isAbsolute(path) ? 3 : 2
-
-  // adjust start index if path is absolute
+  // adjust offset if path is absolute
   if (isSep(path.charAt(0))) {
-    // reset start index of directory name
-    start = 1
+    root_end = offset = 1
 
-    // adjust start and end indices if path is unc path
+    // try adjusting offset if path is possible unc path
     if (isSep(path.charAt(1))) {
       /**
        * Current position in {@linkcode path}.
@@ -124,17 +97,28 @@ const dirname = (path: string): string => {
           // matched unc root with leftovers
           // offset by 1 to include the separator after the root so that it is
           // treated as a "normal root" on top of a unc root
-          if (j !== last) {
-            unc = true
-            end = start = j + 1
-          }
+          if (j !== last) root_end = offset = j + 1
         }
       }
     }
   }
 
+  /**
+   * End index of directory name.
+   *
+   * @var {number} end
+   */
+  let end: number = -1
+
+  /**
+   * Directory separator match check.
+   *
+   * @var {boolean} sep_match
+   */
+  let sep_match: boolean = true
+
   // get end index of directory name
-  for (let i = path.length - 1; i >= start; --i) {
+  for (let i = path.length - 1; i >= offset; --i) {
     if (isSep(path.charAt(i))) {
       // set end index of directory name
       if (!sep_match) {
@@ -147,15 +131,11 @@ const dirname = (path: string): string => {
     }
   }
 
-  return end === -1
-    ? root && !unc
-      ? sep
-      : drive
-      ? path.slice(0, start)
-      : DOT
-    : root && end === 1
-    ? sep + sep
-    : path.slice(0, end)
+  return end === -1 && root_end === -1
+    ? DOT
+    : isSep(path.charAt(0)) && end === 1
+    ? sep.repeat(2)
+    : path.slice(0, end === -1 ? root_end : end)
 }
 
 export default dirname

@@ -36,21 +36,27 @@ const join = (...paths: string[]): string => {
   let joined: string = ''
 
   /**
-   * First path segment.
+   * First path segment in {@linkcode paths}.
    *
-   * @var {string} segment
+   * @var {string} first_segment
    */
-  let segment: string = ''
+  let first_segment: string = ''
 
   // join path segments
   for (let path of paths) {
     validateString(path, 'path')
 
+    // skip empty path segments
     if (path.length === 0) continue
+
+    // ensure path segment meets posix standards
     path = ensurePosix(path)
 
-    if (!segment) segment = path
-    joined += `${joined ? sep : ''}${ensurePosix(path)}`
+    // capture first path segment to determine if separators should be deduped
+    if (!first_segment) first_segment = path
+
+    // add current path segment to joined path
+    joined += `${joined ? sep : ''}${path}`
   }
 
   // exit early if joined path is empty string
@@ -66,17 +72,19 @@ const join = (...paths: string[]): string => {
    * This check is skipped when it is clear that the user intended to point at a
    * UNC path. This is assumed when the first non-empty string argument starts
    * with exactly two separator characters, followed by at least one more
-   * non-separator characters.
+   * non-separator character.
    *
    * **Note**: In order for {@linkcode normalize} to recognize a UNC path, the
-   * path must have at least 2 components, so that is not accounted for below.
-   * This means that the user can use {@linkcode join} to construct UNC paths
-   * from a server name and a share name:
+   * path must have at least 2 components, so this check does not take that into
+   * account. This means that the user can use {@linkcode join} to construct UNC
+   * paths from a server name and a share name:
    *
    * [1]: {@link ./sep.ts}
    *
    * @example
    *  pathe.join('//server', 'share') // '//server/share/'
+   * @example
+   *  pathe.join('\\\\server', 'share') // '//server/share/'
    *
    * @var {boolean} dedupe
    */
@@ -85,21 +93,21 @@ const join = (...paths: string[]): string => {
   /**
    * Path separator count.
    *
-   * @var {number} s
+   * @var {number} separators
    */
-  let s: number = 0
+  let separators: number = 0
 
-  // try matching unc patch component if at first segment is possible root
-  if (isSep(segment.charAt(0))) {
-    ++s
+  // try matching unc patch component if first segment is possible root
+  if (isSep(first_segment.charAt(0))) {
+    ++separators
 
-    // another separator => continue unc path component check
-    if (segment.length > 1 && isSep(segment.charAt(1))) {
-      ++s
+    // another separator => continue unc root check
+    if (first_segment.length > 1 && isSep(first_segment.charAt(1))) {
+      ++separators
 
       // unc path component should contain more than just separators
-      if (segment.length > 2) {
-        if (isSep(segment.charAt(2))) ++s
+      if (first_segment.length > 2) {
+        if (isSep(first_segment.charAt(2))) ++separators
         // matched unc path component in first segment
         else dedupe = false
       }
@@ -109,10 +117,12 @@ const join = (...paths: string[]): string => {
   // deduplicate separators
   if (dedupe) {
     // find any more separators that need to be replaced
-    while (s < joined.length && isSep(joined.charAt(s))) s++
+    while (separators < joined.length && isSep(joined.charAt(separators))) {
+      separators++
+    }
 
     // replace separators
-    if (s >= 2) joined = `${sep}${joined.slice(s)}`
+    if (separators >= 2) joined = `${sep}${joined.slice(separators)}`
   }
 
   return normalize(joined)

@@ -21,8 +21,12 @@ import validateString from '#src/internal/validate-string'
  * @throws {TypeError} If `path` is not a string or `suffix` is not a string
  */
 const basename = (path: string, suffix?: string): string => {
-  path = ensurePosix(path)
+  validateString(path, 'path')
   suffix !== undefined && validateString(suffix, 'suffix')
+
+  // ensure path and suffix meet posix standards
+  path = ensurePosix(path)
+  suffix !== undefined && (suffix = ensurePosix(suffix))
 
   // return empty string if path and suffix are equal
   if (suffix === path) return ''
@@ -48,28 +52,28 @@ const basename = (path: string, suffix?: string): string => {
    */
   let sep_match: boolean = true
 
-  // check for drive path so as not to mistake a following path separator as an
-  // extra separator at the end of the path that can be disregarded
+  // check for drive path so as not to mistake the following path separator as
+  // an extra separator at the end of the path that can be disregarded
   if (path.length >= 2 && isDrivePath(path)) start = 2
 
   // get basename without attempting to remove suffix
   if (!suffix || suffix.length > path.length) {
     for (let i = path.length - 1; i >= start; --i) {
       if (isSep(path.charAt(i))) {
-        // if separator was reached, and is not a trailing separator, exit early
+        // encountered separator that is not trailing separator
         if (!sep_match) {
           start = i + 1
           break
         }
       } else if (end === -1) {
-        // set index of first character that is not a path separator in case
-        // suffix is not found in path
+        // encountered character that is not a separator => end path component
         sep_match = false
         end = i + 1
       }
     }
 
-    return end === -1 ? '' : path.slice(start, end)
+    // basename can be safely extracted using slice when end is greater than -1
+    return end > -1 ? path.slice(start, end) : ''
   }
 
   /**
@@ -80,7 +84,7 @@ const basename = (path: string, suffix?: string): string => {
   let sdx: number = suffix.length - 1
 
   /**
-   * Index of first character that is not a path separator.
+   * Index of character that is not a path separator.
    *
    * @var {number} nonsep
    */
@@ -95,15 +99,15 @@ const basename = (path: string, suffix?: string): string => {
     const char: string = path.charAt(i)
 
     if (isSep(char)) {
-      // if separator was reached, and is not a trailing separator, exit early
+      // encountered separator that is not trailing separator
       if (!sep_match) {
         start = i + 1
         break
       }
     } else {
       if (nonsep === -1) {
-        // set index of first character that is not a path separator in case
-        // suffix is not found in path
+        // set index of character that is not a path separator in case suffix is
+        // not found in path
         nonsep = i + 1
         sep_match = false
       }
@@ -111,12 +115,13 @@ const basename = (path: string, suffix?: string): string => {
       if (sdx >= 0) {
         // try matching suffix
         if (char === suffix.charAt(sdx)) {
-          // set end of path segment
+          // end path component
           if (--sdx === -1) end = i
         } else {
-          // if suffix is not found, basename stops at nonsep
-          sdx = -1
+          // if suffix is not found, basename stops at last index of character
+          // that is not a path separator
           end = nonsep
+          sdx = -1
         }
       }
     }

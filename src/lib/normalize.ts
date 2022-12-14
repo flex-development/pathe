@@ -44,17 +44,10 @@ const normalize = (path: string): string => {
    *
    * @const {boolean} absolute
    */
-  const absolute: boolean = isAbsolute(path)
+  let absolute: boolean = false
 
   /**
-   * Trailing separator check.
-   *
-   * @var {string} trail
-   */
-  const trail: string = isSep(path.charAt(path.length - 1)) ? sep : ''
-
-  /**
-   * Drive letter, UNC path component, or empty string.
+   * Drive letter or UNC path component(s), if any.
    *
    * @var {string} device
    */
@@ -68,75 +61,90 @@ const normalize = (path: string): string => {
   let offset: number = 0
 
   // adjust normalization offset if path is drive path
-  if (isDrivePath(path)) device = path.slice(0, (offset = 2))
+  if (isDrivePath(path)) {
+    device = path.slice(0, (offset = 2))
 
-  // try adjusting normalization offset if path is possible unc path
-  if (isSep(path.charAt(0)) && isSep(path.charAt(1))) {
-    /**
-     * Current position in {@linkcode path}.
-     *
-     * @var {number} j
-     */
-    let j: number = 2
+    if (path.length > 2 && isAbsolute(path)) {
+      absolute = true
+      offset = 3
+    }
+  }
 
-    /**
-     * Last visited position in {@linkcode path}.
-     *
-     * @var {number} last
-     */
-    let last: number = j
+  // adjust normalization offset if path is absolute
+  if (isSep(path.charAt(0))) {
+    absolute = true
+    offset = 1
 
-    // match 1 or more non-path separators
-    while (j < path.length && !isSep(path.charAt(j))) j++
-
-    if (j < path.length && j !== last) {
+    // try adjusting normalization offset again if path is possible unc path
+    if (isSep(path.charAt(1))) {
       /**
-       * Possible UNC path component.
+       * Current position in {@linkcode path}.
        *
-       * @const {string} host
+       * @var {number} j
        */
-      const host: string = path.slice(last, j)
+      let j: number = 2
 
       /**
-       * Checks if {@linkcode host} is actually a `".."` segment.
+       * Last visited position in {@linkcode path}.
        *
-       * @const {boolean} dotdot
+       * @var {number} last
        */
-      const dotdot: boolean = host === DOT.repeat(2)
+      let last: number = j
 
-      // set last visited position to end of host
-      last = j
-
-      // match 1 or more path separators
-      while (j < path.length && isSep(path.charAt(j))) j++
+      // match 1 or more non-path separators
+      while (j < path.length && !isSep(path.charAt(j))) j++
 
       if (j < path.length && j !== last) {
-        // set last visited position
+        /**
+         * Possible UNC path component.
+         *
+         * @const {string} host
+         */
+        const host: string = path.slice(last, j)
+
+        // set last visited position to end of host
         last = j
 
-        // match 1 or more non-path separators
-        while (j < path.length && !isSep(path.charAt(j))) j++
+        // match 1 or more path separators
+        while (j < path.length && isSep(path.charAt(j))) j++
 
-        // matched unc root only => nothing left to process
-        if (j === path.length && !dotdot) {
-          return `${sep}${sep}${host}${sep}${path.slice(last)}${sep}`
-        }
+        if (j < path.length && j !== last) {
+          // set last visited position
+          last = j
 
-        // matched unc root with leftovers
-        if (j !== last && !dotdot) {
-          device = `${sep}${sep}${host}${sep}${path.slice(last, j)}`
-          offset = j
+          // match 1 or more non-path separators
+          while (j < path.length && !isSep(path.charAt(j))) j++
+
+          // matched unc root only => nothing left to process
+          if (j === path.length) {
+            return `${sep.repeat(2)}${host}${sep}${path.slice(last)}${sep}`
+          }
+
+          // matched unc root with leftovers
+          if (j !== last) {
+            device = `${sep.repeat(2)}${host}${sep}${path.slice(last, j)}`
+            offset = j
+          }
         }
       }
     }
   }
 
-  // normalize path
-  path = offset < path.length ? normalizeString(path.slice(offset)) : ''
+  /**
+   * Tail end of normalized path.
+   *
+   * @var {string} tail
+   */
+  let tail: string =
+    offset < path.length ? normalizeString(path.slice(offset), !absolute) : ''
 
-  return path.length === 0
-    ? `${device}${absolute ? sep : DOT + trail}`
-    : `${device}${absolute ? sep : ''}${path}${trail}`
+  // set tail to cwd reference if tail is empty string and path is relative
+  if (tail.length === 0 && !absolute) tail = DOT
+
+  // re-add trailing separator
+  if (tail.length > 0 && isSep(path.charAt(path.length - 1))) tail += sep
+
+  return `${device}${absolute ? sep : ''}${tail}`
 }
 
 export default normalize
