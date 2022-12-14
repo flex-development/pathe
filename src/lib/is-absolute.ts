@@ -9,10 +9,12 @@ import isSep from '#src/internal/is-sep'
 import validateString from '#src/internal/validate-string'
 
 /**
- * Determines if a path is an absolute path.
+ * Determines if `path` is an absolute path.
+ *
+ * If the given `path` is a zero-length string, `false` will be returned.
  *
  * @param {string} path - Path to evaluate
- * @return {boolean} `true` if `path` is absolute
+ * @return {boolean} `true` if `path` is absolute, `false` otherwise
  * @throws {TypeError} If `path` is not a string
  */
 const isAbsolute = (path: string): boolean => {

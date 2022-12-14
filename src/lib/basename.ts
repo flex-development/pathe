@@ -9,7 +9,7 @@ import isSep from '#src/internal/is-sep'
 import validateString from '#src/internal/validate-string'
 
 /**
- * Returns the last portion of a path, similar to the Unix `basename` command.
+ * Returns the last portion of a `path`, similar to the Unix `basename` command.
  *
  * Trailing [directory separators][1] are ignored.
  *

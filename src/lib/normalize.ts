@@ -16,13 +16,12 @@ import sep from './sep'
  * Normalizes the given `path`, resolving `'..'` and `'.'` segments.
  *
  * When multiple, sequential path segment separation characters are found (e.g.
- * `/` or `\`), they are replaced by a single instance of [`sep`][1]. Trailing
- * separators are preserved.
+ * `/` on POSIX and either `\\` or `/` on Windows), they are replaced by a
+ * single instance of a POSIX-compliant separator. Trailing separators are
+ * preserved.
  *
- * If the given `path` is a zero-length string, `'.'` is returned, representing
- * the current working directory.
- *
- * [1]: {@link ../lib/sep.ts}
+ * If the `path` is a zero-length string, `'.'` is returned, representing the
+ * current working directory.
  *
  * @param {string} path - Path to normalize
  * @return {string} Normalized `path`

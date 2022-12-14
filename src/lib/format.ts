@@ -3,16 +3,25 @@
  * @module pathe/lib/format
  */
 
-import type { PathObject } from '#src/interfaces'
+import type { FormatInputPathObject } from '#src/interfaces'
 import ensurePosix from '#src/internal/ensure-posix'
 import validateObject from '#src/internal/validate-object'
 import formatExt from '#src/utils/format-ext'
 import sep from './sep'
 
 /**
- * Returns a path string from an object.
+ * Returns a path string from an object - the opposite of [`parse()`][1].
  *
- * @param {PathObject} pathObject - Object to evaluate
+ * When adding properties to `pathObject`, there are combinations where one
+ * property has priority over another:
+ *
+ * - `pathObject.root` is ignored if `pathObject.dir` is provided
+ * - `pathObject.ext` is ignored if `pathObject.base` exists
+ * - `pathObject.name` is ignored if `pathObject.base` exists
+ *
+ * [1]: {@link ./parse.ts}
+ *
+ * @param {FormatInputPathObject} pathObject - Object to evaluate
  * @param {string} [pathObject.base] - File name including extension (if any)
  * @param {string} [pathObject.dir] - Directory name or full directory path
  * @param {string} [pathObject.ext] - File extension (if any)
@@ -21,7 +30,7 @@ import sep from './sep'
  * @return {string} Path string
  * @throws {TypeError} If `pathObject` is not an object
  */
-const format = (pathObject: PathObject): string => {
+const format = (pathObject: FormatInputPathObject): string => {
   validateObject(pathObject, 'pathObject')
 
   // ensure path components meet posix standards

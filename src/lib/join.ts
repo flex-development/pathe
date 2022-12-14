@@ -11,8 +11,12 @@ import normalize from './normalize'
 import sep from './sep'
 
 /**
- * Joins all given path segments together using a [path separator][1] as the
+ * Joins all given `path` segments together using a [path separator][1] as the
  * delimiter, then normalizes the resulting path.
+ *
+ * Zero-length `path` segments are ignored. If the joined path string is a
+ * zero-length string then `'.'` will be returned, representing the current
+ * working directory.
  *
  * [1]: {@link ./sep.ts}
  *

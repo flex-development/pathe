@@ -14,8 +14,8 @@ import sep from './sep'
 /**
  * Returns an equivalent [namespace-prefixed path][1] for the given `path`.
  *
- * If the given `path` isn't a [drive path][2] or [UNC path][3], the path will
- * be returned without modifications.
+ * If `path` is not a [drive path][2] or [UNC path][3], `path` will be returned
+ * without modifications.
  *
  * [1]: https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#namespaces
  * [2]: https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#naming-conventions

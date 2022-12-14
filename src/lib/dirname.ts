@@ -12,7 +12,8 @@ import isAbsolute from './is-absolute'
 import sep from './sep'
 
 /**
- * Returns the directory name of a path, similar to the Unix `dirname` command.
+ * Returns the directory name of a `path`, similar to the Unix `dirname`
+ * command.
  *
  * Trailing [directory separators][1] are ignored.
  *

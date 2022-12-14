@@ -17,9 +17,8 @@ import isAbsolute from './is-absolute'
 import sep from './sep'
 
 /**
- * Returns an object representing the given `path`.
- *
- * Trailing directory [separators][1] are ignored.
+ * Returns an object whose properties represent significant elements of the
+ * given `path`. Trailing directory [separators][1] are ignored.
  *
  * **Note**: Unlike in Node.js, `pathe.parse(path).dir === pathe.dirname(path)`
  * when `path` is a non-empty string. See [`nodejs/node#18655`][3] for details.
