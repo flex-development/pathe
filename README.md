@@ -1,6 +1,7 @@
 # pathe
 
 [![npm](https://img.shields.io/npm/v/@flex-development/pathe.svg)](https://npmjs.com/package/@flex-development/pathe)
+[![codecov](https://codecov.io/gh/flex-development/pathe/branch/main/graph/badge.svg?token=R2TPEBGWXB)](https://codecov.io/gh/flex-development/pathe)
 [![license](https://img.shields.io/github/license/flex-development/pathe.svg)](LICENSE.md)
 [![conventional commits](https://img.shields.io/badge/-conventional%20commits-fe5196?logo=conventional-commits&logoColor=ffffff)](https://conventionalcommits.org/)
 [![typescript](https://img.shields.io/badge/-typescript-3178c6?logo=typescript&logoColor=ffffff)](https://typescriptlang.org/)
