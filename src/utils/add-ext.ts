@@ -18,9 +18,9 @@ import formatExt from './format-ext'
  * @example
  *  addExt('file', 'mjs') // 'file.mjs'
  * @example
- *  addExt('file.min', '.mjs') // 'file.min.mjs'
+ *  addExt('file', '.mjs') // 'file.mjs'
  * @example
- *  addExt('file.min.mjs', '.mjs') // 'file.min.mjs'
+ *  addExt('file.d.mts', '.mts') // 'file.d.mts'
  *
  * @param {string} path - Path to evaluate
  * @param {Nullable<string>} [ext] - File extension to add

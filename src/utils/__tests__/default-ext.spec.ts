@@ -9,8 +9,9 @@ describe('unit:utils/defaultExt', () => {
   it('should return path with ext appended', () => {
     // Arrange
     const cases: [...Parameters<typeof testSubject>, string][] = [
-      ['file', 'mjs', undefined, 'file.mjs'],
-      ['file.', '.mjs', undefined, 'file.mjs'],
+      ['file', 'mjs', [], 'file.mjs'],
+      ['file.', '.mjs', [], 'file.mjs'],
+      ['file.d', 'mts', ['.d'], 'file.d.mts'],
       ['file.min', 'mjs', ['.min'], 'file.min.mjs'],
       ['file.min', '.mjs', [null, '.min'] as string[], 'file.min.mjs']
     ]

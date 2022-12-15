@@ -12,10 +12,10 @@ import type { Ext } from '#src/types'
 import type { EmptyString } from '@flex-development/tutils'
 
 /**
- * Returns the extension of the given `path`, from the last occurrence of the
- * `.` (dot) character to end of the string in the last portion of the path.
+ * Returns the extension of a `path`, from the last occurrence of the `.` (dot)
+ * character to end of the string in the last portion of the path.
  *
- * If there is no `.` in the last portion of the path, or if there are no `.`
+ * If there is no `.` in the last portion of `path`, or if there are no  `.`
  * characters other than the first character of the path's [`basename`][1], an
  * empty string will be returned.
  *

@@ -15,6 +15,17 @@ import type { EmptyString } from '@flex-development/tutils'
  *
  * Does nothing if a file extension isn't provided.
  *
+ * @example
+ *  formatExt() // ''
+ * @example
+ *  formatExt('') // ''
+ * @example
+ *  formatExt('.ts') // '.ts'
+ * @example
+ *  formatExt('mjs') // '.mjs'
+ * @example
+ *  formatExt('d.mts') // '.d.mts'
+ *
  * @param {string} [ext=''] - File extension to format
  * @return {EmptyString | Ext} Formatted file extension or empty string
  */

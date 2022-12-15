@@ -13,11 +13,21 @@ describe('unit:utils/formatExt', () => {
     ext = '.mjs'
   })
 
-  it('should return empty string if ext is empty string', () => {
-    expect(testSubject('')).to.equal('')
+  it('should return empty string if ext is empty', () => {
+    // Arrange
+    const cases: [...Parameters<typeof testSubject>, string][] = [
+      ['', ''],
+      [' ', ''],
+      [undefined, '']
+    ]
+
+    // Act + Expect
+    cases.forEach(([ext, expected]) => {
+      expect(testSubject(ext)).to.equal(expected)
+    })
   })
 
-  it('should return ext without modifications if ext starts with dot', () => {
+  it('should return ext if ext starts with dot character', () => {
     expect(testSubject(ext)).to.equal(ext)
   })
 

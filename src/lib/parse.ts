@@ -18,14 +18,14 @@ import sep from './sep'
 
 /**
  * Returns an object whose properties represent significant elements of the
- * given `path`. Trailing directory [separators][1] are ignored.
+ * given `path`. Trailing [directory separators][1] are ignored.
  *
- * **Note**: Unlike in Node.js, `pathe.parse(path).dir === pathe.dirname(path)`
- * when `path` is a non-empty string. See [`nodejs/node#18655`][3] for details.
+ * **Note**: `parse(path).dir === dirname(path)` when `path` is a non-empty
+ * string. This is stark contrast to `node:path`. See [`nodejs/node#18655`][2]
+ * for details.
  *
  * [1]: {@link ./sep.ts}
- * [2]: {@link ./dirname.ts}
- * [3]: https://github.com/nodejs/node/issues/18655
+ * [2]: https://github.com/nodejs/node/issues/18655
  *
  * @param {string} path - Path to evaluate
  * @return {ParsedPath} Object representing significant elements of `path`

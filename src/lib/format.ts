@@ -10,7 +10,7 @@ import formatExt from '#src/utils/format-ext'
 import sep from './sep'
 
 /**
- * Returns a path string from an object - the opposite of [`parse()`][1].
+ * Returns a path string from an object &mdash; the opposite of [`parse`][1].
  *
  * When adding properties to `pathObject`, there are combinations where one
  * property has priority over another:

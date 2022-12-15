@@ -20,7 +20,7 @@ import sep from './sep'
  *
  * [1]: {@link ./sep.ts}
  *
- * @param {string[]} paths - A sequence of path segments
+ * @param {string[]} paths - Path segment sequence
  * @return {string} Path segment sequence, `paths`, as one path
  * @throws {TypeError} If any segment in `paths` is not a string
  */

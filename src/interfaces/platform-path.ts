@@ -28,7 +28,7 @@ interface PlatformPath {
   /**
    * Path segment separator.
    *
-   * **Note**: Also known as "directory separator".
+   * Also known as a "directory separator".
    *
    * @readonly
    */
@@ -71,10 +71,10 @@ interface PlatformPath {
   dirname(path: string): string
 
   /**
-   * Returns the extension of the given `path`, from the last occurrence of the
-   * `.` (dot) character to end of the string in the last portion of the path.
+   * Returns the extension of a `path`, from the last occurrence of the `.`
+   * (dot) character to end of the string in the last portion of the path.
    *
-   * If there is no `.` in the last portion of the path, or if there are no `.`
+   * If there is no `.` in the last portion of `path`, or if there are no  `.`
    * characters other than the first character of the path's [`basename`][1], an
    * empty string will be returned.
    *
@@ -87,7 +87,8 @@ interface PlatformPath {
   extname(path: string): EmptyString | Ext
 
   /**
-   * Returns a path string from an object - the opposite of [`parse()`][1].
+   * Returns a path string from an object &mdash; the opposite of
+   * [`parse()`][1].
    *
    * When adding properties to `pathObject`, there are combinations where one
    * property has priority over another:
@@ -130,7 +131,7 @@ interface PlatformPath {
    *
    * [1]: {@link ../lib/sep.ts}
    *
-   * @param {string[]} paths - A sequence of path segments
+   * @param {string[]} paths - Path segment sequence
    * @return {string} Path segment sequence, `paths`, as one path
    * @throws {TypeError} If any segment in `paths` is not a string
    */
@@ -213,7 +214,7 @@ interface PlatformPath {
    *
    * [1]: {@link ../lib/sep.ts}
    *
-   * @param {string[]} paths - A sequence of path segments
+   * @param {string[]} paths - Path segment sequence
    * @return {string} Path segment sequence, `paths`, as absolute path
    * @throws {TypeError} If any segment in `paths` is not a string
    */
@@ -226,7 +227,7 @@ interface PlatformPath {
    * returned without modifications.
    *
    * [1]: https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#namespaces
-   * [2]: https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#naming-conventions
+   * [2]: https://learn.microsoft.com/windows/win32/fileio/naming-a-file#naming-conventions
    * [3]: https://learn.microsoft.com/dotnet/standard/io/file-path-formats#unc-paths
    *
    * @param {string} path - Path to evaluate

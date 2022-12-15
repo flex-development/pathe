@@ -17,8 +17,8 @@ import sep from './sep'
  * If `path` is not a [drive path][2] or [UNC path][3], `path` will be returned
  * without modifications.
  *
- * [1]: https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#namespaces
- * [2]: https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#naming-conventions
+ * [1]: https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file#namespaces
+ * [2]: https://learn.microsoft.com/windows/win32/fileio/naming-a-file#naming-conventions
  * [3]: https://learn.microsoft.com/dotnet/standard/io/file-path-formats#unc-paths
  *
  * @param {string} path - Path to evaluate

@@ -18,9 +18,9 @@ import formatExt from './format-ext'
  * @example
  *  removeExt('file.mjs', 'mjs') // 'file'
  * @example
- *  removeExt('file.mjs', '.ts') // 'file.mjs'
+ *  removeExt('file.mjs', '.mjs') // 'file'
  * @example
- *  removeExt('file.min.mjs', '.mjs') // 'file.min'
+ *  removeExt('file.d.mts', '.mjs') // 'file.d.mts'
  *
  * @param {string} path - Path to evaluate
  * @param {Nullable<string>} [ext] - File extension to removed

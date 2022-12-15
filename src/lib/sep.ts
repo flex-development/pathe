@@ -8,7 +8,7 @@ import type { Sep } from '#src/types'
 /**
  * Path segment separator.
  *
- * **Note**: Also known as "directory separator".
+ * Also known as a "directory separator".
  *
  * @const {Sep} sep
  */

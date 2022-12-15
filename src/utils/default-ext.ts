@@ -26,11 +26,11 @@ import formatExt from './format-ext'
  * @example
  *  defaultExt('file.mjs', '.mjs') // 'file.mjs'
  * @example
- *  defaultExt('file.min', '.mjs', ['.min']) // 'file.min.mjs'
+ *  defaultExt('file.d', '.mts', ['.d']) // 'file.d.mts'
  *
  * @param {string} path - Path to evaluate
  * @param {Nullable<string>} [ext] - Default file extension
- * @param {string[]} [ignore] - File extensions to ignore if present
+ * @param {string[]} [ignore] - File extensions to ignore if found
  * @return {string} `path` unmodified or with `ext` appended
  * @throws {TypeError} If `path` is not a string or `ext` is not a string
  */
