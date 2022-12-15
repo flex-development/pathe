@@ -21,6 +21,12 @@ const config = {
       rules: {
         'unicorn/custom-error-definition': 0
       }
+    },
+    {
+      files: ['./src/pathe.ts'],
+      rules: {
+        '@typescript-eslint/unbound-method': 0
+      }
     }
   ]
 }
