@@ -3,9 +3,10 @@
  * @module pathe/interfaces/PlatformPath
  */
 
-import type { FormatInputPathObject, ParsedPath } from '#src/interfaces'
 import type { Delimiter, Ext, Sep } from '#src/types'
 import type { EmptyString } from '@flex-development/tutils'
+import type ParsedPath from './parsed-path'
+import type FormatInputPathObject from './path-object'
 
 /**
  * Utilities for working with file and directory paths.
