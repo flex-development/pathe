@@ -27,7 +27,8 @@ describe('unit:lib/format', () => {
       [{ ext: '.png', name: 'x' }],
       [{ ext: '.html', name: 'index' }],
       [{ ext: '.html', name: 'index', root: '/' }],
-      [{ dir: 'some/dir', ext: '.html', name: 'index' }]
+      [{ dir: 'some/dir', ext: '.html', name: 'index' }],
+      [{ base: '', dir: 'lib', ext: '.mjs', name: 'index', root: '' }]
     ]
 
     // Act + Expect

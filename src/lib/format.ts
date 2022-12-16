@@ -46,14 +46,14 @@ const format = (pathObject: FormatInputPathObject): string => {
    * @const {string} base
    */
   const base: string =
-    pathObject.base ?? `${pathObject.name ?? ''}${formatExt(pathObject.ext)}`
+    pathObject.base || `${pathObject.name ?? ''}${formatExt(pathObject.ext)}`
 
   /**
    * Directory name or full path.
    *
    * @const {string | undefined} dir
    */
-  const dir: string | undefined = pathObject.dir ?? pathObject.root
+  const dir: string | undefined = pathObject.dir || pathObject.root
 
   return !dir
     ? base

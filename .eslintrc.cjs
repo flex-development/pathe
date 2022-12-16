@@ -23,7 +23,7 @@ const config = {
       }
     },
     {
-      files: ['./src/lib/resolve.ts'],
+      files: ['./src/lib/format.ts', './src/lib/resolve.ts'],
       rules: {
         '@typescript-eslint/prefer-nullish-coalescing': 0
       }
