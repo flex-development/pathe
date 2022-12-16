@@ -6,9 +6,10 @@
 import testSubject from '../change-ext'
 
 describe('unit:utils/changeExt', () => {
-  it('should return path with new file extension', () => {
+  it('should return path with changed file extension', () => {
     // Arrange
     const cases: [...Parameters<typeof testSubject>, string][] = [
+      ['file.mjs', '', 'file'],
       ['file', 'mjs', 'file.mjs'],
       ['file', 'mts', 'file.mts'],
       ['file.', '.mjs', 'file.mjs'],
@@ -23,11 +24,9 @@ describe('unit:utils/changeExt', () => {
     })
   })
 
-  it('should return path without modications if ext is empty', () => {
+  it('should return path without modications if ext is nil', () => {
     // Arrange
     const cases: [...Parameters<typeof testSubject>, string][] = [
-      ['file.cjs', '', 'file.cjs'],
-      ['file.cts', ' ', 'file.cts'],
       ['file.mjs', null, 'file.mjs'],
       ['file.mts', undefined, 'file.mts']
     ]

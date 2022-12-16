@@ -405,12 +405,14 @@ console.debug(addExt('file.d.mts', '.mts'))  // 'file.d.mts'
 
 Changes the file extension of the given `path`.
 
-Does nothing if a file extension is not provided.
+Does nothing if a file extension isn't provided. If the file extension is an empty string, however, the path's file
+extension will be removed.
 
 ```typescript
 import { changeExt } from '@flex-development/pathe'
 
 console.debug(changeExt('file'))                // 'file'
+console.debug(changeExt('file.mjs', ''))        // 'file'
 console.debug(changeExt('file', 'mjs'))         // 'file.mjs'
 console.debug(changeExt('file', '.mjs'))        // 'file.mjs'
 console.debug(changeExt('file.mts', '.d.mts'))  // 'file.d.mts'

@@ -29,11 +29,12 @@ interface Pathe extends PlatformPath {
   /**
    * Changes the file extension of the given `path`.
    *
-   * Does nothing if a file extension isn't provided.
+   * Does nothing if a file extension isn't provided. If the file extension is
+   * an empty string, however, `path`'s file extension will be removed.
    *
    * @param {string} path - Path to evaluate
-   * @param {Nullable<string>} [ext] - File extension to add
-   * @return {string} `path` unmodified or with new file extension
+   * @param {Nullable<string>} [ext] - New file extension
+   * @return {string} `path` unmodified or with changed file extension
    * @throws {TypeError} If `path` is not a string or `ext` is not a string
    */
   changeExt(path: string, ext?: Nullable<string>): string

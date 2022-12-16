@@ -9,14 +9,18 @@ import type { Ext } from '#src/types'
 import type { EmptyString, Nullable } from '@flex-development/tutils'
 import addExt from './add-ext'
 import formatExt from './format-ext'
+import removeExt from './remove-ext'
 
 /**
  * Changes the file extension of the given `path`.
  *
- * Does nothing if a file extension isn't provided.
+ * Does nothing if a file extension isn't provided. If the file extension is an
+ * empty string, however, `path`'s file extension will be removed.
  *
  * @example
  *  changeExt('file') // 'file'
+ * @example
+ *  changeExt('file.mjs', '') // 'file'
  * @example
  *  changeExt('file', 'mjs') // 'file.mjs'
  * @example
@@ -25,8 +29,8 @@ import formatExt from './format-ext'
  *  changeExt('file.mts', '.d.mts') // 'file.d.mts'
  *
  * @param {string} path - Path to evaluate
- * @param {Nullable<string>} [ext] - File extension to add
- * @return {string} `path` unmodified or with new file extension
+ * @param {Nullable<string>} [ext] - New file extension
+ * @return {string} `path` unmodified or with changed file extension
  * @throws {TypeError} If `path` is not a string or `ext` is not a string
  */
 const changeExt = (path: string, ext?: Nullable<string>): string => {
@@ -37,9 +41,6 @@ const changeExt = (path: string, ext?: Nullable<string>): string => {
   // validate file extension
   else validateString(ext, 'ext')
 
-  // exit early if extension is empty string
-  if (!ext.trim()) return path
-
   // ensure path does not end with dot character
   path = path.replace(/\.$/, '')
 
@@ -49,6 +50,9 @@ const changeExt = (path: string, ext?: Nullable<string>): string => {
    * @const {EmptyString | Ext} extension
    */
   const extension: EmptyString | Ext = extname(path)
+
+  // remove file extension if new extension is empty string
+  if (!ext.trim()) return removeExt(path, extension)
 
   return extension
     ? path.replace(new RegExp(`\\${extension}$`), formatExt(ext))
