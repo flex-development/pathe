@@ -23,6 +23,12 @@ const config = {
       }
     },
     {
+      files: ['./src/lib/resolve.ts'],
+      rules: {
+        '@typescript-eslint/prefer-nullish-coalescing': 0
+      }
+    },
+    {
       files: ['./src/pathe.ts'],
       rules: {
         '@typescript-eslint/unbound-method': 0

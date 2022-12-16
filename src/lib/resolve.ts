@@ -90,7 +90,7 @@ const resolve = (...paths: string[]): string => {
        */
 
       // set path to current working directory
-      path = ensurePosix(process.env[`=${resolved_device}`] ?? process.cwd())
+      path = ensurePosix(process.env[`=${resolved_device}`] || process.cwd())
 
       /**
        * Current working directory pointer check.
