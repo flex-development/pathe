@@ -55,6 +55,7 @@
     "clean:pack": "trash ./*.tgz",
     "clean:test": "yarn clean:coverage && trash ./__tests__/report.json",
     "codecov": "yarn test:cov && yarn test:cov:upload",
+    "codecov:validate": "cat .codecov.yml | curl --data-binary @- https://codecov.io/validate",
     "conventional-changelog": "node --loader=./loader.mjs ./node_modules/.bin/conventional-changelog -n ./changelog.config.cts",
     "fix:cg": "yarn fix:format && yarn fix:lint",
     "fix:dedupe": "yarn dedupe --strategy=highest",
