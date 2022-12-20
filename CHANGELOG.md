@@ -1,3 +1,15 @@
+## [1.0.1](https://github.com/flex-development/pathe/compare/1.0.0...1.0.1) (2022-12-20)
+
+
+### :robot: Continuous Integration
+
+* **workflows:** [`ci`] fix `yarn` step ([031cab5](https://github.com/flex-development/pathe/commit/031cab59c7e6c70325e0b004b5c05460490d57d0))
+
+
+### :bug: Fixes
+
+* **interfaces:** make `ParsedPath` work as expected with `--exactOptionalPropertyTypes` ([066665a](https://github.com/flex-development/pathe/commit/066665a0072c91302d9fda396c607a5863ac4028))
+
 ## 1.0.0 (2022-12-16)
 
 
