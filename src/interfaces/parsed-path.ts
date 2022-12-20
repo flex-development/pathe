@@ -3,6 +3,7 @@
  * @module pathe/interfaces/ParsedPath
  */
 
+import type { ExactOptionalPropertyTypes } from '@flex-development/tutils'
 import type PathObject from './path-object'
 
 /**
@@ -16,8 +17,8 @@ import type PathObject from './path-object'
  *
  * @see [`PathObject`][3]
  *
- * @extends {Required<PathObject>}
+ * @extends {ExactOptionalPropertyTypes<Required<PathObject>>}
  */
-interface ParsedPath extends Required<PathObject> {}
+interface ParsedPath extends ExactOptionalPropertyTypes<Required<PathObject>> {}
 
 export type { ParsedPath as default }

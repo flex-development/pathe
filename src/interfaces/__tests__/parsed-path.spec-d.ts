@@ -4,10 +4,25 @@
  */
 
 import type TestSubject from '../parsed-path'
-import type PathObject from '../path-object'
 
 describe('unit-d:interfaces/ParsedPath', () => {
-  it('should extend Required<PathObject>', () => {
-    expectTypeOf<TestSubject>().toMatchTypeOf<Required<PathObject>>()
+  it('should match [base: string]', () => {
+    expectTypeOf<TestSubject>().toHaveProperty('base').toBeString()
+  })
+
+  it('should match [dir: string]', () => {
+    expectTypeOf<TestSubject>().toHaveProperty('dir').toBeString()
+  })
+
+  it('should match [ext: string]', () => {
+    expectTypeOf<TestSubject>().toHaveProperty('ext').toBeString()
+  })
+
+  it('should match [name: string]', () => {
+    expectTypeOf<TestSubject>().toHaveProperty('name').toBeString()
+  })
+
+  it('should match [root: string]', () => {
+    expectTypeOf<TestSubject>().toHaveProperty('root').toBeString()
   })
 })
