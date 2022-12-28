@@ -25,6 +25,7 @@ npmrc
 nums
 pathe
 pkgs
+pnpm
 posix
 preid
 seglen
