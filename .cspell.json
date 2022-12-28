@@ -18,19 +18,22 @@
     "**/.gitignore",
     "**/.gitkeep",
     "**/.npmignore",
+    "**/dist/",
     ".cspell.json",
     ".env*",
     ".eslintignore",
     ".git/",
     ".husky/_/",
     ".markdownlintignore",
+    ".npmrc",
     ".nvmrc",
     ".prettierignore",
+    ".vercel/",
+    ".vscode/settings.json",
     ".yarn/",
     "CHANGELOG.md",
     "LICENSE.md",
     "__tests__/report.json",
-    "dist/",
     "patches/",
     "yarn.lock"
   ],
@@ -46,5 +49,5 @@
   "useGitignore": true,
   "usePnP": false,
   "version": "0.2",
-  "words": ["fldv", "flexdevelopmentllc"]
+  "words": ["fldv", "flexdevelopmentllc", "pathe"]
 }

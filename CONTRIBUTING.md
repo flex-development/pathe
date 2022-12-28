@@ -42,6 +42,8 @@ Follow the steps below to setup your local development environment:
    git config --global user.username <username>
    ```
 
+   See [`.gitconfig`](.github/.gitconfig) for a global Git config example.
+
 6. Install dependencies
 
    ```sh
@@ -74,9 +76,7 @@ Follow the steps below to setup your local development environment:
 
    # LOAD ENVIRONMENT VARIABLES IN CURRENT WORKING DIRECTORY
    # 1. $GITHUB_WORKSPACE
-   # 2. environment variables (local)
    [ -d $PWD/.git ] && export GITHUB_WORKSPACE=$(git rev-parse --show-toplevel)
-   [ -f $PWD/.env.local ] && source $PWD/.env.local
    ```
 
 9. Load `dotenv` plugin via `$ZDOTDIR/.zshrc`:
@@ -97,11 +97,11 @@ Follow the steps below to setup your local development environment:
 
 | name                    |
 | ----------------------- |
-| `CI`                    |
 | `CODECOV_TOKEN`         |
+| `GITHUB_TOKEN`          |
 | `NODE_ENV`              |
 | `NODE_NO_WARNINGS`      |
-| `NODE_OPTIONS`          |
+| `PAT_BOT`               |
 | `ZSH_DOTENV_FILE`       |
 
 #### GitHub Actions

@@ -118,6 +118,7 @@
   },
   "eslint.validate": [
     "graphql",
+    "javascript",
     "json",
     "jsonc",
     "markdown",
@@ -162,7 +163,11 @@
   "typescript.suggest.completeJSDocs": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "versionlens.npm.dependencyProperties": ["dependencies", "devDependencies"],
+  "versionlens.npm.dependencyProperties": [
+    "dependencies",
+    "devDependencies",
+    "resolutions"
+  ],
   "vsicons.associations.files": [
     {
       "extensions": [".eslintrc.base.cjs"],
@@ -185,6 +190,11 @@
       "icon": "vitest"
     },
     {
+      "extensions": ["spec-d.ts"],
+      "format": "svg",
+      "icon": "testts"
+    },
+    {
       "extensions": ["yarnrc.yml"],
       "format": "svg",
       "icon": "yarn"
@@ -200,6 +210,11 @@
       "extensions": ["__snapshots__"],
       "format": "svg",
       "icon": "temp"
+    },
+    {
+      "extensions": ["internal"],
+      "format": "svg",
+      "icon": "private"
     },
     {
       "extensions": ["patches"],

@@ -8,11 +8,9 @@ dedupe
 deduped
 dessant
 dohm
-esbenp
 esbuild
 fbca
 gpgsign
-graphqlrc
 hmarr
 iife
 keyid
@@ -24,7 +22,6 @@ nocheck
 npmrc
 nums
 nvmrc
-pathe
 pkgs
 pnpm
 posix
@@ -33,5 +30,4 @@ seglen
 sepidx
 syncer
 vates
-vsicons
 yarnrc
