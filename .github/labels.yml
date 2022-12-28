@@ -38,6 +38,10 @@
   description: package install
   color: 74cefc
 
+- name: scope:internal
+  description: internal-only api
+  color: 74cefc
+
 - name: scope:release
   description: package release
   color: 74cefc
