@@ -23,6 +23,7 @@ mkbuild
 nocheck
 npmrc
 nums
+nvmrc
 pathe
 pkgs
 pnpm
