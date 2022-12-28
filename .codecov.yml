@@ -26,15 +26,15 @@ component_management:
     - component_id: internal
       name: internal
       paths:
-        - src/internal/
+        - src/internal/*.ts
     - component_id: lib
       name: lib
       paths:
-        - src/lib/
+        - src/lib/*.ts
     - component_id: utils
       name: utils
       paths:
-        - src/utils/
+        - src/utils/*.ts
 
 coverage:
   precision: 2
@@ -44,6 +44,7 @@ coverage:
     changes:
       default:
         branches:
+          - dependabot/*
           - feat/*
           - hotfix/*
           - main
@@ -55,6 +56,7 @@ coverage:
     patch:
       default:
         branches:
+          - dependabot/*
           - feat/*
           - hotfix/*
           - main
@@ -68,6 +70,7 @@ coverage:
     project:
       default:
         branches:
+          - dependabot/*
           - feat/*
           - hotfix/*
           - main
@@ -110,5 +113,5 @@ ignore:
 
 profiling:
   critical_files_paths:
-    - src/lib/
-    - src/utils/
+    - src/lib/*.ts
+    - src/utils/*.ts
