@@ -8,14 +8,12 @@ import ERR_INVALID_ARG_TYPE from './err-invalid-arg-type'
 /**
  * Checks if `value` is a string.
  *
- * Throws {@linkcode ERR_INVALID_ARG_TYPE} if `value` is not a string.
- *
  * [1]: https://nodejs.org/api/errors.html#err_invalid_arg_type
  *
- * @param {unknown} value - Possible string value
- * @param {string} name - `value` label
+ * @param {unknown} value - Value provided by user
+ * @param {string} name - Name of invalid argument
  * @return {string} `value` if `value` is a string
- * @throws {ERR_INVALID_ARG_TYPE}
+ * @throws {TypeError} If `value` is not an object
  */
 const validateString = (value: unknown, name: string): string => {
   if (typeof value === 'string') return value

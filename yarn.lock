@@ -972,6 +972,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/errnode@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@flex-development/errnode@npm:1.0.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ferrnode%2F1.0.1%2F3314864efc1693b9103051546d4e4e16a21267b2"
+  dependencies:
+    "@flex-development/tutils": "npm:6.0.0-alpha.7"
+    node-inspect-extracted: "npm:2.0.0"
+  checksum: 41af0fa70b37d9c8e53b652f63c96183145134d6caf694d04b85afc18c58693263e05b10c89ef38e6d7093bf83fe5e8b8ca250d247d2ff68ceff2df876336242
+  languageName: node
+  linkType: hard
+
 "@flex-development/is-builtin@npm:1.0.1":
   version: 1.0.1
   resolution: "@flex-development/is-builtin@npm:1.0.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fis-builtin%2F1.0.1%2Fa67edcfa3b5642f100fa7a1647f62e78641ca015"
@@ -1029,6 +1039,7 @@ __metadata:
     "@commitlint/cli": "npm:17.3.0"
     "@commitlint/config-conventional": "npm:17.3.0"
     "@faker-js/faker": "npm:7.6.0"
+    "@flex-development/errnode": "npm:1.0.1"
     "@flex-development/mkbuild": "npm:1.0.0-alpha.9"
     "@flex-development/tutils": "npm:6.0.0-alpha.7"
     "@graphql-eslint/eslint-plugin": "npm:3.14.3"
@@ -1074,7 +1085,6 @@ __metadata:
     is-ci: "npm:3.0.1"
     jsonc-eslint-parser: "npm:2.1.0"
     lint-staged: "npm:13.1.0"
-    node-inspect-extracted: "npm:2.0.0"
     node-notifier: "npm:10.0.1"
     prettier: "npm:2.8.1"
     prettier-plugin-sh: "npm:0.12.8"

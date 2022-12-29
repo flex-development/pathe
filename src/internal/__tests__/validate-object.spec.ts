@@ -3,7 +3,7 @@
  * @module pathe/internal/tests/unit/validateObject
  */
 
-import ERR_INVALID_ARG_TYPE from '../err-invalid-arg-type'
+import { ErrorCode, type NodeError } from '@flex-development/errnode'
 import testSubject from '../validate-object'
 
 describe('unit:internal/validateObject', () => {
@@ -27,6 +27,7 @@ describe('unit:internal/validateObject', () => {
 
   it('should throw if value is not an object', () => {
     // Arrange
+    const code: ErrorCode = ErrorCode.ERR_INVALID_ARG_TYPE
     const cases: Parameters<typeof testSubject>[0][] = [
       faker.datatype.array(),
       faker.datatype.bigInt(),
@@ -38,7 +39,7 @@ describe('unit:internal/validateObject', () => {
 
     // Act + Expect
     cases.forEach(value => {
-      let error: ERR_INVALID_ARG_TYPE
+      let error: NodeError<TypeError>
 
       try {
         testSubject(value, name)
@@ -46,7 +47,8 @@ describe('unit:internal/validateObject', () => {
         error = e as typeof error
       }
 
-      expect(error!).to.be.instanceOf(ERR_INVALID_ARG_TYPE)
+      expect(error!).to.be.instanceof(TypeError)
+      expect(error!).to.have.property('code').equal(code)
     })
   })
 })

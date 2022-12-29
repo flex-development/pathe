@@ -3,7 +3,7 @@
  * @module pathe/internal/tests/unit/validateString
  */
 
-import ERR_INVALID_ARG_TYPE from '../err-invalid-arg-type'
+import { ErrorCode, type NodeError } from '@flex-development/errnode'
 import testSubject from '../validate-string'
 
 describe('unit:internal/validateString', () => {
@@ -19,7 +19,8 @@ describe('unit:internal/validateString', () => {
 
   it('should throw if value is not typeof string', () => {
     // Arrange
-    let error: ERR_INVALID_ARG_TYPE
+    const code: ErrorCode = ErrorCode.ERR_INVALID_ARG_TYPE
+    let error: NodeError<TypeError>
 
     // Act
     try {
@@ -29,6 +30,7 @@ describe('unit:internal/validateString', () => {
     }
 
     // Expect
-    expect(error!).to.be.instanceOf(ERR_INVALID_ARG_TYPE)
+    expect(error!).to.be.instanceof(TypeError)
+    expect(error!).to.have.property('code').equal(code)
   })
 })
