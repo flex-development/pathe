@@ -1,3 +1,44 @@
+## [1.0.2](https://github.com/flex-development/pathe/compare/1.0.1...1.0.2) (2022-12-28)
+
+
+### :robot: Continuous Integration
+
+* [[@dependabot](https://github.com/dependabot)] ignore updates for `@types/node` ([e7b0f99](https://github.com/flex-development/pathe/commit/e7b0f99c08dcf1209ca3a6f48a1831fdea48fb60))
+* configure private package registry for [@dependabot](https://github.com/dependabot) ([22f4155](https://github.com/flex-development/pathe/commit/22f415532fea04a180e6e82f2090afaa962c3079))
+* **workflows:** [`add-to-project`] add items from repo admin account ([7a8681e](https://github.com/flex-development/pathe/commit/7a8681ec9c03eff35eb5b9d105359920127d7deb))
+* **workflows:** [`ci`] update codecov config ([1d90af8](https://github.com/flex-development/pathe/commit/1d90af852150915323dcd614bceffacb2832e19f))
+* **workflows:** [`publish`] cleanup registry scope ([2cf1602](https://github.com/flex-development/pathe/commit/2cf160248a7d448e481157e1954b0eb390fc48b4))
+* **workflows:** [`publish`] use node version file ([b73419d](https://github.com/flex-development/pathe/commit/b73419d61c5c08c80209652ba8ac99edbad474df))
+* **workflows:** use environment files ([9d6f82a](https://github.com/flex-development/pathe/commit/9d6f82aa754ecb93b4846a0caf0376e5b0d0475a))
+
+
+### :pencil: Documentation
+
+* add "contributor covenant code of conduct" ([0279edc](https://github.com/flex-development/pathe/commit/0279edc6ab1b41ab04c0f7a99057767ace38e39a))
+
+
+### :bug: Fixes
+
+* **install:** [git] make `postinstall` script work with git install ([586e41c](https://github.com/flex-development/pathe/commit/586e41c0e8dd0f8b2a8c08a64eaf91eff8fba24a))
+
+
+### :house_with_garden: Housekeeping
+
+* update project architecture ([5b36f88](https://github.com/flex-development/pathe/commit/5b36f88920d10395a0e7bc4ed38ea8045c1829bd))
+* **github:** add "package manager" dropdown to bug report template ([7e37201](https://github.com/flex-development/pathe/commit/7e37201dc795788efaf4e0864817c2b4e9c2c164))
+* **github:** add commit scope `install` ([ad4fcd4](https://github.com/flex-development/pathe/commit/ad4fcd46a92c84e07a78ba8afd9ee77054ac1278))
+* **github:** add label `scope:install` ([91127d2](https://github.com/flex-development/pathe/commit/91127d2faa59a3e27c03500a03cc3d039f7850f9))
+* **github:** add label `scope:internal` ([342a7ae](https://github.com/flex-development/pathe/commit/342a7ae3cfe1b0019b78922c03389e46799c44c9))
+* **github:** add label `scope:lib` ([1674976](https://github.com/flex-development/pathe/commit/1674976888b326e863f9c4218a3d0806ade1a844))
+* **github:** add label `status:triaged` ([114c323](https://github.com/flex-development/pathe/commit/114c32319d3266a7f05a80cc1d378550b9686f61))
+* **tests:** update codecov config ([1f28267](https://github.com/flex-development/pathe/commit/1f28267a5159575affe99d06d1c0b0ceadc91cc1))
+* **yarn:** bump yarn from 4.0.0-rc.14 to 4.0.0-rc.34 ([38cd316](https://github.com/flex-development/pathe/commit/38cd316d5a60920e101a838bc05725d91df701da))
+
+
+### :zap: Refactors
+
+* **internal:** `ERR_INVALID_ARG_TYPE` model ([43bc3ba](https://github.com/flex-development/pathe/commit/43bc3ba4d6ddffaf97b3f94d2e633527769de83d))
+
 ## [1.0.1](https://github.com/flex-development/pathe/compare/1.0.0...1.0.1) (2022-12-20)
 
 
