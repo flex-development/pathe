@@ -3,7 +3,7 @@
  * @module pathe/internal/validateObject
  */
 
-import ERR_INVALID_ARG_TYPE from './err-invalid-arg-type'
+import { ERR_INVALID_ARG_TYPE } from '@flex-development/errnode'
 
 /**
  * Checks if `value` is an object.

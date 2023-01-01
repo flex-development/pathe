@@ -3,7 +3,7 @@
  * @module pathe/internal/validateString
  */
 
-import ERR_INVALID_ARG_TYPE from './err-invalid-arg-type'
+import { ERR_INVALID_ARG_TYPE } from '@flex-development/errnode'
 
 /**
  * Checks if `value` is a string.
