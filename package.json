@@ -1,7 +1,7 @@
 {
   "name": "@flex-development/pathe",
   "description": "Universal drop-in replacement for node:path",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "keywords": [
     "backslash",
     "filesystem",

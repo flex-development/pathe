@@ -1,3 +1,11 @@
+## [1.0.3](https://github.com/flex-development/pathe/compare/1.0.2...1.0.3) (2023-01-01)
+
+
+### :package: Build
+
+* **deps-dev:** Bump cspell from 6.18.0 to 6.18.1 ([#6](https://github.com/flex-development/pathe/issues/6)) ([e6343ee](https://github.com/flex-development/pathe/commit/e6343eea139e7166eae11e372479f17a7f75b971))
+* **deps:** bump @flex-development/errnode from 1.0.1 to 1.2.0 ([4c11bde](https://github.com/flex-development/pathe/commit/4c11bde87439d20c48e45214ef75cc83fcbe52e1))
+
 ## [1.0.2](https://github.com/flex-development/pathe/compare/1.0.1...1.0.2) (2022-12-28)
 
 
