@@ -1249,7 +1249,7 @@ __metadata:
     "@commitlint/cli": "npm:17.4.2"
     "@commitlint/config-conventional": "npm:17.4.2"
     "@faker-js/faker": "npm:8.0.0-alpha.0"
-    "@flex-development/errnode": "npm:1.2.0"
+    "@flex-development/errnode": "npm:1.4.0"
     "@flex-development/mkbuild": "npm:1.0.0-alpha.9"
     "@flex-development/mlly": "npm:1.0.0-alpha.7"
     "@flex-development/tutils": "npm:6.0.0-alpha.9"
