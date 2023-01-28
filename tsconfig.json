@@ -51,21 +51,5 @@
     "useUnknownInCatchVariables": true
   },
   "exclude": ["./coverage", "./dist", "./node_modules"],
-  "include": [
-    "**/**.cjs",
-    "**/**.cts",
-    "**/**.mjs",
-    "**/**.mts",
-    "**/**.ts",
-    "**/.*.cjs"
-  ],
-  "ts-node": {
-    "compilerOptions": {},
-    "esm": true,
-    "experimentalResolver": true,
-    "experimentalSpecifierResolution": "node",
-    "moduleTypes": {},
-    "require": [],
-    "transpileOnly": true
-  }
+  "include": ["**/**.cjs", "**/**.mjs", "**/**.ts", "**/.*.cjs"]
 }

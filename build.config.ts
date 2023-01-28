@@ -13,8 +13,15 @@ import pkg from './package.json' assert { type: 'json' }
  * @const {Config} config
  */
 const config: Config = defineBuildConfig({
-  sourcemap: true,
-  sourcesContent: false,
+  entries: [
+    { dts: 'only' },
+    {
+      dts: false,
+      pattern: ['**/index.ts', 'internal/', 'lib/', 'utils/', 'pathe.ts'],
+      sourcemap: true,
+      sourcesContent: false
+    }
+  ],
   target: 'node' + pkg.engines.node.replace(/^\D+/, ''),
   tsconfig: 'tsconfig.build.json'
 })
