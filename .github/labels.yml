@@ -34,6 +34,10 @@
   description: package distribution
   color: 74cefc
 
+- name: scope:esm
+  description: es modules
+  color: 74cefc
+
 - name: scope:install
   description: package install
   color: 74cefc
