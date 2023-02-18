@@ -19,7 +19,6 @@ larsgw
 lcov
 lintstagedrc
 micnncim
-mkbuild
 nocheck
 npmrc
 nums
