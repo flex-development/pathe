@@ -21,6 +21,7 @@
         "interfaces",
         "internal",
         "lib",
+        "loader",
         "patches",
         "pkg",
         "release",
