@@ -1159,6 +1159,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/errnode@npm:1.5.0":
+  version: 1.5.0
+  resolution: "@flex-development/errnode@npm:1.5.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ferrnode%2F1.5.0%2F33dedbfaeb3139375e41d4382a8de53f9415a261"
+  dependencies:
+    "@flex-development/tutils": "npm:6.0.0-alpha.10"
+    node-inspect-extracted: "npm:2.0.0"
+  peerDependencies:
+    "@types/node": ">=14"
+  checksum: 884d5339afb245fdb3e635ba599e373ba1dd9f68e789c796817fe4fbe15317fb0192f49684b524c3baba1d4b70934799a5b353439543f29ee36b513d63e53bfa
+  languageName: node
+  linkType: hard
+
 "@flex-development/export-regex@npm:1.0.0":
   version: 1.0.0
   resolution: "@flex-development/export-regex@npm:1.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fexport-regex%2F1.0.0%2Fee7486c94c3ecbb392ae3beff0c9ecc4f1ce7282"
@@ -1258,7 +1270,7 @@ __metadata:
     "@commitlint/cli": "npm:17.4.2"
     "@commitlint/config-conventional": "npm:17.4.2"
     "@faker-js/faker": "npm:8.0.0-alpha.0"
-    "@flex-development/errnode": "npm:1.4.0"
+    "@flex-development/errnode": "npm:1.5.0"
     "@flex-development/mkbuild": "npm:1.0.0-alpha.9"
     "@flex-development/mlly": "npm:1.0.0-alpha.7"
     "@flex-development/tutils": "npm:6.0.0-alpha.10"
