@@ -17,7 +17,7 @@ const config: Config = defineBuildConfig({
     { dts: 'only' },
     {
       dts: false,
-      pattern: ['**/index.ts', 'internal/', 'lib/', 'utils/', 'pathe.ts'],
+      pattern: ['**/index.ts', 'internal/*', 'lib/*', 'utils/*', 'pathe.ts'],
       sourcemap: true,
       sourcesContent: false
     }
