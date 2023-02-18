@@ -33,7 +33,8 @@
       "#fixtures/*": ["__fixtures__/*"],
       "#src": ["src/index"],
       "#src/*": ["src/*"],
-      "#tests/*": ["__tests__/*"]
+      "#tests/*": ["__tests__/*"],
+      "@flex-development/pathe": ["src/index"]
     },
     "preserveConstEnums": true,
     "preserveSymlinks": true,
