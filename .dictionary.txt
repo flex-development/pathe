@@ -30,5 +30,6 @@ preid
 seglen
 sepidx
 syncer
+unstub
 vates
 yarnrc

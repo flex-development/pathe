@@ -51,7 +51,7 @@ describe('unit:lib/parse', () => {
     const ensurePosix = (parsed: ParsedPath): ParsedPath => {
       for (const [key, value] of Object.entries<string>(parsed)) {
         if (!value) continue
-        parsed[key] = value.replace(/\\/g, sep)
+        parsed[key as keyof ParsedPath] = value.replace(/\\/g, sep)
       }
 
       return parsed
