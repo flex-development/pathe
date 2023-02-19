@@ -1337,6 +1337,7 @@ __metadata:
     conventional-recommended-bump: "npm:6.1.0"
     cross-env: "npm:7.0.3"
     cspell: "npm:6.23.1"
+    dateformat: "npm:5.0.3"
     esbuild: "npm:0.17.6"
     eslint: "npm:8.33.0"
     eslint-config-prettier: "npm:8.6.0"
@@ -1362,15 +1363,14 @@ __metadata:
     node-notifier: "npm:10.0.1"
     prettier: "npm:2.8.4"
     prettier-plugin-sh: "npm:0.12.8"
-    pretty-format: "npm:29.4.2"
     sade: "npm:1.8.1"
     semver: "npm:7.3.8"
-    tempfile: "npm:4.0.0"
+    tempfile: "npm:5.0.0"
     trash-cli: "npm:5.0.0"
     ts-dedent: "npm:2.2.0"
     typescript: "npm:5.0.0-dev.20230217"
     version-bump-prompt: "npm:6.1.0"
-    vite: "npm:4.0.4"
+    vite: "npm:4.1.2"
     vite-tsconfig-paths: "npm:4.0.5"
     vitest: "npm:0.28.5"
     vitest-github-actions-reporter: "npm:0.9.0"
@@ -1759,15 +1759,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/schemas@npm:^29.4.2":
-  version: 29.4.2
-  resolution: "@jest/schemas@npm:29.4.2"
-  dependencies:
-    "@sinclair/typebox": "npm:^0.25.16"
-  checksum: b23564f461bf1414bec2051994a48e6096c630155fba532ffef01996a4dbdaee7b4710afebcf73bd53422601c3833315898e535e5b3f286a3d6cdf85a4a194d0
-  languageName: node
-  linkType: hard
-
 "@jridgewell/gen-mapping@npm:^0.3.2":
   version: 0.3.2
   resolution: "@jridgewell/gen-mapping@npm:0.3.2"
@@ -1955,13 +1946,6 @@ __metadata:
   version: 3.0.4
   resolution: "@repeaterjs/repeater@npm:3.0.4"
   checksum: 86a89cbd91055e912e80334ded2ae5c44408747483d5ef237b5f72640e4905c6ec34d969ef7423a020fa49a28a9e28528dfdefabe4bf76ec84c1afaedfc777d2
-  languageName: node
-  linkType: hard
-
-"@sinclair/typebox@npm:^0.25.16":
-  version: 0.25.21
-  resolution: "@sinclair/typebox@npm:0.25.21"
-  checksum: 16fdf623cc7c19e4195ee79858febf480f20dd3cff47e1b103163d534d94f4ee02dc6bf372d18d100c08a5bfecfc3865f5e59759cc99c11042e103ff8971b3cd
   languageName: node
   linkType: hard
 
@@ -3671,6 +3655,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dateformat@npm:5.0.3":
+  version: 5.0.3
+  resolution: "dateformat@npm:5.0.3"
+  checksum: 2220af3a5549a06253f00ecebf20f54d6515ead6108b6fe45ed5beef17ce63cbf3d7946d9e9e4fba736ba342e0f4420352d14b4547a9f3ad70adc2afad40ccc1
+  languageName: node
+  linkType: hard
+
 "dateformat@npm:^3.0.0":
   version: 3.0.3
   resolution: "dateformat@npm:3.0.3"
@@ -3968,7 +3959,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.16.3":
+"esbuild@npm:^0.16.14":
   version: 0.16.17
   resolution: "esbuild@npm:0.16.17"
   dependencies:
@@ -6962,14 +6953,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.20":
-  version: 8.4.20
-  resolution: "postcss@npm:8.4.20"
+"postcss@npm:^8.4.21":
+  version: 8.4.21
+  resolution: "postcss@npm:8.4.21"
   dependencies:
     nanoid: "npm:^3.3.4"
     picocolors: "npm:^1.0.0"
     source-map-js: "npm:^1.0.2"
-  checksum: bdc074b44b690f08c0496d78e0777bb2072633c6facbb6a987ae4cb1041333bcbd592e81244293ba1cf888ececc8dd224a1162751e84d173305aaed6f8f82957
+  checksum: 4fb944abed714e5aa88c76b6eae19b293e84ced7ea4162fe0da6ab5215ded572330df93ce3bb5073ee18a9ad0122a6a65e3000897dc3a828e96281d8b3e1f91e
   languageName: node
   linkType: hard
 
@@ -7015,17 +7006,6 @@ __metadata:
   version: 6.1.0
   resolution: "pretty-bytes@npm:6.1.0"
   checksum: 6c2df1578394426e89388c1b482138480b9468daa618ceb8c974d0048ea3002d28dc80d61553be978aedaf67b2b2909a1d10280f9d00bb9ff693b088db44e3e1
-  languageName: node
-  linkType: hard
-
-"pretty-format@npm:29.4.2":
-  version: 29.4.2
-  resolution: "pretty-format@npm:29.4.2"
-  dependencies:
-    "@jest/schemas": "npm:^29.4.2"
-    ansi-styles: "npm:^5.0.0"
-    react-is: "npm:^18.0.0"
-  checksum: 4989cfc1992d21cf430113fc76534c6eb3a176aa23747ec87ac0191e17eff590f90d082752cc907263cd5bed1e17007554f05fd4bd795d24d4cbb059a6426328
   languageName: node
   linkType: hard
 
@@ -7136,13 +7116,6 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 24af7af3abd0bf94d4eb018a70db25fd4e23648eec7bb8b203bf59e24a715ac4eec8279939e15a4d90cbad19ed6be243a0f2c9aa0b1faec0a1c102d9c89ca3f9
-  languageName: node
-  linkType: hard
-
-"react-is@npm:^18.0.0":
-  version: 18.2.0
-  resolution: "react-is@npm:18.2.0"
-  checksum: f542f0effed3f89b4faa237bf56e746d437c9dba4ed1039a2ba6e6fcb463244300b8f3c17d8e610e76476a626c4d97ee4c2ed7a5b5d64e2b2e2d7b2144816ac8
   languageName: node
   linkType: hard
 
@@ -7405,9 +7378,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^3.7.0":
-  version: 3.9.0
-  resolution: "rollup@npm:3.9.0"
+"rollup@npm:^3.10.0":
+  version: 3.17.1
+  resolution: "rollup@npm:3.17.1"
   dependencies:
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
@@ -7415,7 +7388,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 99588b6d2b3c31dcf26df4841c3335e7b57911707b3c7dfbdb31b27d55f350204b5245242fc43cce86c60e671fa47cbd408a9a47c237dc909e9af06dc234202a
+  checksum: 33c8c402a16dac07f532b7c8f8c02e364183ae2f8aadb3bc77c25f0fef718074df6f8e09f5532dc18a612b1d007103f80843e8012059dfd2d9fe6a3f091701fd
   languageName: node
   linkType: hard
 
@@ -7964,20 +7937,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"temp-dir@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "temp-dir@npm:2.0.0"
-  checksum: 0b97706876e9982bb5f2bf8c1e040d087ec48051f7d91fe9f460bd8e5a1c833de89c6039e2e402b7388f4096c896392193082f5d78b8d4c89976edead9a88ce0
+"temp-dir@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "temp-dir@npm:3.0.0"
+  checksum: 9a4639ac5a3964e95b2497e71dbbf40b2808c0d3367509e675314f09078a5cce9381ba1c23c1b47023892816cdea716574e6fd3b4b9124e2dc00f7400b535bfa
   languageName: node
   linkType: hard
 
-"tempfile@npm:4.0.0":
-  version: 4.0.0
-  resolution: "tempfile@npm:4.0.0"
+"tempfile@npm:5.0.0":
+  version: 5.0.0
+  resolution: "tempfile@npm:5.0.0"
   dependencies:
-    temp-dir: "npm:^2.0.0"
-    uuid: "npm:^8.3.2"
-  checksum: 0064ea87faebb10950adb130b043ccf6306d3f10afc041674b67f1b14fbcb799e8962be588ad1eb225781af1427351195f2835181e22f9631766dd71615d971b
+    temp-dir: "npm:^3.0.0"
+  checksum: 5bec775cba3d6f77856a23b2c9928da8c4eeae404f7dccc2df908c28b2c517ae66e1fb9aa937d5d2d6b5b5b99bda606e8e946d04b3c23de07081316ead2c026c
   languageName: node
   linkType: hard
 
@@ -8549,15 +8521,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:4.0.4, vite@npm:^3.0.0 || ^4.0.0":
-  version: 4.0.4
-  resolution: "vite@npm:4.0.4"
+"vite@npm:4.1.2, vite@npm:^3.0.0 || ^4.0.0":
+  version: 4.1.2
+  resolution: "vite@npm:4.1.2"
   dependencies:
-    esbuild: "npm:^0.16.3"
+    esbuild: "npm:^0.16.14"
     fsevents: "npm:~2.3.2"
-    postcss: "npm:^8.4.20"
+    postcss: "npm:^8.4.21"
     resolve: "npm:^1.22.1"
-    rollup: "npm:^3.7.0"
+    rollup: "npm:^3.10.0"
   peerDependencies:
     "@types/node": ">= 14"
     less: "*"
@@ -8583,7 +8555,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: f4f9d9d5b910b8cc8130ef235b3f0eaf1eb7ab690e744760de1326c5db1ca6a3def2c17b053dea3123a1dee991b782c0d2b5a5a8df3705c0d23db86e6039c552
+  checksum: a1a4cd24b4d8750fba06aac7b12ab84304d3563b6fe3cfb5fc0b5f6276cc0fd251292a445f8d58d79bd39c0d8343d8c4b7fa92c4f8a79fb48869f99e62d365c4
   languageName: node
   linkType: hard
 

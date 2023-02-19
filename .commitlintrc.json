@@ -13,6 +13,7 @@
         "deps",
         "deps-bundle",
         "deps-dev",
+        "deps-opt",
         "deps-peer",
         "esm",
         "exports",

@@ -49,6 +49,6 @@
     "useDefineForClassFields": true,
     "useUnknownInCatchVariables": true
   },
-  "exclude": ["./coverage", "./dist", "./node_modules"],
-  "include": ["**/**.cjs", "**/**.mjs", "**/**.ts", "**/.*.cjs"]
+  "exclude": ["**/coverage", "**/dist", "**/node_modules"],
+  "include": ["**/**.cjs", "**/**.mjs", "**/**.mts", "**/**.ts", "**/.*.cjs"]
 }

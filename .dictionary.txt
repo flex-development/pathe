@@ -20,10 +20,12 @@ larsgw
 lcov
 lintstagedrc
 micnncim
+mkbuild
+mlly
 nocheck
 npmrc
-nums
 nvmrc
+pathe
 pkgs
 pnpm
 posix
