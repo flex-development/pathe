@@ -1,5 +1,6 @@
 # pathe
 
+[![github release](https://img.shields.io/github/v/release/flex-development/pathe.svg?include_prereleases&sort=semver)](https://github.com/flex-development/pathe/releases/latest)
 [![npm](https://img.shields.io/npm/v/@flex-development/pathe.svg)](https://npmjs.com/package/@flex-development/pathe)
 [![codecov](https://codecov.io/gh/flex-development/pathe/branch/main/graph/badge.svg?token=R2TPEBGWXB)](https://codecov.io/gh/flex-development/pathe)
 [![license](https://img.shields.io/github/license/flex-development/pathe.svg)](LICENSE.md)

@@ -5,8 +5,8 @@
     "alwaysStrict": false,
     "baseUrl": "../../..",
     "checkJs": false,
-    "declaration": true,
-    "declarationMap": true,
+    "declaration": false,
+    "declarationMap": false,
     "emitDecoratorMetadata": false,
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
@@ -40,6 +40,7 @@
     "pretty": true,
     "resolveJsonModule": true,
     "rootDir": "../../..",
+    "skipDefaultLibCheck": false,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
@@ -50,5 +51,5 @@
     "useUnknownInCatchVariables": true
   },
   "exclude": ["**/coverage", "**/dist", "**/node_modules"],
-  "include": ["**/**.cjs", "**/**.mjs", "**/**.mts", "**/**.ts", "**/.*.cjs"]
+  "include": ["**/**.mjs", "**/**.mts", "**/**.ts"]
 }
