@@ -31,4 +31,5 @@ sepidx
 tscu
 unstub
 vates
+vitest
 yarnrc
