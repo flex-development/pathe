@@ -5,6 +5,7 @@
  */
 
 import sep from '#src/lib/sep'
+import { cast, set } from '@flex-development/tutils'
 import { posix, win32 } from 'node:path'
 import testSubject from '../to-namespaced-path'
 
@@ -15,7 +16,7 @@ describe('unit:lib/toNamespacedPath', () => {
       [''],
       ['/foo/bar'],
       ['foo/bar'],
-      [null as unknown as string]
+      [cast(null)]
     ]
 
     // Act + Expect
@@ -26,7 +27,7 @@ describe('unit:lib/toNamespacedPath', () => {
 
   describe('windows', () => {
     beforeAll(() => {
-      Object.assign(process.env, { '=P:': 'P:' + process.cwd() })
+      set(process.env, '=R:', 'R:' + process.cwd())
     })
 
     /**
@@ -42,8 +43,8 @@ describe('unit:lib/toNamespacedPath', () => {
       const cases: Parameters<typeof testSubject>[] = [
         ['C:'],
         ['C:\\file.txt'],
-        ['P:'],
-        ['P:\\file.txt'],
+        ['R:'],
+        ['R:\\file.txt'],
         ['\\\\.\\pipe\\somepipe'],
         ['\\\\?\\UNC\\someserver\\someshare\\somefile'],
         ['\\\\?\\foo'],

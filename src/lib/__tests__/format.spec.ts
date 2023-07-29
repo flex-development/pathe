@@ -32,8 +32,8 @@ describe('unit:lib/format', () => {
     ]
 
     // Act + Expect
-    cases.forEach(([pathObject]) => {
-      expect(testSubject(pathObject)).to.equal(posix.format(pathObject))
+    cases.forEach(([obj]) => {
+      expect(testSubject(obj)).to.equal(posix.format(obj))
     })
   })
 
@@ -51,8 +51,8 @@ describe('unit:lib/format', () => {
       ]
 
       // Act + Expect
-      cases.forEach(([object]) => {
-        expect(testSubject(object)).to.equal(ensurePosix(win32.format(object)))
+      cases.forEach(([obj]) => {
+        expect(testSubject(obj)).to.equal(ensurePosix(win32.format(obj)))
       })
     })
   })

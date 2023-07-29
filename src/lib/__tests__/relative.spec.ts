@@ -5,6 +5,7 @@
  */
 
 import sep from '#src/lib/sep'
+import { set } from '@flex-development/tutils'
 import { posix, win32 } from 'node:path'
 import testSubject from '../relative'
 
@@ -41,7 +42,7 @@ describe('unit:lib/relative', () => {
 
   describe('windows', () => {
     beforeAll(() => {
-      Object.assign(process.env, { '=P:': 'P:' + process.cwd() })
+      set(process.env, '=P:', 'P:' + process.cwd())
     })
 
     /**

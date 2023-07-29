@@ -6,7 +6,7 @@
 import type TestSubject from '../sep'
 
 describe('unit-d:types/Sep', () => {
-  it('should extract posix path segment separator', () => {
-    expectTypeOf<TestSubject>().extract<'/'>().toBeString()
+  it('should equal "/"', () => {
+    expectTypeOf<TestSubject>().toEqualTypeOf<'/'>()
   })
 })

@@ -3,7 +3,7 @@
  * @module pathe/interfaces/tests/unit-d/PathObject
  */
 
-import type { RequiredKeys } from '@flex-development/tutils'
+import type { Optional, RequiredKeys } from '@flex-development/tutils'
 import type TestSubject from '../path-object'
 
 describe('unit-d:interfaces/PathObject', () => {
@@ -11,33 +11,33 @@ describe('unit-d:interfaces/PathObject', () => {
     expectTypeOf<RequiredKeys<TestSubject>>().toBeNever()
   })
 
-  it('should match [base?: string]', () => {
+  it('should match [base?: Optional<string>]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('base')
-      .toEqualTypeOf<string | undefined>()
+      .toEqualTypeOf<Optional<string>>()
   })
 
-  it('should match [dir?: string]', () => {
+  it('should match [dir?: Optional<string>]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('dir')
-      .toEqualTypeOf<string | undefined>()
+      .toEqualTypeOf<Optional<string>>()
   })
 
-  it('should match [ext?: string]', () => {
+  it('should match [ext?: Optional<string>]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('ext')
-      .toEqualTypeOf<string | undefined>()
+      .toEqualTypeOf<Optional<string>>()
   })
 
-  it('should match [name?: string]', () => {
+  it('should match [name?: Optional<string>]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('name')
-      .toEqualTypeOf<string | undefined>()
+      .toEqualTypeOf<Optional<string>>()
   })
 
-  it('should match [root?: string]', () => {
+  it('should match [root?: Optional<string>]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('root')
-      .toEqualTypeOf<string | undefined>()
+      .toEqualTypeOf<Optional<string>>()
   })
 })

@@ -3,6 +3,7 @@
  * @module pathe/pathe
  */
 
+import { cast, set } from '@flex-development/tutils'
 import type { Pathe, PlatformPath } from './interfaces'
 import {
   basename,
@@ -36,17 +37,18 @@ const core: PlatformPath = {
   join,
   normalize,
   parse,
-  posix: {} as PlatformPath,
+  posix: cast({}),
   relative,
   resolve,
   sep,
   toNamespacedPath,
-  win32: {} as PlatformPath
+  win32: cast({})
 }
 
 // add platform-specific objects
 // see https://github.com/nodejs/node/blob/v19.3.0/lib/path.js#L1540-L1541
-Object.assign(core, { posix: core, win32: core })
+set(core, 'posix', core)
+set(core, 'win32', core)
 
 /**
  * Utilities for working with directory paths, file paths, and file extensions.
@@ -78,7 +80,7 @@ const pathe: Pathe = {
 
 // add legacy api
 // see https://github.com/nodejs/node/blob/v19.3.0/lib/path.js#L1543-L1545
-Object.assign(pathe.posix, { _makeLong: toNamespacedPath })
-Object.assign(pathe.win32, { _makeLong: toNamespacedPath })
+set(pathe.posix, '_makeLong', toNamespacedPath)
+set(pathe.win32, '_makeLong', toNamespacedPath)
 
 export { pathe as default, core as posix, core as win32 }

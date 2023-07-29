@@ -4,10 +4,8 @@
  * @see https://vitest.dev/config/
  */
 
-import { NodeEnv } from '@flex-development/tutils'
 import ci from 'is-ci'
 import path from 'node:path'
-import { template } from 'radash'
 import tsconfigpaths from 'vite-tsconfig-paths'
 import GithubActionsReporter from 'vitest-github-actions-reporter'
 import {
@@ -32,19 +30,8 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
    */
   const LINT_STAGED: boolean = !!Number.parseInt(process.env.LINT_STAGED ?? '0')
 
-  /**
-   * Boolean indicating if the current running version of [`typescript`][1] is
-   * at least `5`.
-   *
-   * @const {boolean} TYPESCRIPT_V5
-   */
-  const TYPESCRIPT_V5: boolean =
-    process.env.TYPESCRIPT_VERSION?.startsWith('5') ?? true
-
   return {
-    define: {
-      'import.meta.env.NODE_ENV': JSON.stringify(NodeEnv.TEST)
-    },
+    define: {},
     plugins: [tsconfigpaths({ projects: [path.resolve('tsconfig.json')] })],
     test: {
       allowOnly: !ci,
@@ -69,8 +56,8 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
         ],
         extension: ['.ts'],
         include: ['src'],
-        provider: 'c8',
-        reporter: [ci ? 'lcovonly' : 'lcov', 'text'],
+        provider: 'v8',
+        reporter: [ci ? 'lcovonly' : 'html', 'text'],
         reportsDirectory: './coverage',
         skipFull: false
       },
@@ -79,7 +66,9 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
       globalSetup: [],
       globals: true,
       hookTimeout: 10 * 1000,
-      include: [`**/__tests__/*.spec${LINT_STAGED ? ',spec-d' : ''}.{ts,tsx}`],
+      include: [
+        `**/__tests__/*.${LINT_STAGED ? '{spec,spec-d}' : 'spec'}.{ts,tsx}`
+      ],
       isolate: true,
       mockReset: true,
       outputFile: { json: './__tests__/report.json' },
@@ -141,9 +130,7 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
         checker: 'tsc',
         ignoreSourceErrors: false,
         include: ['**/__tests__/*.spec-d.ts'],
-        tsconfig: template('{{0}}/tsconfig.typecheck.json', {
-          0: path.resolve(TYPESCRIPT_V5 ? '' : '__tests__/ts/v4')
-        })
+        tsconfig: path.resolve('tsconfig.typecheck.json')
       },
       unstubEnvs: true,
       unstubGlobals: true

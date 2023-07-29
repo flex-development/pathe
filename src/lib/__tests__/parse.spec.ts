@@ -7,6 +7,7 @@
 
 import type { ParsedPath } from '#src/interfaces'
 import sep from '#src/lib/sep'
+import { entries } from '@flex-development/tutils'
 import { posix, win32 } from 'node:path'
 import testSubject from '../parse'
 
@@ -37,7 +38,7 @@ describe('unit:lib/parse', () => {
 
     // Act + Expect
     cases.forEach(([path]) => {
-      expect(testSubject(path)).to.deep.equal(posix.parse(path))
+      expect(testSubject(path)).to.eql(posix.parse(path))
     })
   })
 
@@ -49,9 +50,9 @@ describe('unit:lib/parse', () => {
      * @return {string} `parsed` with values normalized
      */
     const ensurePosix = (parsed: ParsedPath): ParsedPath => {
-      for (const [key, value] of Object.entries<string>(parsed)) {
+      for (const [key, value] of entries(parsed)) {
         if (!value) continue
-        parsed[key as keyof ParsedPath] = value.replace(/\\/g, sep)
+        parsed[key] = value.replace(/\\/g, sep)
       }
 
       return parsed
@@ -81,7 +82,7 @@ describe('unit:lib/parse', () => {
 
       // Act + Expect
       cases.forEach(([path]) => {
-        expect(testSubject(path)).to.deep.equal(ensurePosix(win32.parse(path)))
+        expect(testSubject(path)).to.eql(ensurePosix(win32.parse(path)))
       })
     })
   })
