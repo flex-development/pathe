@@ -3,12 +3,12 @@
  * @module pathe/interfaces/tests/unit-d/PathObject
  */
 
-import type { KeysRequired } from '@flex-development/tutils'
+import type { RequiredKeys } from '@flex-development/tutils'
 import type TestSubject from '../path-object'
 
 describe('unit-d:interfaces/PathObject', () => {
   it('should allow empty object', () => {
-    expectTypeOf<KeysRequired<TestSubject>>().toBeNever()
+    expectTypeOf<RequiredKeys<TestSubject>>().toBeNever()
   })
 
   it('should match [base?: string]', () => {

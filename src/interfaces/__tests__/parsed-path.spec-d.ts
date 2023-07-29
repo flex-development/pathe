@@ -7,22 +7,22 @@ import type TestSubject from '../parsed-path'
 
 describe('unit-d:interfaces/ParsedPath', () => {
   it('should match [base: string]', () => {
-    expectTypeOf<TestSubject>().toHaveProperty('base').toBeString()
+    expectTypeOf<TestSubject>().toHaveProperty('base').toEqualTypeOf<string>()
   })
 
   it('should match [dir: string]', () => {
-    expectTypeOf<TestSubject>().toHaveProperty('dir').toBeString()
+    expectTypeOf<TestSubject>().toHaveProperty('dir').toEqualTypeOf<string>()
   })
 
   it('should match [ext: string]', () => {
-    expectTypeOf<TestSubject>().toHaveProperty('ext').toBeString()
+    expectTypeOf<TestSubject>().toHaveProperty('ext').toEqualTypeOf<string>()
   })
 
   it('should match [name: string]', () => {
-    expectTypeOf<TestSubject>().toHaveProperty('name').toBeString()
+    expectTypeOf<TestSubject>().toHaveProperty('name').toEqualTypeOf<string>()
   })
 
   it('should match [root: string]', () => {
-    expectTypeOf<TestSubject>().toHaveProperty('root').toBeString()
+    expectTypeOf<TestSubject>().toHaveProperty('root').toEqualTypeOf<string>()
   })
 })

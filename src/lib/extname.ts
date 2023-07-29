@@ -3,13 +3,18 @@
  * @module pathe/lib/extname
  */
 
-import { DOT } from '#src/internal/constants'
 import ensurePosix from '#src/internal/ensure-posix'
 import isDrivePath from '#src/internal/is-drive-path'
 import isSep from '#src/internal/is-sep'
 import validateString from '#src/internal/validate-string'
 import type { Ext } from '#src/types'
-import type { EmptyString } from '@flex-development/tutils'
+import {
+  DOT,
+  at,
+  cast,
+  includes,
+  type EmptyString
+} from '@flex-development/tutils'
 
 /**
  * Returns the extension of a `path`, from the last occurrence of the `.` (dot)
@@ -29,7 +34,7 @@ const extname = (path: string): EmptyString | Ext => {
   validateString(path, 'path')
 
   // exit early if path does not contain any dot characters
-  if (!path.includes(DOT)) return ''
+  if (!includes(path, DOT)) return ''
 
   // ensure path meets posix standards
   path = ensurePosix(path)
@@ -90,7 +95,7 @@ const extname = (path: string): EmptyString | Ext => {
      *
      * @const {string} char
      */
-    const char: string = path.charAt(i)
+    const char: string = at(path, i)
 
     // adjust start index of basename
     if (isSep(char)) {
@@ -125,7 +130,7 @@ const extname = (path: string): EmptyString | Ext => {
     ? ''
     : start === part + 1 && start === end - 1 && predot === 1
     ? ''
-    : (path.slice(start, end) as Ext)
+    : cast<Ext>(path.slice(start, end))
 }
 
 export default extname

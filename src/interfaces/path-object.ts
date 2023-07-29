@@ -3,6 +3,8 @@
  * @module pathe/interfaces/PathObject
  */
 
+import type { Optional } from '@flex-development/tutils'
+
 /**
  * Object representing a path.
  */
@@ -15,7 +17,7 @@ interface PathObject {
    * @example
    *  'index.html'
    */
-  base?: string | undefined
+  base?: Optional<string>
 
   /**
    * Directory name or full directory path.
@@ -27,7 +29,7 @@ interface PathObject {
    * @example
    * '/home/user/dir'
    */
-  dir?: string | undefined
+  dir?: Optional<string>
 
   /**
    * File extension (if any).
@@ -39,7 +41,7 @@ interface PathObject {
    * @example
    *  'ts'
    */
-  ext?: string | undefined
+  ext?: Optional<string>
 
   /**
    * File name without extension (if any).
@@ -49,7 +51,7 @@ interface PathObject {
    * @example
    *  'index'
    */
-  name?: string | undefined
+  name?: Optional<string>
 
   /**
    * Root of path.
@@ -61,7 +63,7 @@ interface PathObject {
    * @example
    *  'c:\\'
    */
-  root?: string | undefined
+  root?: Optional<string>
 }
 
 export type { PathObject as default }

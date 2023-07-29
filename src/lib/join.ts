@@ -3,10 +3,10 @@
  * @module pathe/lib/join
  */
 
-import { DOT } from '#src/internal/constants'
 import ensurePosix from '#src/internal/ensure-posix'
 import isSep from '#src/internal/is-sep'
 import validateString from '#src/internal/validate-string'
+import { DOT, at, ifelse, isEmptyString } from '@flex-development/tutils'
 import normalize from './normalize'
 import sep from './sep'
 
@@ -26,7 +26,7 @@ import sep from './sep'
  */
 const join = (...paths: string[]): string => {
   // exit early if no segments to join
-  if (paths.length === 0) return DOT
+  if (!paths.length) return DOT
 
   /**
    * Path segment sequence, {@linkcode paths}, as one path.
@@ -47,7 +47,7 @@ const join = (...paths: string[]): string => {
     validateString(path, 'path')
 
     // skip empty path segments
-    if (path.length === 0) continue
+    if (isEmptyString(path)) continue
 
     // ensure path segment meets posix standards
     path = ensurePosix(path)
@@ -56,7 +56,7 @@ const join = (...paths: string[]): string => {
     if (!first_segment) first_segment = path
 
     // add current path segment to joined path
-    joined += `${joined ? sep : ''}${path}`
+    joined += `${ifelse(joined, sep, '')}${path}`
   }
 
   // exit early if joined path is empty string
@@ -98,16 +98,16 @@ const join = (...paths: string[]): string => {
   let separators: number = 0
 
   // try matching unc patch component if first segment is possible root
-  if (isSep(first_segment.charAt(0))) {
+  if (isSep(at(first_segment, 0))) {
     ++separators
 
     // another separator => continue unc root check
-    if (first_segment.length > 1 && isSep(first_segment.charAt(1))) {
+    if (first_segment.length > 1 && isSep(at(first_segment, 1))) {
       ++separators
 
       // unc path component should contain more than just separators
       if (first_segment.length > 2) {
-        if (isSep(first_segment.charAt(2))) ++separators
+        if (isSep(at(first_segment, 2))) ++separators
         // matched unc path component in first segment
         else dedupe = false
       }
@@ -117,7 +117,7 @@ const join = (...paths: string[]): string => {
   // deduplicate separators
   if (dedupe) {
     // find any more separators that need to be replaced
-    while (separators < joined.length && isSep(joined.charAt(separators))) {
+    while (separators < joined.length && isSep(at(joined, separators))) {
       separators++
     }
 

@@ -3,12 +3,12 @@
  * @module pathe/lib/normalize
  */
 
-import { DOT } from '#src/internal/constants'
 import ensurePosix from '#src/internal/ensure-posix'
 import isDrivePath from '#src/internal/is-drive-path'
 import isSep from '#src/internal/is-sep'
 import normalizeString from '#src/internal/normalize-string'
 import validateString from '#src/internal/validate-string'
+import { DOT, at, ifelse, isEmptyString } from '@flex-development/tutils'
 import isAbsolute from './is-absolute'
 import sep from './sep'
 
@@ -31,7 +31,7 @@ const normalize = (path: string): string => {
   validateString(path, 'path')
 
   // exit early if path is empty string
-  if (path.length === 0) return DOT
+  if (isEmptyString(path)) return DOT
 
   // ensure path meets posix standards
   path = ensurePosix(path)
@@ -71,12 +71,12 @@ const normalize = (path: string): string => {
   }
 
   // adjust normalization offset if path is absolute
-  if (isSep(path.charAt(0))) {
+  if (isSep(at(path, 0))) {
     absolute = true
     offset = 1
 
     // try adjusting normalization offset again if path is possible unc path
-    if (isSep(path.charAt(1))) {
+    if (isSep(at(path, 1))) {
       /**
        * Current position in {@linkcode path}.
        *
@@ -92,7 +92,7 @@ const normalize = (path: string): string => {
       let last: number = j
 
       // match 1 or more non-path separators
-      while (j < path.length && !isSep(path.charAt(j))) j++
+      while (j < path.length && !isSep(at(path, j))) j++
 
       if (j < path.length && j !== last) {
         /**
@@ -106,14 +106,14 @@ const normalize = (path: string): string => {
         last = j
 
         // match 1 or more path separators
-        while (j < path.length && isSep(path.charAt(j))) j++
+        while (j < path.length && isSep(at(path, j))) j++
 
         if (j < path.length && j !== last) {
           // set last visited position
           last = j
 
           // match 1 or more non-path separators
-          while (j < path.length && !isSep(path.charAt(j))) j++
+          while (j < path.length && !isSep(at(path, j))) j++
 
           // matched unc root only => nothing left to process
           if (j === path.length) {
@@ -139,12 +139,12 @@ const normalize = (path: string): string => {
     offset < path.length ? normalizeString(path.slice(offset), !absolute) : ''
 
   // set tail to cwd reference if tail is empty string and path is relative
-  if (tail.length === 0 && !absolute) tail = DOT
+  if (isEmptyString(tail) && !absolute) tail = DOT
 
   // re-add trailing separator
-  if (tail.length > 0 && isSep(path.charAt(path.length - 1))) tail += sep
+  if (tail.length > 0 && isSep(at(path, -1))) tail += sep
 
-  return `${device}${absolute ? sep : ''}${tail}`
+  return `${device}${ifelse(absolute, sep, '')}${tail}`
 }
 
 export default normalize

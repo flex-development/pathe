@@ -10,6 +10,7 @@ import isDrivePath from '#src/internal/is-drive-path'
 import isUncPath from '#src/internal/is-unc-path'
 import validateString from '#src/internal/validate-string'
 import removeExt from '#src/utils/remove-ext'
+import { at, isEmptyString } from '@flex-development/tutils'
 import basename from './basename'
 import dirname from './dirname'
 import extname from './extname'
@@ -45,19 +46,19 @@ const parse = (path: string): ParsedPath => {
   const ret: ParsedPath = { base: '', dir: '', ext: '', name: '', root: '' }
 
   // exit early if path is empty string
-  if (path.length === 0) return ret
+  if (isEmptyString(path)) return ret
 
   ret.base = basename(path)
   ret.dir = dirname(path)
   ret.ext = extname(path)
   ret.name = removeExt(ret.base, ret.ext)
   ret.root = isUncPath(path)
-    ? UNC_PATH_REGEX.exec(path)![1]!
+    ? at(UNC_PATH_REGEX.exec(path)!, 1)
     : isDrivePath(path)
-    ? DRIVE_PATH_REGEX.exec(path)![1]!
+    ? at(DRIVE_PATH_REGEX.exec(path)!, 1)
     : isAbsolute(path)
     ? sep
-    : ''
+    : ret.root
 
   return ret
 }

@@ -11,6 +11,8 @@ import validateString from './validate-string'
  *
  * @see https://learn.microsoft.com/dotnet/standard/io/file-path-formats#unc-paths
  *
+ * @internal
+ *
  * @param {string} path - Path to evaluate
  * @param {boolean} [exact=true] - Check for exactly two leading separators
  * @return {boolean} `true` if path is UNC path

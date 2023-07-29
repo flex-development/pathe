@@ -4,13 +4,14 @@
  */
 
 import { ERR_INVALID_ARG_TYPE } from '@flex-development/errnode'
+import { isObjectCurly } from '@flex-development/tutils'
 
 /**
- * Checks if `value` is an object.
+ * Checks if `value` is a curly-braced object.
  *
- * **Note**: Array values are not considered objects.
+ * @see {@linkcode isObjectCurly}
  *
- * [1]: https://nodejs.org/api/errors.html#err_invalid_arg_type
+ * @internal
  *
  * @param {unknown} value - Value provided by user
  * @param {string} name - Name of invalid argument
@@ -18,10 +19,7 @@ import { ERR_INVALID_ARG_TYPE } from '@flex-development/errnode'
  * @throws {TypeError} If `value` is not an object
  */
 const validateObject = (value: unknown, name: string): boolean => {
-  if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-    return true
-  }
-
+  if (isObjectCurly(value)) return true
   throw new ERR_INVALID_ARG_TYPE(name, 'object', value)
 }
 

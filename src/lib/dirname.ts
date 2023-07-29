@@ -3,11 +3,11 @@
  * @module pathe/lib/dirname
  */
 
-import { DOT } from '#src/internal/constants'
 import ensurePosix from '#src/internal/ensure-posix'
 import isDrivePath from '#src/internal/is-drive-path'
 import isSep from '#src/internal/is-sep'
 import validateString from '#src/internal/validate-string'
+import { DOT, at, isEmptyString } from '@flex-development/tutils'
 import isAbsolute from './is-absolute'
 import sep from './sep'
 
@@ -27,7 +27,7 @@ const dirname = (path: string): string => {
   validateString(path, 'path')
 
   // exit early if path is empty string
-  if (path.length === 0) return DOT
+  if (isEmptyString(path)) return DOT
 
   // ensure path meets posix standards
   path = ensurePosix(path)
@@ -55,11 +55,11 @@ const dirname = (path: string): string => {
   }
 
   // adjust offset if path is absolute
-  if (isSep(path.charAt(0))) {
+  if (isSep(at(path, 0))) {
     root_end = offset = 1
 
     // try adjusting offset if path is possible unc path
-    if (isSep(path.charAt(1))) {
+    if (isSep(at(path, 1))) {
       /**
        * Current position in {@linkcode path}.
        *
@@ -75,21 +75,21 @@ const dirname = (path: string): string => {
       let last: number = j
 
       // match 1 or more non-directory separators
-      while (j < path.length && !isSep(path.charAt(j))) j++
+      while (j < path.length && !isSep(at(path, j))) j++
 
       if (j < path.length && j !== last) {
         // set last visited position to index of directory separator
         last = j
 
         // match 1 or more directory separators
-        while (j < path.length && isSep(path.charAt(j))) j++
+        while (j < path.length && isSep(at(path, j))) j++
 
         if (j < path.length && j !== last) {
           // set last visited position to index of non-directory separator
           last = j
 
           // match 1 or more non-directory separators
-          while (j < path.length && !isSep(path.charAt(j))) j++
+          while (j < path.length && !isSep(at(path, j))) j++
 
           // matched unc root
           if (j === path.length) return path
@@ -119,7 +119,7 @@ const dirname = (path: string): string => {
 
   // get end index of directory name
   for (let i = path.length - 1; i >= offset; --i) {
-    if (isSep(path.charAt(i))) {
+    if (isSep(at(path, i))) {
       // set end index of directory name
       if (!sep_match) {
         end = i
@@ -133,7 +133,7 @@ const dirname = (path: string): string => {
 
   return end === -1 && root_end === -1
     ? DOT
-    : isSep(path.charAt(0)) && end === 1
+    : isSep(at(path, 0)) && end === 1
     ? sep.repeat(2)
     : path.slice(0, end === -1 ? root_end : end)
 }

@@ -4,7 +4,7 @@
  */
 
 import type { Ext } from '#src/types'
-import type { EmptyString } from '@flex-development/tutils'
+import { cast, trim, type EmptyString } from '@flex-development/tutils'
 
 /**
  * Formats a file extension.
@@ -30,7 +30,7 @@ import type { EmptyString } from '@flex-development/tutils'
  * @return {EmptyString | Ext} Formatted file extension or empty string
  */
 const formatExt = (ext: string = ''): EmptyString | Ext => {
-  return ext.trim().replace(/^([^.])/, '.$1') as EmptyString | Ext
+  return cast(trim(ext).replace(/^([^.])/, '.$1'))
 }
 
 export default formatExt

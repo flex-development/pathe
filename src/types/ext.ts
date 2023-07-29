@@ -3,9 +3,11 @@
  * @module pathe/types/Ext
  */
 
+import type { Dot } from '@flex-development/tutils'
+
 /**
  * File extension schema.
  */
-type Ext = `.${string}`
+type Ext = `${Dot}${string}`
 
 export type { Ext as default }

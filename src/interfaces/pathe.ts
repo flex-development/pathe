@@ -4,7 +4,7 @@
  */
 
 import type { Ext } from '#src/types'
-import type { EmptyString, Nullable } from '@flex-development/tutils'
+import type { EmptyString, Nilable } from '@flex-development/tutils'
 import type PlatformPath from './platform-path'
 
 /**
@@ -20,11 +20,11 @@ interface Pathe extends PlatformPath {
    * Does nothing if a file extension is not provided.
    *
    * @param {string} path - Path to evaluate
-   * @param {Nullable<string>} [ext] - File extension to add
+   * @param {Nilable<string>} [ext] - File extension to add
    * @return {string} `path` unmodified or with `ext` appended
    * @throws {TypeError} If `path` is not a string or `ext` is not a string
    */
-  addExt(path: string, ext?: Nullable<string>): string
+  addExt(path: string, ext?: Nilable<string>): string
 
   /**
    * Changes the file extension of the given `path`.
@@ -33,11 +33,11 @@ interface Pathe extends PlatformPath {
    * an empty string, however, `path`'s file extension will be removed.
    *
    * @param {string} path - Path to evaluate
-   * @param {Nullable<string>} [ext] - New file extension
+   * @param {Nilable<string>} [ext] - New file extension
    * @return {string} `path` unmodified or with changed file extension
    * @throws {TypeError} If `path` is not a string or `ext` is not a string
    */
-  changeExt(path: string, ext?: Nullable<string>): string
+  changeExt(path: string, ext?: Nilable<string>): string
 
   /**
    * Appends a file extension to the given `path` if and only if the path does
@@ -47,12 +47,12 @@ interface Pathe extends PlatformPath {
    * Does nothing if a file extension isn't provided.
    *
    * @param {string} path - Path to evaluate
-   * @param {Nullable<string>} [ext] - Default file extension
+   * @param {Nilable<string>} [ext] - Default file extension
    * @param {string[]} [ignore] - File extensions to ignore if found
    * @return {string} `path` unmodified or with `ext` appended
    * @throws {TypeError} If `path` is not a string or `ext` is not a string
    */
-  defaultExt(path: string, ext?: Nullable<string>, ignore?: string[]): string
+  defaultExt(path: string, ext?: Nilable<string>, ignore?: string[]): string
 
   /**
    * Formats a file extension.
@@ -75,11 +75,11 @@ interface Pathe extends PlatformPath {
    * a file extension isn't provided.
    *
    * @param {string} path - Path to evaluate
-   * @param {Nullable<string>} [ext] - File extension to removed
+   * @param {Nilable<string>} [ext] - File extension to removed
    * @return {string} `path` unmodified or with `ext` removed
    * @throws {TypeError} If `path` is not a string or `ext` is not a string
    */
-  removeExt(path: string, ext?: Nullable<string>): string
+  removeExt(path: string, ext?: Nilable<string>): string
 }
 
 export type { Pathe as default }

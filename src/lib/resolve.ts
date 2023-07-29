@@ -3,12 +3,12 @@
  * @module pathe/lib/resolve
  */
 
-import { DOT } from '#src/internal/constants'
 import ensurePosix from '#src/internal/ensure-posix'
 import isDrivePath from '#src/internal/is-drive-path'
 import isSep from '#src/internal/is-sep'
 import normalizeString from '#src/internal/normalize-string'
 import validateString from '#src/internal/validate-string'
+import { DOT, at, lowercase } from '@flex-development/tutils'
 import sep from './sep'
 
 /**
@@ -98,10 +98,10 @@ const resolve = (...paths: string[]): string => {
        * @const {boolean} device_match
        */
       const device_match: boolean =
-        path.slice(0, 2).toLowerCase() === resolved_device.toLowerCase()
+        lowercase(path.slice(0, 2)) === lowercase(resolved_device)
 
       // default to drive root if cwd was found but does not point to drive
-      if (!path || (!device_match && isSep(path.charAt(2)))) {
+      if (!path || (!device_match && isSep(at(path, 2)))) {
         path = `${resolved_device}`
       }
     }
@@ -138,19 +138,19 @@ const resolve = (...paths: string[]): string => {
     if (isDrivePath(path)) {
       device = path.slice(0, (offset = 2))
 
-      if (len > 2 && isSep(path.charAt(offset))) {
+      if (len > 2 && isSep(at(path, offset))) {
         absolute = true
         offset = 3
       }
     }
 
     // set device and adjust offset if path is absolute or unc path
-    if (isSep(path.charAt(0))) {
+    if (isSep(at(path, 0))) {
       absolute = true
       offset = 1
 
       // try setting device if path is possible unc path
-      if (isSep(path.charAt(1))) {
+      if (isSep(at(path, 1))) {
         /**
          * Current position in {@linkcode path}.
          *
@@ -166,7 +166,7 @@ const resolve = (...paths: string[]): string => {
         let last: number = j
 
         // match 1 or more non-path separators
-        while (j < len && !isSep(path.charAt(j))) j++
+        while (j < len && !isSep(at(path, j))) j++
 
         if (j < len && j !== last) {
           /**
@@ -180,14 +180,14 @@ const resolve = (...paths: string[]): string => {
           last = j
 
           // match 1 or more path separators
-          while (j < len && isSep(path.charAt(j))) j++
+          while (j < len && isSep(at(path, j))) j++
 
           if (j < len && j !== last) {
             // set last visited position
             last = j
 
             // match 1 or more non-path separators
-            while (j < len && !isSep(path.charAt(j))) j++
+            while (j < len && !isSep(at(path, j))) j++
 
             // matched unc root
             if (j === len || j !== last) {
@@ -200,10 +200,10 @@ const resolve = (...paths: string[]): string => {
     }
 
     // try resetting resolved device
-    if (device.length > 0) {
-      if (resolved_device.length > 0) {
+    if (device) {
+      if (resolved_device) {
         // path points to another device => not applicable
-        if (device.toLowerCase() !== resolved_device.toLowerCase()) continue
+        if (lowercase(device) !== lowercase(resolved_device)) continue
       } else {
         // reset resolved device
         resolved_device = device
@@ -213,13 +213,13 @@ const resolve = (...paths: string[]): string => {
     // try finishing resolution
     if (resolved_absolute) {
       // exit if resolved path is absolute and device has been revolved
-      if (resolved_device.length > 0) break
+      if (resolved_device) break
     } else {
       // update resolved tail
       resolved_tail = `${path.slice(offset)}${sep}${resolved_tail}`
 
       // exit if resolved path is now absolute and device has been resolved
-      if ((resolved_absolute = absolute) && resolved_device.length > 0) break
+      if ((resolved_absolute = absolute) && resolved_device) break
     }
   }
 

@@ -7,6 +7,7 @@ import ensurePosix from '#src/internal/ensure-posix'
 import isDrivePath from '#src/internal/is-drive-path'
 import isSep from '#src/internal/is-sep'
 import validateString from '#src/internal/validate-string'
+import { at, isUndefined } from '@flex-development/tutils'
 
 /**
  * Returns the last portion of a `path`, similar to the Unix `basename` command.
@@ -22,14 +23,14 @@ import validateString from '#src/internal/validate-string'
  */
 const basename = (path: string, suffix?: string): string => {
   validateString(path, 'path')
-  suffix !== undefined && validateString(suffix, 'suffix')
+  !isUndefined(suffix) && validateString(suffix, 'suffix')
 
   // ensure path and suffix meet posix standards
   path = ensurePosix(path)
-  suffix !== undefined && (suffix = ensurePosix(suffix))
+  !isUndefined(suffix) && (suffix = ensurePosix(suffix))
 
   // return empty string if path and suffix are equal
-  if (suffix === path) return ''
+  if (path === suffix) return ''
 
   /**
    * Start index of basename.
@@ -96,7 +97,7 @@ const basename = (path: string, suffix?: string): string => {
      *
      * @const {string} char
      */
-    const char: string = path.charAt(i)
+    const char: string = at(path, i)
 
     if (isSep(char)) {
       // encountered separator that is not trailing separator
@@ -114,7 +115,7 @@ const basename = (path: string, suffix?: string): string => {
 
       if (sdx >= 0) {
         // try matching suffix
-        if (char === suffix.charAt(sdx)) {
+        if (char === at(suffix, sdx)) {
           // end path component
           if (--sdx === -1) end = i
         } else {

@@ -19,6 +19,8 @@ import validateString from './validate-string'
  * @see https://nodejs.org/api/path.html#pathdelimiter
  * @see https://nodejs.org/api/path.html#pathsep
  *
+ * @internal
+ *
  * @param {string} [path=''] - Path to ensure
  * @return {string} POSIX-compliant `path`
  * @throws {TypeError} If `path` is not a string
