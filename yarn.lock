@@ -1055,6 +1055,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/errnode@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@flex-development/errnode@npm:2.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ferrnode%2F2.0.0%2F62f38769b2f92d753b3e526ce7e9a23369aaa1da"
+  dependencies:
+    "@flex-development/tutils": "npm:6.0.0-alpha.12"
+    node-inspect-extracted: "npm:2.0.2"
+  peerDependencies:
+    "@types/node": ">=16.18.23"
+  checksum: e358293f1cff1b0d56bb3f165981c7159a14d0a6ad6ab24e68400c8e0684f96fd3bfb2d3dd037a3c15e57d25da40c22851ae1db2b80fa2a4ce0c083b9ac01a63
+  languageName: node
+  linkType: hard
+
 "@flex-development/esm-types@npm:1.0.0":
   version: 1.0.0
   resolution: "@flex-development/esm-types@npm:1.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fesm-types%2F1.0.0%2Ffde631289466ab81c4ff20b848ea26926ee9d478"
@@ -1201,12 +1213,12 @@ __metadata:
     "@faker-js/faker": "npm:8.0.1"
     "@flex-development/commitlint-config": "npm:1.0.1"
     "@flex-development/decorator-regex": "npm:1.0.0"
-    "@flex-development/errnode": "npm:1.5.0"
+    "@flex-development/errnode": "npm:2.0.0"
     "@flex-development/esm-types": "npm:1.0.0"
     "@flex-development/mkbuild": "npm:1.0.0-alpha.20"
     "@flex-development/mlly": "npm:1.0.0-alpha.15"
     "@flex-development/tsconfig-utils": "npm:1.1.2"
-    "@flex-development/tutils": "npm:6.0.0-alpha.10"
+    "@flex-development/tutils": "npm:6.0.0-alpha.12"
     "@graphql-eslint/eslint-plugin": "npm:3.18.0"
     "@types/chai": "npm:4.3.4"
     "@types/conventional-changelog": "npm:3.1.1"
@@ -1331,12 +1343,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@flex-development/tutils@npm:6.0.0-alpha.10":
-  version: 6.0.0-alpha.10
-  resolution: "@flex-development/tutils@npm:6.0.0-alpha.10::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ftutils%2F6.0.0-alpha.10%2Fb2085f42d62aedfabfae2ed016c0cc5c47192f81"
+"@flex-development/tutils@npm:6.0.0-alpha.12":
+  version: 6.0.0-alpha.12
+  resolution: "@flex-development/tutils@npm:6.0.0-alpha.12::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ftutils%2F6.0.0-alpha.12%2F09e3edc5c0533b5a51a88aa87c8b13bf48aeceb9"
+  dependencies:
+    dequal: "npm:2.0.3"
   peerDependencies:
-    typescript: ">=4.7"
-  checksum: 372d2fd3e36f75cf7f9ea80e3e95cbd99f673dd114301f610a29e7acf12f589342c1e84c0139c8aa7cac1bcae2c7c1db2cb1302bae55da9d2fb33ae32b5c2a1b
+    typescript: ">=5.0.4"
+  checksum: 25f8e93fa7fb15b1068f603f89e18272426de282d20d835ac20b80c3dec76ec7c899bca52228c58a27fe2f87797f720e5857ea6944058081c97e9691d4262ac3
   languageName: node
   linkType: hard
 
@@ -3956,6 +3970,13 @@ __metadata:
   version: 1.1.2
   resolution: "depd@npm:1.1.2"
   checksum: e9fb93771e7cf3d88c4e38ca95742f7c58cae31928eb5e67a1a14d970325a02755451bb7fafc2db72333a5cf7fc14e07e4f8d709c0df70143355e77e8d090bac
+  languageName: node
+  linkType: hard
+
+"dequal@npm:2.0.3":
+  version: 2.0.3
+  resolution: "dequal@npm:2.0.3"
+  checksum: 7a633ec0ba78bc08ba217b762b15157d2ec99edb50a82124df2c341255b1943217215872888981cc6a6ee02406ab1b09783f5b51b7db8d8f8f1284092f379aad
   languageName: node
   linkType: hard
 
@@ -6689,6 +6710,13 @@ __metadata:
   version: 2.0.0
   resolution: "node-inspect-extracted@npm:2.0.0"
   checksum: d99c560d4687695f191d27585877893428101082d8ce1b52d79e968650b03c626cd3472f98cae98f17c98859ed0aa1e1a53954d82ba04659115ebb4e6e5565b4
+  languageName: node
+  linkType: hard
+
+"node-inspect-extracted@npm:2.0.2":
+  version: 2.0.2
+  resolution: "node-inspect-extracted@npm:2.0.2"
+  checksum: 858d5d66a8de7466ad1579ea491ac6070f7f368a675d4a25561632ccbaa5f35b5bae212c0973bb374149d02320e336c65512a51266f53566da02c1a75b3b69d4
   languageName: node
   linkType: hard
 

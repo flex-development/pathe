@@ -7,6 +7,7 @@ import type { FormatInputPathObject } from '#src/interfaces'
 import ensurePosix from '#src/internal/ensure-posix'
 import validateObject from '#src/internal/validate-object'
 import formatExt from '#src/utils/format-ext'
+import type { Optional } from '@flex-development/tutils'
 import sep from './sep'
 
 /**
@@ -51,9 +52,9 @@ const format = (pathObject: FormatInputPathObject): string => {
   /**
    * Directory name or full path.
    *
-   * @const {string | undefined} dir
+   * @const {Optional<string>} dir
    */
-  const dir: string | undefined = pathObject.dir || pathObject.root
+  const dir: Optional<string> = pathObject.dir || pathObject.root
 
   return !dir
     ? base

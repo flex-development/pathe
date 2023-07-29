@@ -20,6 +20,8 @@ import validateString from './validate-string'
  * @example
  *  isDrivePath('myfile.html') // false
  *
+ * @internal
+ *
  * @param {string} path - Path to evaluate
  * @return {boolean} `true` if path starts with [drive letter][1]
  * @throws {TypeError} If `path` is not a string

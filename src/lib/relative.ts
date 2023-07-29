@@ -3,10 +3,10 @@
  * @module pathe/lib/relative
  */
 
-import { DOT } from '#src/internal/constants'
 import ensurePosix from '#src/internal/ensure-posix'
 import isSep from '#src/internal/is-sep'
 import validateString from '#src/internal/validate-string'
+import { DOT, at, ifelse, lowercase } from '@flex-development/tutils'
 import resolve from './resolve'
 import sep from './sep'
 
@@ -39,7 +39,7 @@ const relative = (from: string, to: string): string => {
   to = resolve((to = ensurePosix(to)))
 
   // exit early if from and to are the same resolved path
-  if (from.toLowerCase() === to.toLowerCase()) return ''
+  if (lowercase(from) === lowercase(to)) return ''
 
   /**
    * Measures the given `path`.
@@ -66,10 +66,10 @@ const relative = (from: string, to: string): string => {
     let end: number = path.length
 
     // remove leading separators
-    while (start < path.length && isSep(path.charAt(start))) start++
+    while (start < path.length && isSep(at(path, start))) start++
 
     // remove trailing separators
-    while (end - 1 > start && isSep(path.charAt(end - 1))) end--
+    while (end - 1 > start && isSep(at(path, end - 1))) end--
 
     return [end - start, start, end]
   }
@@ -106,9 +106,9 @@ const relative = (from: string, to: string): string => {
      *
      * @const {string} char
      */
-    const char: string = from.charAt(from_start + i).toLowerCase()
+    const char: string = lowercase(at(from, from_start + i)!)
 
-    if (char !== to.charAt(to_start + i).toLowerCase()) break
+    if (char !== lowercase(at(to, to_start + i)!)) break
     else if (isSep(char)) sepidx = i
   }
 
@@ -116,7 +116,7 @@ const relative = (from: string, to: string): string => {
     // from is an exact base path, device root, or posix root
     if (to_length > length) {
       // from is an exact base path
-      if (isSep(to.charAt(to_start + i))) return to.slice(to_start + i + 1)
+      if (isSep(at(to, to_start + i))) return to.slice(to_start + i + 1)
 
       // from is a device root or posix root
       if (i === 0 || i === 2) return to.slice(to_start + i)
@@ -125,7 +125,7 @@ const relative = (from: string, to: string): string => {
     // to is an exact base path, device root, or posix root
     if (from_length > length) {
       // to is an exact base path
-      if (isSep(from.charAt(from_start + i))) sepidx = i
+      if (isSep(at(from, from_start + i))) sepidx = i
       // to is a device root
       /* c8 ignore next */ else if (i === 2) sepidx = 3
       // to is posix root
@@ -154,8 +154,8 @@ const relative = (from: string, to: string): string => {
 
   // generate relative path based on path difference between to and from
   for (i = from_start + sepidx + 1; i <= from_end; ++i) {
-    if (i === from_end || isSep(from.charAt(i))) {
-      rel += `${rel.length === 0 ? '' : sep}${DOT.repeat(2)}`
+    if (i === from_end || isSep(at(from, i))) {
+      rel += `${ifelse(rel, sep, '')}${DOT.repeat(2)}`
     }
   }
 

@@ -5,7 +5,15 @@
 
 import isAbsolute from '#src/lib/is-absolute'
 import sep from '#src/lib/sep'
-import { DOT } from './constants'
+import {
+  DOT,
+  at,
+  ifelse,
+  includes,
+  isEmptyString,
+  trim,
+  type Optional
+} from '@flex-development/tutils'
 import ensurePosix from './ensure-posix'
 import isSep from './is-sep'
 import validateString from './validate-string'
@@ -22,6 +30,8 @@ import validateString from './validate-string'
  *
  * [1]: {@link ../lib/sep.ts}
  *
+ * @internal
+ *
  * @param {string} path - Path to normalize
  * @param {boolean} [allow_above_root=!isAbsolute(path)] - Normalize past root
  * @return {string} Normalized `path`
@@ -34,20 +44,20 @@ const normalizeString = (
   validateString(path, 'path')
 
   // exit early if path is empty string
-  if (path.trim().length === 0) return path
+  if (isEmptyString(trim(path))) return path
 
   // ensure path meets posix standards
   path = ensurePosix(path)
 
   // exit early if path does not contain dot characters or separators
-  if (!path.includes(DOT) && !path.includes(sep)) return path
+  if (!includes(path, DOT) && !includes(path, sep)) return path
 
   /**
    * Current character in {@link path} being processed.
    *
-   * @var {string | undefined} char
+   * @var {Optional<string>} char
    */
-  let char: string | undefined
+  let char: Optional<string>
 
   /**
    * Total number of `.` (dot) characters in current path segment.
@@ -80,7 +90,7 @@ const normalizeString = (
   // normalize
   for (let i = 0; i <= path.length; ++i) {
     // set current character if current index is in bounds
-    if (i < path.length) char = path[i]
+    if (i < path.length) char = at(path, i)
     // exit if trailing separator has been reached
     else if (isSep(char)) break
     // add trailing separator
@@ -133,7 +143,7 @@ const normalizeString = (
 
         // resolve past root
         if (allow_above_root) {
-          res += `${!res ? '' : sep}${DOT.repeat(2)}`
+          res += `${ifelse(!res, '', sep)}${DOT.repeat(2)}`
           seglen = 2
         }
       } else {

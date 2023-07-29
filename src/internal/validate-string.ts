@@ -4,11 +4,12 @@
  */
 
 import { ERR_INVALID_ARG_TYPE } from '@flex-development/errnode'
+import { isString } from '@flex-development/tutils'
 
 /**
  * Checks if `value` is a string.
  *
- * [1]: https://nodejs.org/api/errors.html#err_invalid_arg_type
+ * @internal
  *
  * @param {unknown} value - Value provided by user
  * @param {string} name - Name of invalid argument
@@ -16,7 +17,7 @@ import { ERR_INVALID_ARG_TYPE } from '@flex-development/errnode'
  * @throws {TypeError} If `value` is not an object
  */
 const validateString = (value: unknown, name: string): string => {
-  if (typeof value === 'string') return value
+  if (isString(value)) return value
   throw new ERR_INVALID_ARG_TYPE(name, 'string', value)
 }
 

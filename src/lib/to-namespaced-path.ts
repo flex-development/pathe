@@ -3,10 +3,10 @@
  * @module pathe/lib/toNamespacedPath
  */
 
-import { DOT } from '#src/internal/constants'
 import ensurePosix from '#src/internal/ensure-posix'
 import isDrivePath from '#src/internal/is-drive-path'
 import isUncPath from '#src/internal/is-unc-path'
+import { DOT, at, includes, isString } from '@flex-development/tutils'
 import isAbsolute from './is-absolute'
 import resolve from './resolve'
 import sep from './sep'
@@ -26,7 +26,7 @@ import sep from './sep'
  */
 const toNamespacedPath = (path: string): string => {
   // exit early if path is not a string
-  if (typeof path !== 'string' || !path) return path
+  if (!isString(path) || !path) return path
 
   // ensure path meets posix standards
   path = ensurePosix(path)
@@ -44,7 +44,7 @@ const toNamespacedPath = (path: string): string => {
   }
 
   // matched non-long unc root => convert the path to long unc path
-  if (isUncPath(resolved) && !['?', DOT].includes(resolved.charAt(2))) {
+  if (isUncPath(resolved) && !includes(['?', DOT], at(resolved, 2))) {
     return `${sep.repeat(2)}?${sep}UNC${sep}${resolved.slice(2)}`
   }
 

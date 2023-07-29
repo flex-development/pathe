@@ -4,8 +4,8 @@
  * @see https://github.com/nodejs/node/blob/main/test/parallel/test-path-join.js
  */
 
-import { DOT } from '#src/internal/constants'
 import sep from '#src/lib/sep'
+import { DOT } from '@flex-development/tutils'
 import { posix, win32 } from 'node:path'
 import testSubject from '../join'
 

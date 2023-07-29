@@ -4,7 +4,7 @@
  */
 
 import validateString from '#src/internal/validate-string'
-import type { Nullable } from '@flex-development/tutils'
+import { isNIL, regexp, trim, type Nilable } from '@flex-development/tutils'
 import formatExt from './format-ext'
 
 /**
@@ -23,22 +23,23 @@ import formatExt from './format-ext'
  *  removeExt('file.d.mts', '.mjs') // 'file.d.mts'
  *
  * @param {string} path - Path to evaluate
- * @param {Nullable<string>} [ext] - File extension to removed
+ * @param {Nilable<string>} [ext] - File extension to removed
  * @return {string} `path` unmodified or with `ext` removed
  * @throws {TypeError} If `path` is not a string or `ext` is not a string
  */
-const removeExt = (path: string, ext?: Nullable<string>): string => {
+const removeExt = (path: string, ext?: Nilable<string>): string => {
   validateString(path, 'path')
 
   // exit early if extension isn't provided
-  if (ext === null || ext === undefined) return path
+  if (isNIL(ext)) return path
+
   // validate file extension
-  else validateString(ext, 'ext')
+  validateString(ext, 'ext')
 
   // exit early if extension is empty string
-  if (!ext.trim()) return path
+  if (!trim(ext)) return path
 
-  return path.replace(new RegExp(`\\${formatExt(ext)}$`), '')
+  return path.replace(new RegExp(`${regexp(formatExt(ext))}$`), '')
 }
 
 export default removeExt
