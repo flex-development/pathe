@@ -5,7 +5,7 @@
  */
 
 import sep from '#src/lib/sep'
-import { DOT } from '@flex-development/tutils'
+import { DOT, set } from '@flex-development/tutils'
 import { posix, win32 } from 'node:path'
 import testSubject from '../resolve'
 
@@ -50,10 +50,8 @@ describe('unit:lib/resolve', () => {
 
   describe('windows', () => {
     beforeAll(() => {
-      Object.assign(process.env, {
-        '=P:': 'P:' + process.cwd(),
-        '=Z:': 'A:' + process.cwd()
-      })
+      set(process.env, '=Q:', 'Q:' + process.cwd())
+      set(process.env, '=Z:', 'A:' + process.cwd())
     })
 
     /**
@@ -85,8 +83,8 @@ describe('unit:lib/resolve', () => {
         ['C:\\Windows\\path\\only', '..\\..\\reports'],
         ['C:\\foo\\bar', '.\\baz'],
         ['C:\\foo\\tmp.3\\', '..\\tmp.3\\cycles\\root.js'],
-        ['P:'],
-        ['P:\\'],
+        ['Q:'],
+        ['Q:\\'],
         ['Z:'],
         ['Z:\\'],
         ['\\\\host\\share\\dir\\file.txt'],

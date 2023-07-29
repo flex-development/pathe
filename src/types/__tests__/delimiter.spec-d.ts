@@ -6,7 +6,7 @@
 import type TestSubject from '../delimiter'
 
 describe('unit-d:types/Delimiter', () => {
-  it('should extract posix path delimiter', () => {
-    expectTypeOf<TestSubject>().extract<':'>().toBeString()
+  it('should equal ":"', () => {
+    expectTypeOf<TestSubject>().toEqualTypeOf<':'>()
   })
 })

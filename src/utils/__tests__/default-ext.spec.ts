@@ -3,6 +3,7 @@
  * @module pathe/utils/tests/unit/defaultExt
  */
 
+import { cast } from '@flex-development/tutils'
 import testSubject from '../default-ext'
 
 describe('unit:utils/defaultExt', () => {
@@ -13,7 +14,7 @@ describe('unit:utils/defaultExt', () => {
       ['file.', '.mjs', [], 'file.mjs'],
       ['file.d', 'mts', ['.d'], 'file.d.mts'],
       ['file.min', 'mjs', ['.min'], 'file.min.mjs'],
-      ['file.min', '.mjs', [null, '.min'] as string[], 'file.min.mjs']
+      ['file.min', '.mjs', cast([null, '.min']), 'file.min.mjs']
     ]
 
     // Act + Expect

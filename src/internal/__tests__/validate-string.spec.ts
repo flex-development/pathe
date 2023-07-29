@@ -4,6 +4,7 @@
  */
 
 import { ErrorCode, type NodeError } from '@flex-development/errnode'
+import { cast } from '@flex-development/tutils'
 import testSubject from '../validate-string'
 
 describe('unit:internal/validateString', () => {
@@ -13,24 +14,28 @@ describe('unit:internal/validateString', () => {
     name = 'path'
   })
 
-  it('should return value if value is typeof string', () => {
-    expect(testSubject(faker.datatype.string(13), name)).to.be.a('string')
+  it('should return value if value is a string', () => {
+    // Arrange
+    const value: string = faker.system.filePath()
+
+    // Act + Expect
+    expect(testSubject(value, name)).to.equal(value)
   })
 
-  it('should throw if value is not typeof string', () => {
+  it('should throw if value is not a string', () => {
     // Arrange
-    const code: ErrorCode = ErrorCode.ERR_INVALID_ARG_TYPE
-    let error: NodeError<TypeError>
+    let error!: NodeError<TypeError>
 
     // Act
     try {
       testSubject(null, name)
     } catch (e: unknown) {
-      error = e as typeof error
+      error = cast(e)
     }
 
     // Expect
-    expect(error!).to.be.instanceof(TypeError)
-    expect(error!).to.have.property('code').equal(code)
+    expect(error)
+      .to.be.instanceof(TypeError)
+      .with.property('code', ErrorCode.ERR_INVALID_ARG_TYPE)
   })
 })

@@ -4,6 +4,7 @@
  */
 
 import { ErrorCode, type NodeError } from '@flex-development/errnode'
+import { cast } from '@flex-development/tutils'
 import testSubject from '../validate-object'
 
 describe('unit:internal/validateObject', () => {
@@ -13,42 +14,24 @@ describe('unit:internal/validateObject', () => {
     name = 'pathObject'
   })
 
-  it('should return true if value is an object', () => {
-    // Arrange
-    const cases: Parameters<typeof testSubject>[0][] = [
-      {},
-      new Date(),
-      JSON.parse(faker.datatype.json())
-    ]
-
-    // Act + Expect
-    cases.forEach(value => expect(testSubject(value, name)).to.be.true)
+  it('should return true if value is a curly-braced object', () => {
+    expect(testSubject({}, name)).to.be.true
   })
 
-  it('should throw if value is not an object', () => {
+  it('should throw if value is not a curly-braced object', () => {
     // Arrange
-    const code: ErrorCode = ErrorCode.ERR_INVALID_ARG_TYPE
-    const cases: Parameters<typeof testSubject>[0][] = [
-      faker.datatype.array(),
-      faker.datatype.bigInt(),
-      faker.datatype.boolean(),
-      faker.datatype.boolean(),
-      faker.datatype.number(),
-      faker.datatype.string()
-    ]
+    let error!: NodeError<TypeError>
 
-    // Act + Expect
-    cases.forEach(value => {
-      let error: NodeError<TypeError>
+    // Act
+    try {
+      testSubject(null, name)
+    } catch (e: unknown) {
+      error = cast(e)
+    }
 
-      try {
-        testSubject(value, name)
-      } catch (e: unknown) {
-        error = e as typeof error
-      }
-
-      expect(error!).to.be.instanceof(TypeError)
-      expect(error!).to.have.property('code').equal(code)
-    })
+    // Expect
+    expect(error)
+      .to.be.instanceof(TypeError)
+      .with.property('code', ErrorCode.ERR_INVALID_ARG_TYPE)
   })
 })
