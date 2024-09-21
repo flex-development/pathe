@@ -3,24 +3,33 @@
  * @module pathe/internal/validateObject
  */
 
-import { ERR_INVALID_ARG_TYPE } from '@flex-development/errnode'
-import { isObjectCurly } from '@flex-development/tutils'
+import {
+  ERR_INVALID_ARG_TYPE,
+  type ErrInvalidArgType
+} from '@flex-development/errnode'
 
 /**
- * Checks if `value` is a curly-braced object.
- *
- * @see {@linkcode isObjectCurly}
+ * Check if `value` is a curly-braced object.
  *
  * @internal
  *
- * @param {unknown} value - Value provided by user
- * @param {string} name - Name of invalid argument
- * @return {boolean} `true` if `value` is an object
- * @throws {TypeError} If `value` is not an object
+ * @template {Record<string, unknown>} T - Object type
+ *
+ * @param {unknown} value
+ *  Value to check
+ * @param {string} name
+ *  Name of invalid argument or property
+ * @return {value is T}
+ *  `true` if `value` is curly-braced object, `false` otherwise
+ * @throws {ErrInvalidArgType}
+ *  If `value` is not curly-braced object
  */
-const validateObject = (value: unknown, name: string): boolean => {
-  if (isObjectCurly(value)) return true
-  throw new ERR_INVALID_ARG_TYPE(name, 'object', value)
+function validateObject<T extends Record<string, unknown>>(
+  value: unknown,
+  name: string
+): value is T {
+  if (typeof value === 'object' && !Array.isArray(value) && value) return true
+  throw new ERR_INVALID_ARG_TYPE(name, 'Object', value)
 }
 
 export default validateObject

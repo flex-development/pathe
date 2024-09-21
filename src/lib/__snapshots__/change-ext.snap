@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unit:lib/changeExt > should return \`path\` with changed extension ("change-ext", "mjs") 1`] = `"change-ext.mjs"`;
+
+exports[`unit:lib/changeExt > should return \`path\` with changed extension ("change-ext.", ".mjs") 1`] = `"change-ext.mjs"`;
+
+exports[`unit:lib/changeExt > should return \`path\` with changed extension ("change-ext.min.cjs", ".mjs") 1`] = `"change-ext.min.mjs"`;
+
+exports[`unit:lib/changeExt > should return \`path\` with changed extension ("change-ext.mjs", "") 1`] = `"change-ext"`;
+
+exports[`unit:lib/changeExt > should return \`path\` with changed extension ("change-ext.mjs", null) 1`] = `"change-ext"`;
+
+exports[`unit:lib/changeExt > should return \`path\` with changed extension ("change-ext.mts", "d.mts") 1`] = `"change-ext.d.mts"`;

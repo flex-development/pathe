@@ -83,15 +83,11 @@ coverage:
         threshold: 0%
 
 flags:
-  node19:
+  node22:
     carryforward: false
     paths:
       - src/
-  node18:
-    carryforward: false
-    paths:
-      - src/
-  node16:
+  node20:
     carryforward: false
     paths:
       - src/
@@ -103,11 +99,11 @@ ignore:
   - '**/__mocks__/**'
   - '**/__tests__/**'
   - '**/index.ts'
+  - '!src/index.ts'
   - src/interfaces/
-  - src/pathe.ts
+  - src/internal/*.browser.ts
   - src/types/
 
 profiling:
   critical_files_paths:
     - src/lib/*.ts
-    - src/utils/*.ts

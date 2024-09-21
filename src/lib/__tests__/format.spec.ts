@@ -1,26 +1,18 @@
 /**
  * @file Unit Tests - format
  * @module pathe/lib/tests/unit/format
- * @see https://github.com/nodejs/node/blob/main/test/parallel/test-path-parse-format.js
+ * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-parse-format.js
  */
 
-import sep from '#src/lib/sep'
 import { posix, win32 } from 'node:path'
 import testSubject from '../format'
+import toPosix from '../to-posix'
 
 describe('unit:lib/format', () => {
-  /**
-   * Converts Windows-style path separators (`\`) to POSIX (`/`).
-   *
-   * @param {string} path - Path to normalize
-   * @return {string} `path` normalized
-   */
-  const ensurePosix = (path: string): string => path.replace(/\\/g, sep)
-
-  it('should return path string from object', () => {
-    // Arrange
-    const cases: Parameters<typeof testSubject>[] = [
+  describe('posix', () => {
+    it.each<Parameters<typeof testSubject>>([
       [{}],
+      [null],
       [{ root: '/' }],
       [{ dir: 'some/dir' }],
       [{ base: 'index.html' }],
@@ -29,31 +21,27 @@ describe('unit:lib/format', () => {
       [{ ext: '.html', name: 'index', root: '/' }],
       [{ dir: 'some/dir', ext: '.html', name: 'index' }],
       [{ base: '', dir: 'lib', ext: '.mjs', name: 'index', root: '' }]
-    ]
-
-    // Act + Expect
-    cases.forEach(([obj]) => {
-      expect(testSubject(obj)).to.equal(posix.format(obj))
+    ])('should return string string (%#)', pathObject => {
+      // @ts-expect-error ts(2345)
+      expect(testSubject(pathObject)).to.eq(posix.format({ ...pathObject }))
     })
   })
 
   describe('windows', () => {
-    it('should return path string from object', () => {
-      // Arrange
-      const cases: Parameters<typeof testSubject>[] = [
-        [{}],
-        [{ root: 'C:\\' }],
-        [{ dir: 'some\\dir' }],
-        [{ base: 'index.html' }],
-        [{ ext: '.html', name: 'index' }],
-        [{ ext: '.html', name: 'index', root: 'C:\\' }],
-        [{ dir: 'some\\dir', ext: '.html', name: 'index' }]
-      ]
-
-      // Act + Expect
-      cases.forEach(([obj]) => {
-        expect(testSubject(obj)).to.equal(ensurePosix(win32.format(obj)))
-      })
+    it.each<Parameters<typeof testSubject>>([
+      [{}],
+      [null],
+      [{ root: 'C:\\' }],
+      [{ dir: 'some\\dir' }],
+      [{ base: 'index.html' }],
+      [{ ext: '.html', name: 'index' }],
+      [{ ext: '.html', name: 'index', root: 'C:\\' }],
+      [{ dir: 'some\\dir', ext: '.html', name: 'index' }]
+    ])('should return string string (%#)', pathObject => {
+      // @ts-expect-error ts(2345)
+      expect(testSubject(pathObject)).to.eq(toPosix(win32.format({
+        ...pathObject
+      })))
     })
   })
 })

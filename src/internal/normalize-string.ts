@@ -3,61 +3,41 @@
  * @module pathe/internal/normalizeString
  */
 
-import isAbsolute from '#src/lib/is-absolute'
-import sep from '#src/lib/sep'
-import {
-  DOT,
-  at,
-  ifelse,
-  includes,
-  isEmptyString,
-  trim,
-  type Optional
-} from '@flex-development/tutils'
-import ensurePosix from './ensure-posix'
-import isSep from './is-sep'
+import dot from '#lib/dot'
+import isSep from '#lib/is-sep'
+import sep from '#lib/sep'
+import toPosix from '#lib/to-posix'
 import validateString from './validate-string'
 
 /**
- * Normalizes a path.
+ * Normalize `path`.
  *
  * This includes:
  *
  * - Enforcing POSIX standards
  * - Resolving `'.'` (current directory) and `'..'` (parent directory) segments
- * - Deduplicating [separators][1]. Leading and trailing separators are **not**
+ * - Deduplicating separators. Leading and trailing separators are **not**
  *   preserved
- *
- * [1]: {@link ../lib/sep.ts}
  *
  * @internal
  *
- * @param {string} path - Path to normalize
- * @param {boolean} [allow_above_root=!isAbsolute(path)] - Normalize past root
- * @return {string} Normalized `path`
- * @throws {TypeError} If `path` is not a string
+ * @param {string} path
+ *  Path to normalize
+ * @param {boolean} allowAboveRoot
+ *  Normalize past root
+ * @return {string}
+ *  Normalized `path`
  */
-const normalizeString = (
-  path: string,
-  allow_above_root: boolean = !isAbsolute(path)
-): string => {
+function normalizeString(path: string, allowAboveRoot: boolean): string {
   validateString(path, 'path')
-
-  // exit early if path is empty string
-  if (isEmptyString(trim(path))) return path
-
-  // ensure path meets posix standards
-  path = ensurePosix(path)
-
-  // exit early if path does not contain dot characters or separators
-  if (!includes(path, DOT) && !includes(path, sep)) return path
+  path = toPosix(path)
 
   /**
-   * Current character in {@link path} being processed.
+   * Current character in {@link path}.
    *
-   * @var {Optional<string>} char
+   * @var {string | undefined} char
    */
-  let char: Optional<string>
+  let char: string | undefined
 
   /**
    * Total number of `.` (dot) characters in current path segment.
@@ -74,99 +54,82 @@ const normalizeString = (
   let res: string = ''
 
   /**
-   * Last path segment length.
+   * Length of last seen path segment.
    *
-   * @var {number} seglen
+   * @var {number} lastSegmentLength
    */
-  let seglen: number = 0
+  let lastSegmentLength: number = 0
 
   /**
-   * Last path separator index.
+   * Index of last seen path separator.
    *
-   * @var {number} sepidx
+   * @var {number} lastSlash
    */
-  let sepidx: number = -1
+  let lastSlash: number = -1
 
-  // normalize
   for (let i = 0; i <= path.length; ++i) {
-    // set current character if current index is in bounds
-    if (i < path.length) char = at(path, i)
-    // exit if trailing separator has been reached
+    if (i < path.length) char = path[i]
     else if (isSep(char)) break
-    // add trailing separator
     else char = sep
 
-    // start or end segment
     if (isSep(char)) {
-      if (sepidx === i - 1 || dots === 1) {
-        // noop: leading or duplicate separator, or segment with 1 dot character
+      if (lastSlash === i - 1 || dots === 1) {
+        // noop
       } else if (dots === 2) {
-        // resolve ".." segment
-        if (res.length < 2 || seglen !== 2 || !/(?:\..$)|(?:\.$)/.test(res)) {
+        if (
+          res.length < 2 ||
+          lastSegmentLength !== 2 ||
+          !/(?:\..$)|(?:\.$)/.test(res)
+        ) {
           if (res.length > 2) {
             /**
              * Index of last path separator in {@linkcode res}.
              *
-             * @const {number} sepidx_res
+             * @const {number} sepIdxRet
              */
-            const sepidx_res: number = res.lastIndexOf(sep)
+            const sepIdxRet: number = res.lastIndexOf(sep)
 
-            // reset result and last segment length if sep was not found in res
-            if (sepidx_res === -1) {
+            if (sepIdxRet === -1) {
               res = ''
-              seglen = 0
+              lastSegmentLength = 0
             } else {
-              // end result at index of last separator
-              res = res.slice(0, sepidx_res)
-
-              // reset last segment length
-              seglen = res.length - 1 - res.lastIndexOf(sep)
+              res = res.slice(0, sepIdxRet)
+              lastSegmentLength = res.length - 1 - res.lastIndexOf(sep)
             }
 
-            // set last seperator index and reset dot character count
-            sepidx = i
+            lastSlash = i
             dots = 0
 
             continue
           } else if (res.length > 0) {
-            // set last seperator index
-            sepidx = i
-
-            // reset dot character count, result, and last segment length
-            dots = 0
             res = ''
-            seglen = 0
+            lastSlash = i
+            lastSegmentLength = 0
+            dots = 0
 
             continue
           }
         }
 
-        // resolve past root
-        if (allow_above_root) {
-          res += `${ifelse(!res, '', sep)}${DOT.repeat(2)}`
-          seglen = 2
+        if (allowAboveRoot) {
+          res += `${!res ? '' : sep}${dot.repeat(2)}`
+          lastSegmentLength = 2
         }
       } else {
         if (res.length > 0) {
-          // add segment
-          res += `${sep}${path.slice(sepidx + 1, i)}`
+          res += `${sep}${path.slice(lastSlash + 1, i)}`
         } else {
-          // reset result to segment
-          res = path.slice(sepidx + 1, i)
+          res = path.slice(lastSlash + 1, i)
         }
 
-        // reset last segment length
-        seglen = i - sepidx - 1
+        lastSegmentLength = i - lastSlash - 1
       }
 
-      // set last seperator index and reset dot character count
-      sepidx = i
+      lastSlash = i
       dots = 0
-    } else if (char === DOT && dots !== -1) {
-      // encountered segment that is reference to parent directory ("..")
+    } else if (char === dot && dots !== -1) {
       ++dots
     } else {
-      // iterated over segment
       dots = -1
     }
   }

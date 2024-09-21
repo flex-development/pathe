@@ -3,13 +3,18 @@
  * @module pathe/lib/delimiter
  */
 
-import type { Delimiter } from '#src/types'
+import type { PosixDelimiter } from '@flex-development/pathe'
 
 /**
- * Path delimiter.
+ * POSIX path delimiter.
  *
- * @const {Delimiter} delimiter
+ * @see {@linkcode PosixDelimiter}
+ *
+ * @category
+ *  core
+ *
+ * @const {PosixDelimiter} delimiter
  */
-const delimiter: Delimiter = ':'
+const delimiter: PosixDelimiter = ':'
 
 export default delimiter

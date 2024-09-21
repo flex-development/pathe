@@ -3,64 +3,107 @@
  * @module pathe/lib/parse
  */
 
-import type { ParsedPath } from '#src/interfaces'
-import { DRIVE_PATH_REGEX, UNC_PATH_REGEX } from '#src/internal/constants'
-import ensurePosix from '#src/internal/ensure-posix'
-import isDrivePath from '#src/internal/is-drive-path'
-import isUncPath from '#src/internal/is-unc-path'
-import validateString from '#src/internal/validate-string'
-import removeExt from '#src/utils/remove-ext'
-import { at, isEmptyString } from '@flex-development/tutils'
-import basename from './basename'
-import dirname from './dirname'
+import { DRIVE_PATH_REGEX } from '#internal/constants'
+import validateString from '#internal/validate-string'
+import type { ParsedPath } from '@flex-development/pathe'
 import extname from './extname'
-import isAbsolute from './is-absolute'
-import sep from './sep'
+import isDeviceRoot from './is-device-root'
+import isSep from './is-sep'
+import removeExt from './remove-ext'
+import root from './root'
+import toPosix from './to-posix'
 
 /**
- * Returns an object whose properties represent significant elements of the
- * given `path`. Trailing [directory separators][1] are ignored.
+ * Create an object whose properties represent significant elements of `path`.
+ * Trailing directory separators are ignored.
  *
- * **Note**: `parse(path).dir === dirname(path)` when `path` is a non-empty
- * string. This is stark contrast to `node:path`. See [`nodejs/node#18655`][2]
- * for details.
+ * @see {@linkcode ParsedPath}
  *
- * [1]: {@link ./sep.ts}
- * [2]: https://github.com/nodejs/node/issues/18655
+ * @category
+ *  core
  *
- * @param {string} path - Path to evaluate
- * @return {ParsedPath} Object representing significant elements of `path`
- * @throws {TypeError} If `path` is not a string
+ * @param {string} path
+ *  Path to handle
+ * @return {ParsedPath}
+ *  Significant elements of `path`
  */
-const parse = (path: string): ParsedPath => {
+function parse(path: string): ParsedPath {
   validateString(path, 'path')
 
-  // ensure path meets posix standards
-  path = ensurePosix(path)
-
   /**
-   * Parsed path object.
+   * Significant elements of {@linkcode path}.
    *
-   * @const {ParsedPath} ret
+   * @const {ParsedPath} parsed
    */
-  const ret: ParsedPath = { base: '', dir: '', ext: '', name: '', root: '' }
+  const parsed: ParsedPath = { base: '', dir: '', ext: '', name: '', root: '' }
 
-  // exit early if path is empty string
-  if (isEmptyString(path)) return ret
+  if (path.length) {
+    path = toPosix(path)
 
-  ret.base = basename(path)
-  ret.dir = dirname(path)
-  ret.ext = extname(path)
-  ret.name = removeExt(ret.base, ret.ext)
-  ret.root = isUncPath(path)
-    ? at(UNC_PATH_REGEX.exec(path)!, 1)
-    : isDrivePath(path)
-    ? at(DRIVE_PATH_REGEX.exec(path)!, 1)
-    : isAbsolute(path)
-    ? sep
-    : ret.root
+    if (
+      isSep(path) ||
+      isDeviceRoot(path) ||
+      path.length === 2 && DRIVE_PATH_REGEX.test(path)
+    ) {
+      parsed.root = parsed.dir = path
+    } else if (path.length === 1) {
+      parsed.base = parsed.name = path
+    } else {
+      parsed.root = root(path)
 
-  return ret
+      /**
+       * End index of {@linkcode parsed.base}.
+       *
+       * @var {number} endBase
+       */
+      let endBase: number = -1
+
+      /**
+       * Start index of {@linkcode parsed.base}.
+       *
+       * @var {number} startBase
+       */
+      let startBase: number = parsed.root.length
+
+      /**
+       * Boolean indicating a path separator was seen.
+       *
+       * @var {boolean} separator
+       */
+      let separator: boolean = true
+
+      // get non-dir info
+      for (let i = path.length - 1; i >= parsed.root.length; --i) {
+        if (isSep(path[i])) {
+          // reached a path separator that was not part of a set of path
+          // separators at the end of the string
+          if (!separator) {
+            startBase = i + 1
+            break
+          }
+
+          continue
+        }
+
+        if (endBase === -1) {
+          separator = false
+          endBase = i + 1
+        }
+      }
+
+      if (endBase !== -1) {
+        parsed.base = path.slice(startBase, endBase)
+        parsed.ext = extname(path)
+        parsed.name = removeExt(parsed.base, parsed.ext)
+      }
+
+      parsed.dir = startBase && startBase !== parsed.root.length
+        ? path.slice(0, startBase - 1)
+        : parsed.root
+    }
+  }
+
+  return parsed
 }
 
 export default parse

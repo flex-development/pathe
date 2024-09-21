@@ -3,10 +3,17 @@
  * @module pathe/interfaces/PlatformPath
  */
 
-import type { Delimiter, Ext, Sep } from '#src/types'
-import type { EmptyString } from '@flex-development/tutils'
+import type dot from '#lib/dot'
+import type resolveWith from '#lib/resolve-with'
+import type {
+  Cwd,
+  Delimiter,
+  EmptyString,
+  Ext,
+  Sep
+} from '@flex-development/pathe'
+import type FormatInputPathObject from './format-input-path-object'
 import type ParsedPath from './parsed-path'
-import type FormatInputPathObject from './path-object'
 
 /**
  * Utilities for working with file and directory paths.
@@ -14,6 +21,8 @@ import type FormatInputPathObject from './path-object'
 interface PlatformPath {
   /**
    * Path delimiter.
+   *
+   * @see {@linkcode Delimiter}
    *
    * @readonly
    */
@@ -29,7 +38,7 @@ interface PlatformPath {
   /**
    * Path segment separator.
    *
-   * Also known as a "directory separator".
+   * @see {@linkcode Sep}
    *
    * @readonly
    */
@@ -43,198 +52,223 @@ interface PlatformPath {
   readonly win32: PlatformPath
 
   /**
-   * Returns the last portion of a `path`, similar to the Unix `basename`
-   * command.
+   * Get the last portion of `path`, similar to the Unix `basename` command.
    *
-   * Trailing [directory separators][1] are ignored.
+   * Trailing [directory separators][sep] are ignored.
    *
-   * [1]: https://nodejs.org/api/path.html#pathsep
+   * [sep]: https://nodejs.org/api/path.html#pathsep
    *
-   * @param {string} path - Path to evaluate
-   * @param {string} [suffix] - Suffix to remove from result
-   * @return {string} Last portion of `path`
-   * @throws {TypeError} If `path` is not a string or `suffix` is not a string
+   * @param {string} path
+   *  Path to handle
+   * @param {string | null | undefined} [suffix]
+   *  Suffix to remove
+   * @return {string}
+   *  Last portion of `path` or empty string
    */
-  basename(path: string, suffix?: string): string
+  basename(this: void, path: string, suffix?: string | null | undefined): string
 
   /**
-   * Returns the directory name of a `path`, similar to the Unix `dirname`
-   * command.
+   * Get the directory name of `path`, similar to the Unix `dirname` command.
    *
-   * Trailing [directory separators][1] are ignored.
+   * Trailing [directory separators][sep] are ignored.
    *
-   * [1]: https://nodejs.org/api/path.html#pathsep
+   * [sep]: https://nodejs.org/api/path.html#pathsep
    *
-   * @param {string} path - Path to evaluate
-   * @return {string} Directory name of `path`
-   * @throws {TypeError} If `path` is not a string
+   * @param {string} path
+   *  Path to handle
+   * @return {string}
+   *  Directory name of `path`
    */
-  dirname(path: string): string
+  dirname(this: void, path: string): string
 
   /**
-   * Returns the extension of a `path`, from the last occurrence of the `.`
-   * (dot) character to end of the string in the last portion of the path.
+   * Get the file extension of `path` from the last occurrence of the `.` (dot)
+   * character (`.`) to end of the string in the last portion of `path`.
    *
-   * If there is no `.` in the last portion of `path`, or if there are no  `.`
-   * characters other than the first character of the path's [`basename`][1], an
-   * empty string will be returned.
+   * If there is no `.` in the last portion of `path`, or if there are no `.`
+   * characters other than the first character of the {@linkcode basename} of
+   * `path`, an empty string is returned.
    *
-   * [1]: {@link ../lib/basename.ts}
+   * @see {@linkcode EmptyString}
+   * @see {@linkcode Ext}
    *
-   * @param {string} path - Path to evaluate
-   * @return {EmptyString | Ext} Extension of `path` or empty string
-   * @throws {TypeError} If `path` is not a string
+   * @param {string} path
+   *  Path to handle
+   * @return {EmptyString | Ext}
+   *  Extension of `path` or empty string
    */
-  extname(path: string): EmptyString | Ext
+  extname(this: void, path: string): EmptyString | Ext
 
   /**
-   * Returns a path string from an object &mdash; the opposite of
-   * [`parse()`][1].
+   * Get a path string from an object.
+   *
+   * This is the opposite of {@linkcode parse}.
    *
    * When adding properties to `pathObject`, there are combinations where one
    * property has priority over another:
    *
    * - `pathObject.root` is ignored if `pathObject.dir` is provided
-   * - `pathObject.ext` is ignored if `pathObject.base` exists
-   * - `pathObject.name` is ignored if `pathObject.base` exists
+   * - `pathObject.ext` and `pathObject.name` are ignored if `pathObject.base`
+   *   exists
    *
-   * [1]: {@link ../lib/parse.ts}
+   * @see {@linkcode FormatInputPathObject}
    *
-   * @param {FormatInputPathObject} pathObject - Object to evaluate
-   * @param {string} [pathObject.base] - File name including extension (if any)
-   * @param {string} [pathObject.dir] - Directory name or full directory path
-   * @param {string} [pathObject.ext] - File extension (if any)
-   * @param {string} [pathObject.name] - File name without extension (if any)
-   * @param {string} [pathObject.root] - Root of path
-   * @return {string} Path string
-   * @throws {TypeError} If `pathObject` is not an object
+   * @param {FormatInputPathObject | null | undefined} pathObject
+   *  Path object to handle
+   * @param {string | null | undefined} [pathObject.base]
+   *  File name including extension (if any)
+   * @param {string | null | undefined} [pathObject.dir]
+   *  Directory name or full directory path
+   * @param {string | null | undefined} [pathObject.ext]
+   *  File extension (if any)
+   * @param {string | null | undefined} [pathObject.name]
+   *  File name without extension (if any)
+   * @param {string | null | undefined} [pathObject.root]
+   *  Root of path
+   * @return {string}
+   *  Path string
    */
-  format(pathObject: FormatInputPathObject): string
+  format(
+    this: void,
+    pathObject: FormatInputPathObject | null | undefined
+  ): string
 
   /**
-   * Determines if `path` is an absolute path.
+   * Determine if `path` is absolute.
    *
-   * If the given `path` is a zero-length string, `false` will be returned.
-   *
-   * @param {string} path - Path to evaluate
-   * @return {boolean} `true` if `path` is absolute, `false` otherwise
-   * @throws {TypeError} If `path` is not a string
+   * @param {string} path
+   *  Path to check
+   * @return {boolean}
+   *  `true` if `path` is absolute, `false` otherwise
    */
-  isAbsolute(path: string): boolean
+  isAbsolute(this: void, path: string): boolean
 
   /**
-   * Joins all given `path` segments together using a [path separator][1] as the
-   * delimiter, then normalizes the resulting path.
+   * Join all path segments in `paths` using {@linkcode sep} as the delimiter
+   * and normalize the result.
    *
-   * Zero-length `path` segments are ignored. If the joined path string is a
-   * zero-length string then `'.'` will be returned, representing the current
-   * working directory.
+   * Zero-length path segments are ignored.
+   * If the joined path string is a zero-length string, {@linkcode dot} is
+   * returned, representing the current working directory.
    *
-   * [1]: {@link ../lib/sep.ts}
-   *
-   * @param {string[]} paths - Path segment sequence
-   * @return {string} Path segment sequence, `paths`, as one path
-   * @throws {TypeError} If any segment in `paths` is not a string
+   * @param {string[]} paths
+   *  Path segment sequence
+   * @return {string}
+   *  Path segment sequence as one path
    */
-  join(...paths: string[]): string
+  join(this: void, ...paths: string[]): string
 
   /**
-   * Normalizes the given `path`, resolving `'..'` and `'.'` segments.
+   * Normalize `path`, resolving `'..'` and `'.'` segments.
    *
-   * When multiple, sequential path segment separation characters are found
-   * (e.g. `/` on POSIX and either `\\` or `/` on Windows), they are replaced by
-   * a single instance of a POSIX-compliant separator. Trailing separators are
+   * When multiple, sequential path segment separators are found, they are
+   * replaced by a single instance of {@linkcode sep}. Trailing separators are
    * preserved.
    *
-   * If the `path` is a zero-length string, `'.'` is returned, representing the
-   * current working directory.
+   * If `path` is a zero-length string, {@linkcode dot} is returned,
+   * representing the current working directory.
    *
-   * @param {string} path - Path to normalize
-   * @return {string} Normalized `path`
-   * @throws {TypeError} If `path` is not a string
+   * @param {string} path
+   *  Path to normalize
+   * @return {string}
+   *  Normalized `path`
    */
-  normalize(path: string): string
+  normalize(this: void, path: string): string
 
   /**
-   * Returns an object whose properties represent significant elements of the
-   * given `path`. Trailing directory [separators][1] are ignored.
+   * Create an object whose properties represent significant elements of `path`.
+   * Trailing directory separators are ignored.
    *
-   * **Note**: Unlike Node.js, `pathe.parse(path).dir === pathe.dirname(path)`
-   * when `path` is a non-empty string. See [`nodejs/node#18655`][3] for
-   * details.
+   * > 👉 **Note**: Like Node.js, when `path` does not have a base (i.e.
+   * > `'file.mjs'`), `parsedPath.dir` is **not** equivalent to `dirname(path)`.
+   * > See [`nodejs/node#18655`][18655] for details.
    *
-   * [1]: {@link ../lib/sep.ts}
-   * [2]: {@link ../lib/dirname.ts}
-   * [3]: https://github.com/nodejs/node/issues/18655
+   * [18655]: https://github.com/nodejs/node#18655
    *
-   * @param {string} path - Path to evaluate
-   * @return {ParsedPath} Object representing significant elements of `path`
-   * @throws {TypeError} If `path` is not a string
+   * @see {@linkcode ParsedPath}
+   *
+   * @param {string} path
+   *  Path to handle
+   * @return {ParsedPath}
+   *  Significant elements of `path`
    */
-  parse(path: string): ParsedPath
+  parse(this: void, path: string): ParsedPath
 
   /**
-   * Returns the relative path from `from` to `to` based on the current working
+   * Get the relative path from `from` to `to` based on the current working
    * directory.
    *
-   * If `from` and `to` resolve to the same path (after calling [`resolve`][1]
-   * on each), a zero-length string will be returned.
+   * If `from` and `to` resolve to the same path (after calling
+   * {@linkcode resolveWith} on each), a zero-length string is returned.
    *
    * If a zero-length string is passed as `from` or `to`, the current working
    * directory will be used instead of the zero-length strings.
    *
-   * [1]: {@link ../lib/resolve.ts}
+   * @see {@linkcode Cwd}
    *
-   * @param {string} from - Start path
-   * @param {string} to - Destination path
-   * @return {string} Relative path from `from` to `to`
-   * @throws {TypeError} If either `from` or `to` is not a string
+   * @param {string} from
+   *  Start path
+   * @param {string} to
+   *  Destination path
+   * @param {Cwd | null | undefined} [cwd]
+   *  Get the path to the current working directory
+   * @param {Partial<Record<string, string>> | null | undefined} [env]
+   *  Environment variables
+   * @return {string}
+   *  Relative path from `from` to `to`
    */
-  relative(from: string, to: string): string
+  relative(
+    this: void,
+    from: string,
+    to: string,
+    cwd?: Cwd | null | undefined,
+    env?: Partial<Record<string, string>> | null | undefined
+  ): string
 
   /**
-   * Resolves a sequence of paths or path segments into an absolute path.
+   * Resolve a sequence of paths or path segments into an absolute path.
    *
    * The given sequence of paths is processed from right to left, with each
-   * subsequent `path` prepended until an absolute path is constructed.
+   * subsequent path prepended until an absolute path is constructed.
    *
    * For instance, given the sequence of path segments: `/foo`, `/bar`, `baz`,
    * calling `pathe.resolve('/foo', '/bar', 'baz')` would return `/bar/baz`
-   * because `'baz'` is not an absolute path but `'/bar' + '/' + 'baz'` is.
+   * because `'baz'` is not an absolute path, but `'/bar' + '/' + 'baz'` is.
    *
    * If, after processing all given `path` segments, an absolute path has not
    * yet been generated, the current working directory is used.
    *
-   * The resulting path is normalized and trailing [separators][1] are removed
-   * unless the path is resolved to the root directory.
+   * The resulting path is normalized and trailing separators are removed unless
+   * the path is resolved to the root directory.
    *
    * Zero-length `path` segments are ignored.
    *
    * If no `path` segments are passed, the absolute path of the current working
-   * directory will be returned.
+   * directory is returned.
    *
-   * [1]: {@link ../lib/sep.ts}
-   *
-   * @param {string[]} paths - Path segment sequence
-   * @return {string} Path segment sequence, `paths`, as absolute path
-   * @throws {TypeError} If any segment in `paths` is not a string
+   * @param {string[]} paths
+   *  Sequence of paths or path segments
+   * @return {string}
+   *  Absolute path
    */
-  resolve(...paths: string[]): string
+  resolve(this: void, ...paths: string[]): string
 
   /**
-   * Returns an equivalent [namespace-prefixed path][1] for the given `path`.
+   * Get an equivalent [namespace-prefixed path][namespace] for `path`.
    *
-   * If `path` is not a [drive path][2] or [UNC path][3], `path` will be
-   * returned without modifications.
+   * > 👉 If `path` is not a [drive][drive] or [UNC][unc] path, it will be
+   * > returned without modifications.
    *
-   * [1]: https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#namespaces
-   * [2]: https://learn.microsoft.com/windows/win32/fileio/naming-a-file#naming-conventions
-   * [3]: https://learn.microsoft.com/dotnet/standard/io/file-path-formats#unc-paths
+   * [drive]: https://learn.microsoft.com/windows/win32/fileio/naming-a-file#naming-conventions
+   * [namespace]: https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file#namespaces
+   * [unc]: https://learn.microsoft.com/dotnet/standard/io/file-path-formats#unc-paths
    *
-   * @param {string} path - Path to evaluate
-   * @return {string} `path` without modification or as namespace-prefixed path
+   * @param {string} path
+   *  Path to handle
+   * @return {string}
+   *  Namespace-prefixed path or `path` without modifications
    */
-  toNamespacedPath(path: string): string
+  toNamespacedPath(this: void, path: string): string
 }
 
 export type { PlatformPath as default }

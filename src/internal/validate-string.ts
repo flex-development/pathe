@@ -3,21 +3,27 @@
  * @module pathe/internal/validateString
  */
 
-import { ERR_INVALID_ARG_TYPE } from '@flex-development/errnode'
-import { isString } from '@flex-development/tutils'
+import {
+  ERR_INVALID_ARG_TYPE,
+  type ErrInvalidArgType
+} from '@flex-development/errnode'
 
 /**
- * Checks if `value` is a string.
+ * Check if `value` is a string.
  *
  * @internal
  *
- * @param {unknown} value - Value provided by user
- * @param {string} name - Name of invalid argument
- * @return {string} `value` if `value` is a string
- * @throws {TypeError} If `value` is not an object
+ * @param {unknown} value
+ *  Value to check
+ * @param {string} name
+ *  Name of invalid argument or property
+ * @return {value is string}
+ *  `true` if `value` is a string, `false` otherwise
+ * @throws {ErrInvalidArgType}
+ *  If `value` is not a string
  */
-const validateString = (value: unknown, name: string): string => {
-  if (isString(value)) return value
+function validateString(value: unknown, name: string): value is string {
+  if (typeof value === 'string') return true
   throw new ERR_INVALID_ARG_TYPE(name, 'string', value)
 }
 

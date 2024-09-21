@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`e2e:pathe > should expose public api 1`] = `
+[
+  "addExt",
+  "basename",
+  "changeExt",
+  "cwd",
+  "delimiter",
+  "dirname",
+  "dot",
+  "extname",
+  "format",
+  "formatExt",
+  "isAbsolute",
+  "isDeviceRoot",
+  "isSep",
+  "join",
+  "normalize",
+  "parse",
+  "relative",
+  "removeExt",
+  "resolve",
+  "resolveWith",
+  "root",
+  "sep",
+  "toNamespacedPath",
+  "toPosix",
+  "default",
+  "posix",
+  "win32",
+]
+`;

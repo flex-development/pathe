@@ -3,83 +3,192 @@
  * @module pathe/interfaces/Pathe
  */
 
-import type { Ext } from '#src/types'
-import type { EmptyString, Nilable } from '@flex-development/tutils'
-import type PlatformPath from './platform-path'
+import type extname from '#lib/extname'
+import type {
+  Cwd,
+  DeviceRoot,
+  Dot,
+  EmptyString,
+  Ext,
+  Sep
+} from '@flex-development/pathe'
+import type PosixPlatformPath from './platform-path-posix'
 
 /**
  * Utilities for working with directory paths, file paths, and file extensions.
  *
- * @extends {PlatformPath}
+ * @see {@linkcode PosixPlatformPath}
+ *
+ * @extends {PosixPlatformPath}
  */
-interface Pathe extends PlatformPath {
+interface Pathe extends PosixPlatformPath {
   /**
-   * Appends a file extension to the given `path` if and only if the path does
-   * not already have that exact file extension.
+   * Append a file extension to `path`.
    *
-   * Does nothing if a file extension is not provided.
+   * Does nothing if a file extension is not provided, or the
+   * {@linkcode extname} of `path` is already `ext`.
    *
-   * @param {string} path - Path to evaluate
-   * @param {Nilable<string>} [ext] - File extension to add
-   * @return {string} `path` unmodified or with `ext` appended
-   * @throws {TypeError} If `path` is not a string or `ext` is not a string
+   * @param {string} path
+   *  Path to handle
+   * @param {string | null | undefined} ext
+   *  File extension to add
+   * @return {string}
+   *  `path` unmodified or with `ext` appended
    */
-  addExt(path: string, ext?: Nilable<string>): string
+  addExt(this: void, path: string, ext: string | null | undefined): string
 
   /**
-   * Changes the file extension of the given `path`.
+   * Change the file extension of `path`.
    *
-   * Does nothing if a file extension isn't provided. If the file extension is
-   * an empty string, however, `path`'s file extension will be removed.
+   * Does nothing if a file extension isn't provided.
+   * If the file extension is an empty string, however, `path`'s file extension
+   * will be removed.
    *
-   * @param {string} path - Path to evaluate
-   * @param {Nilable<string>} [ext] - New file extension
+   * @param {string} path
+   *  Path to handle
+   * @param {string | null | undefined} [ext]
+   *  File extension to add
    * @return {string} `path` unmodified or with changed file extension
    * @throws {TypeError} If `path` is not a string or `ext` is not a string
    */
-  changeExt(path: string, ext?: Nilable<string>): string
+  changeExt(this: void, path: string, ext?: string | null | undefined): string
 
   /**
-   * Appends a file extension to the given `path` if and only if the path does
-   * not already have an extension. Force adding an extension can be
-   * accomplished by passing an array of extensions to ignore.
+   * Get the path to the current working directory.
    *
-   * Does nothing if a file extension isn't provided.
-   *
-   * @param {string} path - Path to evaluate
-   * @param {Nilable<string>} [ext] - Default file extension
-   * @param {string[]} [ignore] - File extensions to ignore if found
-   * @return {string} `path` unmodified or with `ext` appended
-   * @throws {TypeError} If `path` is not a string or `ext` is not a string
+   * @return {string}
+   *  Absolute path to current working directory
    */
-  defaultExt(path: string, ext?: Nilable<string>, ignore?: string[]): string
+  cwd(this: void): string
 
   /**
-   * Formats a file extension.
+   * Dot character (`'.'`).
+   *
+   * @see {@linkcode Dot}
+   *
+   * @readonly
+   */
+  readonly dot: Dot
+
+  /**
+   * Format a file extension.
+   *
+   * @see {@linkcode EmptyString}
+   * @see {@linkcode Ext}
+   *
+   * @param {string | null | undefined} ext
+   *  File extension to format
+   * @return {EmptyString | Ext}
+   *  Formatted file extension or empty string
+   */
+  formatExt(this: void, ext: string | null | undefined): EmptyString | Ext
+
+  /**
+   * Check if `value` is a device root.
+   *
+   * @see {@linkcode DeviceRoot}
+   *
+   * @param {unknown} [value]
+   *  Value to check
+   * @return {value is DeviceRoot}
+   *  `true` if `value` is device root, `false` otherwise
+   */
+  isDeviceRoot(this: void, value: unknown): value is DeviceRoot
+
+  /**
+   * Check if `value` is a path segment separator.
+   *
+   * @see {@linkcode Sep}
+   *
+   * @param {unknown} [value]
+   *  Value to check
+   * @return {value is Sep}
+   *  `true` if `value` is path segment separator, `false` otherwise
+   */
+  isSep(this: void, value: unknown): value is Sep
+
+  /**
+   * Remove the file extension of `path`.
+   *
+   * Does nothing if `path` does not end with the provided file extension, or if
+   * a file extension is not provided.
+   *
+   * @param {string} path
+   *  Path to handle
+   * @param {string | null | undefined} ext
+   *  File extension to remove
+   * @return {string}
+   *  `path` unmodified or with `ext` removed
+   */
+  removeExt(this: void, path: string, ext: string | null | undefined): string
+
+  /**
+   * Resolve a sequence of paths or path segments into an absolute path.
+   *
+   * The given sequence of paths is processed from right to left, with each
+   * subsequent path prepended until an absolute path is constructed.
+   *
+   * For instance, given the sequence of path segments: `/foo`, `/bar`, `baz`,
+   * calling `pathe.resolve('/foo', '/bar', 'baz')` would return `/bar/baz`
+   * because `'baz'` is not an absolute path, but `'/bar' + '/' + 'baz'` is.
+   *
+   * If, after processing all given `path` segments, an absolute path has not
+   * yet been generated, the current working directory is used.
+   *
+   * The resulting path is normalized and trailing separators are removed unless
+   * the path is resolved to the root directory.
+   *
+   * Zero-length `path` segments are ignored.
+   *
+   * If no `path` segments are passed, the absolute path of the current working
+   * directory is returned.
+   *
+   * @see {@linkcode Cwd}
+   *
+   * @param {ReadonlyArray<string> | string} paths
+   *  Sequence of paths or path segments
+   * @param {Cwd | null | undefined} [cwd]
+   *  Get the path to the current working directory
+   * @param {Partial<Record<string, string>> | null | undefined} [env]
+   *  Environment variables
+   * @return {string}
+   *  Absolute path
+   */
+  resolveWith(
+    this: void,
+    paths: string | readonly string[],
+    cwd?: Cwd | null | undefined,
+    env?: Partial<Record<string, string>> | null | undefined
+  ): string
+
+  /**
+   * Get the root of `path`.
+   *
+   * @param {string} path
+   *  Path to handle
+   * @return {string}
+   *  Root of `path`
+   */
+  root(this: void, path: string): string
+
+  /**
+   * Make `path` POSIX-compliant.
    *
    * This includes:
    *
-   * - Prepending a `.` (dot) character if not already present
+   * - Converting Windows-style path delimiters (`;`) to POSIX (`:`)
+   * - Converting Windows-style path segment separators (`\`) to POSIX (`/`)
    *
-   * Does nothing if a file extension isn't provided.
+   * @see https://nodejs.org/api/path.html#windows-vs-posix
+   * @see https://nodejs.org/api/path.html#pathdelimiter
+   * @see https://nodejs.org/api/path.html#pathsep
    *
-   * @param {string} [ext=''] - File extension to format
-   * @return {EmptyString | Ext} Formatted file extension or empty string
+   * @param {string} path
+   *  Path to handle
+   * @return {string}
+   *  POSIX-compliant `path`
    */
-  formatExt(ext?: string): EmptyString | Ext
-
-  /**
-   * Removes a file extension from the given `path`.
-   *
-   * Does nothing if `path` does not end with the provided file extension, or if
-   * a file extension isn't provided.
-   *
-   * @param {string} path - Path to evaluate
-   * @param {Nilable<string>} [ext] - File extension to removed
-   * @return {string} `path` unmodified or with `ext` removed
-   * @throws {TypeError} If `path` is not a string or `ext` is not a string
-   */
-  removeExt(path: string, ext?: Nilable<string>): string
+  toPosix(this: void, path: string): string
 }
 
 export type { Pathe as default }

@@ -1,14 +1,16 @@
 {
-  "compilerOptions": {
-    "target": "es2022"
-  },
+  "exclude": ["**/coverage", "**/dist", "**/node_modules"],
   "extends": "./tsconfig.json",
+  "files": [
+    "src/internal/process.d.mts",
+    "typings/@faker-js/faker/global.d.ts",
+    "typings/@types/node/process.d.ts",
+    "vitest-env.d.ts"
+  ],
   "include": [
-    "**/**.cts",
-    "**/**.mts",
-    "**/**.ts",
-    "**/.*.cts",
-    "**/.*.mts",
-    "**/.*.ts"
+    "__fixtures__/**/**.ts",
+    "__tests__/**/**.ts",
+    "src/**/**.ts",
+    "src/**/.*.ts"
   ]
 }

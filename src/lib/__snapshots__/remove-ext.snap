@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unit:lib/removeExt > should return \`path\` with extension removed ("remove-ext.d.mts", ".d.mts") 1`] = `"remove-ext"`;
+
+exports[`unit:lib/removeExt > should return \`path\` with extension removed ("remove-ext.d.mts", "d.mts") 1`] = `"remove-ext"`;
+
+exports[`unit:lib/removeExt > should return \`path\` with extension removed ("remove-ext.mjs", ".mjs") 1`] = `"remove-ext"`;
+
+exports[`unit:lib/removeExt > should return \`path\` with extension removed ("remove-ext.mjs", "mjs") 1`] = `"remove-ext"`;
+
+exports[`unit:lib/removeExt > should return \`path\` with extension removed ("remove-ext.mts", ".mts") 1`] = `"remove-ext"`;
+
+exports[`unit:lib/removeExt > should return \`path\` with extension removed ("remove-ext.mts", "mts") 1`] = `"remove-ext"`;

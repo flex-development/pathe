@@ -1,166 +1,168 @@
 /**
- * @file Library - relative
+ * @file relative
  * @module pathe/lib/relative
  */
 
-import ensurePosix from '#src/internal/ensure-posix'
-import isSep from '#src/internal/is-sep'
-import validateString from '#src/internal/validate-string'
-import { DOT, at, ifelse, lowercase } from '@flex-development/tutils'
-import resolve from './resolve'
+import { DRIVE_PATH_REGEX } from '#internal/constants'
+import validateString from '#internal/validate-string'
+import type { Cwd } from '@flex-development/pathe'
+import dot from './dot'
+import isSep from './is-sep'
+import resolveWith from './resolve-with'
 import sep from './sep'
 
+export default relative
+
 /**
- * Returns the relative path from `from` to `to` based on the current working
+ * Get the relative path from `from` to `to` based on the current working
  * directory.
  *
- * If `from` and `to` resolve to the same path (after calling [`resolve`][1] on
- * each), a zero-length string will be returned.
+ * If `from` and `to` resolve to the same path (after calling
+ * {@linkcode resolveWith} on each), a zero-length string is returned.
  *
  * If a zero-length string is passed as `from` or `to`, the current working
  * directory will be used instead of the zero-length strings.
  *
- * [1]: {@link ./resolve.ts}
+ * @see {@linkcode Cwd}
  *
- * @param {string} from - Start path
- * @param {string} to - Destination path
- * @return {string} Relative path from `from` to `to`
- * @throws {TypeError} If either `from` or `to` is not a string
+ * @category
+ *  core
+ *
+ * @param {string} from
+ *  Start path
+ * @param {string} to
+ *  Destination path
+ * @param {Cwd | null | undefined} [cwd]
+ *  Get the path to the current working directory
+ * @param {Partial<Record<string, string>> | null | undefined} [env]
+ *  Environment variables
+ * @return {string}
+ *  Relative path from `from` to `to`
  */
-const relative = (from: string, to: string): string => {
+function relative(
+  from: string,
+  to: string,
+  cwd?: Cwd | null | undefined,
+  env?: Partial<Record<string, string>> | null | undefined
+): string {
   validateString(from, 'from')
   validateString(to, 'to')
 
-  // exit early if from and to are the same path
   if (from === to) return ''
 
-  // ensure paths meet posix standards + resolve paths
-  from = resolve((from = ensurePosix(from)))
-  to = resolve((to = ensurePosix(to)))
+  from = resolveWith(from, cwd, env)
+  to = resolveWith(to, cwd, env)
 
-  // exit early if from and to are the same resolved path
-  if (lowercase(from) === lowercase(to)) return ''
+  if (from.toLowerCase() === to.toLowerCase()) return ''
 
-  /**
-   * Measures the given `path`.
-   *
-   * The path will have leading and trailing separators removed. The function
-   * will return the length, start index, and end index of the trimmed path.
-   *
-   * @param {string} path - Path to measure
-   * @return {[number, number, number]} Length and indices of trimmed path
-   */
-  const measure = (path: string): [number, number, number] => {
-    /**
-     * Start index of trimmed path.
-     *
-     * @var {number} start
-     */
-    let start: number = 0
-
-    /**
-     * End index of trimmed path.
-     *
-     * @var {number} end
-     */
-    let end: number = path.length
-
-    // remove leading separators
-    while (start < path.length && isSep(at(path, start))) start++
-
-    // remove trailing separators
-    while (end - 1 > start && isSep(at(path, end - 1))) end--
-
-    return [end - start, start, end]
-  }
-
-  // measure paths
-  const [from_length, from_start, from_end] = measure(from)
-  const [to_length, to_start, to_end] = measure(to)
+  const [fromLen, fromStart, fromEnd] = measure(from)
+  const [toLen, toStart, toEnd] = measure(to)
 
   /**
-   * Length of longest common path from root.
+   * Length of shortest path.
    *
    * @const {number} length
    */
-  const length: number = from_length < to_length ? from_length : to_length
+  const length: number = fromLen < toLen ? fromLen : toLen
 
   /**
    * Index of last common separator.
    *
-   * @var {number} sepidx
+   * @var {number} lastCommonSep
    */
-  let sepidx: number = -1
+  let lastCommonSep: number = -1
 
   /**
-   * Current index.
+   * End index of longest common path from root.
    *
    * @var {number} i
    */
   let i: number = 0
 
-  // get index of last common separator
+  // compare paths to find the longest common path from root
   for (; i < length; i++) {
     /**
-     * Character at {@linkcode from_start} + {@linkcode i} in {@linkcode from}.
+     * Current character code in {@linkcode from}.
      *
      * @const {string} char
      */
-    const char: string = lowercase(at(from, from_start + i)!)
+    const char: string = from.at(fromStart + i)!
 
-    if (char !== lowercase(at(to, to_start + i)!)) break
-    else if (isSep(char)) sepidx = i
+    if (char.toLowerCase() !== to.at(toStart + i)!.toLowerCase()) break
+    else if (isSep(char)) lastCommonSep = i
   }
 
   if (i === length) {
-    // from is an exact base path, device root, or posix root
-    if (to_length > length) {
-      // from is an exact base path
-      if (isSep(at(to, to_start + i))) return to.slice(to_start + i + 1)
+    if (toLen > length) {
+      // `from` is the exact base path for `to`
+      if (isSep(to.at(toStart + i))) return to.slice(toStart + i + 1)
 
-      // from is a device root or posix root
-      if (i === 0 || i === 2) return to.slice(to_start + i)
+      // `from` is the root
+      if (i === 0 && isSep(from)) return to.slice(toStart + i)
     }
 
-    // to is an exact base path, device root, or posix root
-    if (from_length > length) {
-      // to is an exact base path
-      if (isSep(at(from, from_start + i))) sepidx = i
-      // to is a device root
-      /* c8 ignore next */ else if (i === 2) sepidx = 3
-      // to is posix root
-      else if (i === 0) sepidx = 0
+    if (fromLen > length) {
+      // `to` is the exact base path for `from`
+      if (isSep(from.at(fromStart + i))) lastCommonSep = i
+      // `to` is the root
+      else if (i === 0 && isSep(to)) lastCommonSep = i
     }
   } else {
     // mismatch before first common path separator was seen
-    if (sepidx === -1 && !(from.startsWith(sep) && to.startsWith(sep))) {
-      return to
+    if (lastCommonSep === -1) {
+      if (DRIVE_PATH_REGEX.test(from) || DRIVE_PATH_REGEX.test(to)) return to
     }
   }
 
   /**
-   * Index of relative path between {@linkcode from} and {@linkcode to}.
+   * Relative path.
    *
-   * @const {number} offset
+   * @var {string} out
    */
-  const offset: number = to_start + sepidx
+  let out: string = ''
 
-  /**
-   * Relative path between {@linkcode from} and {@linkcode to}.
-   *
-   * @var {string} rel
-   */
-  let rel: string = ''
-
-  // generate relative path based on path difference between to and from
-  for (i = from_start + sepidx + 1; i <= from_end; ++i) {
-    if (i === from_end || isSep(at(from, i))) {
-      rel += `${ifelse(rel, sep, '')}${DOT.repeat(2)}`
+  // generate relative path based on path difference between `to` and `from`
+  for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
+    if (i === fromEnd || isSep(from[i])) {
+      out += `${out.length === 0 ? '' : sep}${dot.repeat(2)}`
     }
   }
 
-  // append rest of destination path that comes after common path components
-  return rel + to.slice(offset, to_end)
+  // append rest of destination (`to`) path that comes after common path parts
+  return `${out}${to.slice(toStart + lastCommonSep, toEnd)}`
 }
 
-export default relative
+/**
+ * Measure `path`.
+ *
+ * @internal
+ *
+ * @param {string} path
+ *  Path to measure
+ * @return {[number, number, number]}
+ *  List containing distance between offsets of `path`, start offset of `path`,
+ *  and end offset of `path`
+ */
+function measure(path: string): [number, number, number] {
+  /**
+   * Start offset of {@linkcode path}.
+   *
+   * @var {number} start
+   */
+  let start: number = 0
+
+  /**
+   * End offset of {@linkcode path}.
+   *
+   * @var {number} end
+   */
+  let end: number = path.length
+
+  // remove leading separators
+  while (start < path.length && isSep(path.at(start))) start++
+
+  // remove trailing separators
+  while (end - 1 > start && isSep(path.at(end - 1))) end--
+
+  return [end - start, start, end]
+}

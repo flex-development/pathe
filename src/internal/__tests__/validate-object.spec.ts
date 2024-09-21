@@ -3,35 +3,33 @@
  * @module pathe/internal/tests/unit/validateObject
  */
 
-import { ErrorCode, type NodeError } from '@flex-development/errnode'
-import { cast } from '@flex-development/tutils'
+import { codes, type ErrInvalidArgType } from '@flex-development/errnode'
 import testSubject from '../validate-object'
 
 describe('unit:internal/validateObject', () => {
   let name: string
 
-  beforeEach(() => {
+  beforeAll(() => {
     name = 'pathObject'
   })
 
-  it('should return true if value is a curly-braced object', () => {
+  it('should return `true` if `value` is curly-braced object', () => {
     expect(testSubject({}, name)).to.be.true
   })
 
-  it('should throw if value is not a curly-braced object', () => {
+  it('should throw if `value` is not curly-braced object', () => {
     // Arrange
-    let error!: NodeError<TypeError>
+    let error!: ErrInvalidArgType
 
     // Act
     try {
-      testSubject(null, name)
+      testSubject(import.meta.url, name)
     } catch (e: unknown) {
-      error = cast(e)
+      error = <typeof error>e
     }
 
     // Expect
-    expect(error)
-      .to.be.instanceof(TypeError)
-      .with.property('code', ErrorCode.ERR_INVALID_ARG_TYPE)
+    expect(error).to.be.instanceof(TypeError)
+    expect(error).to.have.property('code', codes.ERR_INVALID_ARG_TYPE)
   })
 })

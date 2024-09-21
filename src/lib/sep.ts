@@ -3,15 +3,18 @@
  * @module pathe/lib/sep
  */
 
-import type { Sep } from '#src/types'
+import type { PosixSep } from '@flex-development/pathe'
 
 /**
- * Path segment separator.
+ * POSIX path segment separator.
  *
- * Also known as a "directory separator".
+ * @see {@linkcode PosixSep}
  *
- * @const {Sep} sep
+ * @category
+ *  core
+ *
+ * @const {PosixSep} sep
  */
-const sep: Sep = '/'
+const sep: PosixSep = '/'
 
 export default sep

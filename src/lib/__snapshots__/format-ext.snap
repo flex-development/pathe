@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unit:lib/formatExt > should return formatted file extension (" ") 1`] = `""`;
+
+exports[`unit:lib/formatExt > should return formatted file extension (" mjs") 1`] = `".mjs"`;
+
+exports[`unit:lib/formatExt > should return formatted file extension ("") 1`] = `""`;
+
+exports[`unit:lib/formatExt > should return formatted file extension (".ts ") 1`] = `".ts"`;
+
+exports[`unit:lib/formatExt > should return formatted file extension ("d.mts") 1`] = `".d.mts"`;
+
+exports[`unit:lib/formatExt > should return formatted file extension (null) 1`] = `""`;

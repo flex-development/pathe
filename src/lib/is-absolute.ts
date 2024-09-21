@@ -3,31 +3,33 @@
  * @module pathe/lib/isAbsolute
  */
 
-import ensurePosix from '#src/internal/ensure-posix'
-import isDrivePath from '#src/internal/is-drive-path'
-import isSep from '#src/internal/is-sep'
-import validateString from '#src/internal/validate-string'
-import { at, isEmptyString } from '@flex-development/tutils'
+import { DRIVE_PATH_REGEX } from '#internal/constants'
+import validateString from '#internal/validate-string'
+import isSep from './is-sep'
 
 /**
- * Determines if `path` is an absolute path.
+ * Determine if `path` is absolute.
  *
- * If the given `path` is a zero-length string, `false` will be returned.
+ * @example
+ *  isAbsolute('') // false
+ * @example
+ *  isAbsolute('../') // false
+ * @example
+ *  isAbsolute(process.cwd()) // true
  *
- * @param {string} path - Path to evaluate
- * @return {boolean} `true` if `path` is absolute, `false` otherwise
- * @throws {TypeError} If `path` is not a string
+ * @category
+ *  core
+ *
+ * @param {string} path
+ *  Path to check
+ * @return {boolean}
+ *  `true` if `path` is absolute, `false` otherwise
  */
-const isAbsolute = (path: string): boolean => {
+function isAbsolute(path: string): boolean {
   validateString(path, 'path')
-
-  // exit early if path is empty string
-  if (isEmptyString(path)) return false
-
-  // ensure path meets posix standards
-  path = ensurePosix(path)
-
-  return isSep(at(path, 0)) || (isDrivePath(path) && isSep(at(path, 2)))
+  if (!path.length) return false
+  if (isSep(path[0])) return true
+  return path.length > 2 && DRIVE_PATH_REGEX.test(path) && isSep(path[2])
 }
 
 export default isAbsolute

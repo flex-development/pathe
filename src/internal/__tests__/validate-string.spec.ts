@@ -3,39 +3,33 @@
  * @module pathe/internal/tests/unit/validateString
  */
 
-import { ErrorCode, type NodeError } from '@flex-development/errnode'
-import { cast } from '@flex-development/tutils'
+import { codes, type ErrInvalidArgType } from '@flex-development/errnode'
 import testSubject from '../validate-string'
 
 describe('unit:internal/validateString', () => {
   let name: string
 
-  beforeEach(() => {
+  beforeAll(() => {
     name = 'path'
   })
 
-  it('should return value if value is a string', () => {
-    // Arrange
-    const value: string = faker.system.filePath()
-
-    // Act + Expect
-    expect(testSubject(value, name)).to.equal(value)
+  it('should return `true` if `value` is a string', () => {
+    expect(testSubject(faker.system.filePath(), name)).to.be.true
   })
 
-  it('should throw if value is not a string', () => {
+  it('should throw if `value` is not a string', () => {
     // Arrange
-    let error!: NodeError<TypeError>
+    let error!: ErrInvalidArgType
 
     // Act
     try {
       testSubject(null, name)
     } catch (e: unknown) {
-      error = cast(e)
+      error = <typeof error>e
     }
 
     // Expect
-    expect(error)
-      .to.be.instanceof(TypeError)
-      .with.property('code', ErrorCode.ERR_INVALID_ARG_TYPE)
+    expect(error).to.be.instanceof(TypeError)
+    expect(error).to.have.property('code', codes.ERR_INVALID_ARG_TYPE)
   })
 })

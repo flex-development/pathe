@@ -3,41 +3,37 @@
  * @module pathe/lib/extname
  */
 
-import ensurePosix from '#src/internal/ensure-posix'
-import isDrivePath from '#src/internal/is-drive-path'
-import isSep from '#src/internal/is-sep'
-import validateString from '#src/internal/validate-string'
-import type { Ext } from '#src/types'
-import {
-  DOT,
-  at,
-  cast,
-  includes,
-  type EmptyString
-} from '@flex-development/tutils'
+import { DRIVE_PATH_REGEX } from '#internal/constants'
+import validateString from '#internal/validate-string'
+import type { EmptyString, Ext } from '@flex-development/pathe'
+import dot from './dot'
+import isSep from './is-sep'
+import toPosix from './to-posix'
 
 /**
- * Returns the extension of a `path`, from the last occurrence of the `.` (dot)
- * character to end of the string in the last portion of the path.
+ * Get the file extension of `path` from the last occurrence of the `.` (dot)
+ * character (`.`) to end of the string in the last portion of `path`.
  *
- * If there is no `.` in the last portion of `path`, or if there are no  `.`
- * characters other than the first character of the path's [`basename`][1], an
- * empty string will be returned.
+ * If there is no `.` in the last portion of `path`, or if there are no `.`
+ * characters other than the first character of the {@linkcode basename} of
+ * `path`, an empty string is returned.
  *
- * [1]: {@link ./basename.ts}
+ * @see {@linkcode EmptyString}
+ * @see {@linkcode Ext}
  *
- * @param {string} path - Path to evaluate
- * @return {EmptyString | Ext} Extension of `path` or empty string
- * @throws {TypeError} If `path` is not a string
+ * @category
+ *  core
+ *
+ * @param {string} path
+ *  Path to handle
+ * @return {EmptyString | Ext}
+ *  Extension of `path` or empty string
  */
-const extname = (path: string): EmptyString | Ext => {
+function extname(path: string): EmptyString | Ext {
   validateString(path, 'path')
+  path = toPosix(path)
 
-  // exit early if path does not contain any dot characters
-  if (!includes(path, DOT)) return ''
-
-  // ensure path meets posix standards
-  path = ensurePosix(path)
+  if (!path.includes(dot)) return ''
 
   /**
    * Index to begin searching for extension.
@@ -62,11 +58,11 @@ const extname = (path: string): EmptyString | Ext => {
   let predot: number = 0
 
   /**
-   * Directory separator match check.
+   * Boolean indicating a path separator was seen.
    *
-   * @var {boolean} sep_match
+   * @var {boolean} separator
    */
-  let sep_match: boolean = true
+  let separator: boolean = true
 
   /**
    * Start index of extension.
@@ -82,25 +78,24 @@ const extname = (path: string): EmptyString | Ext => {
    */
   let end: number = -1
 
-  // check for drive path so as not to mistake the following path separator as
-  // an extra separator at the end of the path that can be disregarded
-  if (path.length >= 2 && isDrivePath(path)) {
+  // check for drive path so as not to mistake the next path separator as an
+  // extra separator at the end of the path that can be disregarded
+  if (path.length >= 2 && DRIVE_PATH_REGEX.test(path)) {
     offset = part = 2
   }
 
   // get start and end indices of extension
   for (let i = path.length - 1; i >= offset; --i) {
     /**
-     * Character at {@linkcode i} in {@linkcode path}.
+     * Current character in {@linkcode path}.
      *
      * @const {string} char
      */
-    const char: string = at(path, i)
+    const char: string = path[i]!
 
-    // adjust start index of basename
     if (isSep(char)) {
-      if (!sep_match) {
-        // encountered separator that is not trailing separator
+      if (!separator) {
+        // stop if a non-trailing path separator was reached
         part = i + 1
         break
       }
@@ -108,15 +103,14 @@ const extname = (path: string): EmptyString | Ext => {
       continue
     }
 
-    // set end index of extension
     if (end === -1) {
+      // reached first non-path separator -> end of extension
       end = i + 1
-      sep_match = false
+      separator = false
     }
 
-    // set start index of extension and/or update predot state
-    if (char === DOT) {
-      // set start index of extension
+    if (char === dot) {
+      // first dot -> start of extension
       if (start === -1) start = i
       else if (predot !== 1) predot = 1
     } else if (start !== -1) {
@@ -126,11 +120,18 @@ const extname = (path: string): EmptyString | Ext => {
     }
   }
 
-  return start === -1 || end === -1 || predot === 0
-    ? ''
-    : start === part + 1 && start === end - 1 && predot === 1
-    ? ''
-    : cast<Ext>(path.slice(start, end))
+  if (
+    start === -1 ||
+    end === -1 ||
+    // non-dot character immediately before the dot
+    predot === 0 ||
+    // right-most trimmed path component is exactly '..'
+    (predot === 1 && start === end - 1 && start === part + 1)
+  ) {
+    return ''
+  }
+
+  return <Ext>path.slice(start, end)
 }
 
 export default extname

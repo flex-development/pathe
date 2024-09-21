@@ -3,40 +3,38 @@
  * @module pathe/lib/normalize
  */
 
-import ensurePosix from '#src/internal/ensure-posix'
-import isDrivePath from '#src/internal/is-drive-path'
-import isSep from '#src/internal/is-sep'
-import normalizeString from '#src/internal/normalize-string'
-import validateString from '#src/internal/validate-string'
-import { DOT, at, ifelse, isEmptyString } from '@flex-development/tutils'
+import { DRIVE_PATH_REGEX } from '#internal/constants'
+import normalizeString from '#internal/normalize-string'
+import validateString from '#internal/validate-string'
+import dot from './dot'
 import isAbsolute from './is-absolute'
+import isSep from './is-sep'
 import sep from './sep'
+import toPosix from './to-posix'
 
 /**
- * Normalizes the given `path`, resolving `'..'` and `'.'` segments.
+ * Normalize `path`, resolving `'..'` and `'.'` segments.
  *
- * When multiple, sequential path segment separation characters are found (e.g.
- * `/` on POSIX and either `\\` or `/` on Windows), they are replaced by a
- * single instance of a POSIX-compliant separator. Trailing separators are
+ * When multiple, sequential path segment separators are found, they are
+ * replaced by a single instance of {@linkcode sep}. Trailing separators are
  * preserved.
  *
- * If the `path` is a zero-length string, `'.'` is returned, representing the
- * current working directory.
+ * If `path` is a zero-length string, {@linkcode dot} is returned, representing
+ * the current working directory.
  *
- * @param {string} path - Path to normalize
- * @return {string} Normalized `path`
- * @throws {TypeError} If `path` is not a string
+ * @category
+ *  core
+ *
+ * @param {string} path
+ *  Path to normalize
+ * @return {string}
+ *  Normalized `path`
  */
-const normalize = (path: string): string => {
+function normalize(path: string): string {
   validateString(path, 'path')
 
-  // exit early if path is empty string
-  if (isEmptyString(path)) return DOT
-
-  // ensure path meets posix standards
-  path = ensurePosix(path)
-
-  // exit early if path is one character
+  if (!path.length) return dot
+  path = toPosix(path)
   if (path.length === 1) return path
 
   /**
@@ -44,7 +42,7 @@ const normalize = (path: string): string => {
    *
    * @const {boolean} absolute
    */
-  let absolute: boolean = false
+  const absolute: boolean = isAbsolute(path)
 
   /**
    * Drive letter or UNC path component(s), if any.
@@ -54,35 +52,22 @@ const normalize = (path: string): string => {
   let device: string = ''
 
   /**
-   * Index to begin path normalization.
+   * End index of root.
    *
-   * @var {number} offset
+   * @var {number} rootEnd
    */
-  let offset: number = 0
+  let rootEnd: number = 0
 
-  // adjust normalization offset if path is drive path
-  if (isDrivePath(path)) {
-    device = path.slice(0, (offset = 2))
+  if (isSep(path[rootEnd])) {
+    rootEnd = 1
 
-    if (path.length > 2 && isAbsolute(path)) {
-      absolute = true
-      offset = 3
-    }
-  }
-
-  // adjust normalization offset if path is absolute
-  if (isSep(at(path, 0))) {
-    absolute = true
-    offset = 1
-
-    // try adjusting normalization offset again if path is possible unc path
-    if (isSep(at(path, 1))) {
+    if (isSep(path[rootEnd])) {
       /**
        * Current position in {@linkcode path}.
        *
        * @var {number} j
        */
-      let j: number = 2
+      let j: number = rootEnd + 1
 
       /**
        * Last visited position in {@linkcode path}.
@@ -92,7 +77,7 @@ const normalize = (path: string): string => {
       let last: number = j
 
       // match 1 or more non-path separators
-      while (j < path.length && !isSep(at(path, j))) j++
+      while (j < path.length && !isSep(path[j])) j++
 
       if (j < path.length && j !== last) {
         /**
@@ -102,32 +87,35 @@ const normalize = (path: string): string => {
          */
         const host: string = path.slice(last, j)
 
-        // set last visited position to end of host
+        // matched!
         last = j
 
         // match 1 or more path separators
-        while (j < path.length && isSep(at(path, j))) j++
+        while (j < path.length && isSep(path[j])) j++
 
         if (j < path.length && j !== last) {
-          // set last visited position
+          // matched!
           last = j
 
           // match 1 or more non-path separators
-          while (j < path.length && !isSep(at(path, j))) j++
+          while (j < path.length && !isSep(path[j])) j++
 
-          // matched unc root only => nothing left to process
+          // matched unc root only
           if (j === path.length) {
-            return `${sep.repeat(2)}${host}${sep}${path.slice(last)}${sep}`
+            return `${sep}${sep}${host}${sep}${path.slice(last)}${sep}`
           }
 
           // matched unc root with leftovers
           if (j !== last) {
-            device = `${sep.repeat(2)}${host}${sep}${path.slice(last, j)}`
-            offset = j
+            device = `${sep}${sep}${host}${sep}${path.slice(last, j)}`
+            rootEnd = j
           }
         }
       }
     }
+  } else if (DRIVE_PATH_REGEX.test(path)) {
+    device = path.slice(0, rootEnd = 2)
+    if (absolute) rootEnd++
   }
 
   /**
@@ -135,16 +123,14 @@ const normalize = (path: string): string => {
    *
    * @var {string} tail
    */
-  let tail: string =
-    offset < path.length ? normalizeString(path.slice(offset), !absolute) : ''
+  let tail: string = rootEnd < path.length
+    ? normalizeString(path.slice(rootEnd), !absolute)
+    : ''
 
-  // set tail to cwd reference if tail is empty string and path is relative
-  if (isEmptyString(tail) && !absolute) tail = DOT
+  if (!tail.length && !absolute) tail = dot
+  if (tail.length && isSep(path[path.length - 1])) tail += sep
 
-  // re-add trailing separator
-  if (tail.length > 0 && isSep(at(path, -1))) tail += sep
-
-  return `${device}${ifelse(absolute, sep, '')}${tail}`
+  return `${device}${absolute ? sep : ''}${tail}`
 }
 
 export default normalize

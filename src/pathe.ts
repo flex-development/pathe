@@ -3,31 +3,45 @@
  * @module pathe/pathe
  */
 
-import { cast, set } from '@flex-development/tutils'
-import type { Pathe, PlatformPath } from './interfaces'
+import { delimiterWindows, sepWindows } from '#internal/constants'
+import type {
+  Pathe,
+  PosixPlatformPath,
+  WindowsPlatformPath
+} from './interfaces'
 import {
+  addExt,
   basename,
+  changeExt,
+  cwd,
   delimiter,
   dirname,
+  dot,
   extname,
   format,
+  formatExt,
   isAbsolute,
+  isDeviceRoot,
+  isSep,
   join,
   normalize,
   parse,
   relative,
+  removeExt,
   resolve,
+  resolveWith,
+  root,
   sep,
-  toNamespacedPath
+  toNamespacedPath,
+  toPosix
 } from './lib'
-import { addExt, changeExt, defaultExt, formatExt, removeExt } from './utils'
 
 /**
- * Utilities for working with file and directory paths.
+ * POSIX utilities for working with file and directory paths.
  *
- * @const {PlatformPath} core
+ * @const {PosixPlatformPath} posix
  */
-const core: PlatformPath = {
+const posix: PosixPlatformPath = {
   basename,
   delimiter,
   dirname,
@@ -37,18 +51,46 @@ const core: PlatformPath = {
   join,
   normalize,
   parse,
-  posix: cast({}),
+  posix: <PosixPlatformPath>{},
   relative,
   resolve,
   sep,
   toNamespacedPath,
-  win32: cast({})
+  win32: <WindowsPlatformPath>{}
 }
 
-// add platform-specific objects
-// see https://github.com/nodejs/node/blob/v19.3.0/lib/path.js#L1540-L1541
-set(core, 'posix', core)
-set(core, 'win32', core)
+/**
+ * Windows utilities for working with file and directory paths.
+ *
+ * @const {WindowsPlatformPath} win32
+ */
+const win32: WindowsPlatformPath = {
+  basename,
+  delimiter: delimiterWindows,
+  dirname,
+  extname,
+  format,
+  isAbsolute,
+  join,
+  normalize,
+  parse,
+  posix: <PosixPlatformPath>{},
+  relative,
+  resolve,
+  sep: sepWindows,
+  toNamespacedPath,
+  win32: <WindowsPlatformPath>{}
+}
+
+// @ts-expect-error ts(2540): init.
+posix.win32 = win32.win32 = win32
+// @ts-expect-error ts(2540): init.
+posix.posix = win32.posix = posix
+
+// @ts-expect-error ts(2339): legacy internal API, docs-only deprecated: DEP0080
+posix._makeLong = posix.toNamespacedPath
+// @ts-expect-error ts(2339): legacy internal API, docs-only deprecated: DEP0080
+win32._makeLong = win32.toNamespacedPath
 
 /**
  * Utilities for working with directory paths, file paths, and file extensions.
@@ -57,30 +99,31 @@ set(core, 'win32', core)
  */
 const pathe: Pathe = {
   addExt,
-  basename: core.basename,
+  basename,
   changeExt,
-  defaultExt,
-  delimiter: core.delimiter,
-  dirname: core.dirname,
-  extname: core.extname,
-  format: core.format,
+  cwd,
+  delimiter,
+  dirname,
+  dot,
+  extname,
+  format,
   formatExt,
-  isAbsolute: core.isAbsolute,
-  join: core.join,
-  normalize: core.normalize,
-  parse: core.parse,
-  posix: core,
-  relative: core.relative,
+  isAbsolute,
+  isDeviceRoot,
+  isSep,
+  join,
+  normalize,
+  parse,
+  posix,
+  relative,
   removeExt,
-  resolve: core.resolve,
-  sep: core.sep,
-  toNamespacedPath: core.toNamespacedPath,
-  win32: core
+  resolve,
+  resolveWith,
+  root,
+  sep,
+  toNamespacedPath,
+  toPosix,
+  win32
 }
 
-// add legacy api
-// see https://github.com/nodejs/node/blob/v19.3.0/lib/path.js#L1543-L1545
-set(pathe.posix, '_makeLong', toNamespacedPath)
-set(pathe.win32, '_makeLong', toNamespacedPath)
-
-export { pathe as default, core as posix, core as win32 }
+export { pathe as default, posix, win32 }

@@ -1,22 +1,18 @@
 /**
  * @file Unit Tests - parse
  * @module pathe/lib/tests/unit/parse
- * @see https://github.com/nodejs/node/blob/main/test/parallel/test-path-parse-format.js
- * @see https://github.com/nodejs/node/issues/18655
+ * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-parse-format.js
  */
 
-import type { ParsedPath } from '#src/interfaces'
-import sep from '#src/lib/sep'
-import { entries } from '@flex-development/tutils'
 import { posix, win32 } from 'node:path'
+import dot from '../dot'
 import testSubject from '../parse'
+import toPosix from '../to-posix'
 
 describe('unit:lib/parse', () => {
-  it('should return parsed path object', () => {
-    // Arrange
-    const cases: Parameters<typeof testSubject>[] = [
+  describe('posix', () => {
+    it.each<Parameters<typeof testSubject>>([
       [''],
-      ['/.'],
       ['/.foo'],
       ['/.foo.bar'],
       ['/foo'],
@@ -29,61 +25,38 @@ describe('unit:lib/parse', () => {
       ['/home/user/a dir/another file.zip'],
       ['/home/user/a$$$dir//another file.zip'],
       ['/home/user/dir/file.txt'],
-      ['/home/user/dir/file.txt'],
       ['user/dir/another file.zip'],
-      [posix.sep],
+      ['x'],
+      [posix.sep + dot],
       [posix.sep.repeat(2)],
-      [posix.sep.repeat(3)]
-    ]
-
-    // Act + Expect
-    cases.forEach(([path]) => {
+      [posix.sep.repeat(3)],
+      [posix.sep]
+    ])('should return significant elements of `path` (%j)', path => {
       expect(testSubject(path)).to.eql(posix.parse(path))
     })
   })
 
   describe('windows', () => {
-    /**
-     * Converts Windows-style path separators (`\`) to POSIX (`/`).
-     *
-     * @param {ParsedPath} parsed - Parsed path object to normalize
-     * @return {string} `parsed` with values normalized
-     */
-    const ensurePosix = (parsed: ParsedPath): ParsedPath => {
-      for (const [key, value] of entries(parsed)) {
-        if (!value) continue
-        parsed[key] = value.replace(/\\/g, sep)
-      }
-
-      return parsed
-    }
-
-    it('should return parsed path object', () => {
-      // Arrange
-      const cases: Parameters<typeof testSubject>[] = [
-        [''],
-        ['.\\file'],
-        ['C:'],
-        ['C:.'],
-        ['C:..'],
-        ['C:\\'],
-        ['C:\\abc'],
-        ['C:\\another_path\\DIR\\1\\2\\33\\\\index'],
-        ['C:\\path\\dir\\index.html'],
-        ['C:abc'],
-        ['\\\\?\\UNC\\server\\share'],
-        ['\\\\server two\\shared folder\\file path.zip'],
-        ['\\\\server\\share\\file_path'],
-        ['\\\\user\\admin$\\system32'],
-        ['\\foo\\C:'],
-        ['another_path\\DIR with spaces\\1\\2\\33\\index'],
-        [win32.sep]
-      ]
-
-      // Act + Expect
-      cases.forEach(([path]) => {
-        expect(testSubject(path)).to.eql(ensurePosix(win32.parse(path)))
-      })
+    it.each<Parameters<typeof testSubject>>([
+      ['C:' + dot.repeat(2)],
+      ['C:' + dot],
+      ['C:' + win32.sep],
+      ['C:'],
+      ['C:\\abc'],
+      ['C:\\another_path\\DIR\\1\\2\\33\\\\index'],
+      ['C:\\path\\dir\\index.html'],
+      ['C:abc'],
+      ['\\\\?\\UNC'],
+      ['\\\\?\\UNC\\server\\share'],
+      ['\\\\server two\\shared folder\\file path.zip'],
+      ['\\\\server\\share\\file_path'],
+      ['\\\\user\\admin$\\system32'],
+      ['\\foo\\C:'],
+      ['another_path\\DIR with spaces\\1\\2\\33\\index'],
+      [dot + '\\file'],
+      [win32.sep]
+    ])('should return significant elements of `path` (%j)', path => {
+      expect(testSubject(path)).to.eql(win32.parse(toPosix(path)))
     })
   })
 })
