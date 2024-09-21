@@ -13,6 +13,6 @@ describe('unit-d:interfaces/PlatformPath', () => {
     type Subject = keyof TestSubject
 
     // Expect
-    expectTypeOf<Exclude<Baseline, Subject>>().toEqualTypeOf<'matchesGlob'>()
+    expectTypeOf<Exclude<Baseline, Subject>>().toEqualTypeOf<never>()
   })
 })

@@ -12,6 +12,7 @@ import type {
   Ext,
   Sep
 } from '@flex-development/pathe'
+import type micromatch from 'micromatch'
 import type FormatInputPathObject from './format-input-path-object'
 import type ParsedPath from './parsed-path'
 
@@ -157,6 +158,27 @@ interface PlatformPath {
    *  Path segment sequence as one path
    */
   join(this: void, ...paths: string[]): string
+
+  /**
+   * Check if `path` matches `pattern`.
+   *
+   * @see {@linkcode micromatch.Options}
+   * @see {@linkcode micromatch.isMatch}
+   *
+   * @param {string} path
+   *  The path to glob-match against
+   * @param {string | string[]} pattern
+   *  Glob patterns to use for matching
+   * @param {micromatch.Options | null | undefined} [options]
+   *  Options for matching
+   * @return {boolean}
+   *  `true` if `path` matches `pattern`, `false` otherwise
+   */
+  matchesGlob(
+    path: string,
+    pattern: string | string[],
+    options?: micromatch.Options | null | undefined
+  ): boolean
 
   /**
    * Normalize `path`, resolving `'..'` and `'.'` segments.

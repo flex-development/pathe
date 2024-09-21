@@ -99,6 +99,7 @@ import {
   isDeviceRoot,
   isSep,
   join,
+  matchesGlob,
   normalize,
   parse,
   relative,
@@ -130,6 +131,7 @@ This package exports the following identifiers:
 - [`isDeviceRoot`](./src/lib/is-device-root.ts)
 - [`isSep`](./src/lib/is-sep.ts)
 - [`join`](./src/lib/join.ts)
+- [`matchesGlob`](./src/lib/matches-glob.ts)
 - [`normalize`](./src/lib/normalize.ts)
 - [`parse`](./src/lib/parse.ts)
 - [`posix`](./src/pathe.ts)

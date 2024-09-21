@@ -16,6 +16,7 @@ exports[`e2e:pathe > should expose public api 1`] = `
   "isDeviceRoot",
   "isSep",
   "join",
+  "matchesGlob",
   "normalize",
   "parse",
   "relative",

@@ -111,7 +111,9 @@
     "typecheck:watch": "vitest --typecheck --mode=typecheck"
   },
   "dependencies": {
-    "@flex-development/errnode": "3.1.1"
+    "@flex-development/errnode": "3.1.1",
+    "@types/micromatch": "4.0.9",
+    "micromatch": "4.0.8"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.16.4",
