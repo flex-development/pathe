@@ -36,8 +36,6 @@ branches:
             app_id: 254
           - context: codecov/project/lib
             app_id: 254
-          - context: codecov/project/utils
-            app_id: 254
           - context: commitlint
           - context: dependabot-dedupe
           - context: format

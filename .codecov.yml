@@ -31,10 +31,6 @@ component_management:
       name: lib
       paths:
         - src/lib/*.ts
-    - component_id: utils
-      name: utils
-      paths:
-        - src/utils/*.ts
 
 coverage:
   precision: 2
