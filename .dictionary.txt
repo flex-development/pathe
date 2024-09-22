@@ -28,6 +28,7 @@ pathe
 pkgs
 posix
 preid
+remarkrc
 shfmt
 tscu
 unstub

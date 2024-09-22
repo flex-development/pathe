@@ -84,6 +84,19 @@ interface Pathe extends PosixPlatformPath {
   formatExt(this: void, ext: string | null | undefined): EmptyString | Ext
 
   /**
+   * Get a list of file extensions for `path`.
+   *
+   * @see {@linkcode Ext}
+   * @see {@linkcode extname}
+   *
+   * @param {string} path
+   *  Path to handle
+   * @return {Ext[]}
+   *  List of extensions
+   */
+  extnames(path: string): Ext[]
+
+  /**
    * Check if `value` is a device root.
    *
    * @see {@linkcode DeviceRoot}

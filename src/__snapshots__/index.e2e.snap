@@ -10,6 +10,7 @@ exports[`e2e:pathe > should expose public api 1`] = `
   "dirname",
   "dot",
   "extname",
+  "extnames",
   "format",
   "formatExt",
   "isAbsolute",

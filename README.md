@@ -125,6 +125,7 @@ This package exports the following identifiers:
 - [`dirname`](./src/lib/dirname.ts)
 - [`dot`](./src/lib/dot.ts)
 - [`extname`](./src/lib/extname.ts)
+- [`extnames`](./src/lib/extnames.ts)
 - [`formatExt`](./src/lib/format-ext.ts)
 - [`format`](./src/lib/format.ts)
 - [`isAbsolute`](./src/lib/is-absolute.ts)

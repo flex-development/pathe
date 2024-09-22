@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unit:lib/extnames > should return list of extensions ("") 1`] = `[]`;
+
+exports[`unit:lib/extnames > should return list of extensions (".") 1`] = `[]`;
+
+exports[`unit:lib/extnames > should return list of extensions (".remarkignore") 1`] = `[]`;
+
+exports[`unit:lib/extnames > should return list of extensions (".remarkrc.mjs") 1`] = `
+[
+  ".mjs",
+]
+`;
+
+exports[`unit:lib/extnames > should return list of extensions ("/") 1`] = `[]`;
+
+exports[`unit:lib/extnames > should return list of extensions ("eslint.base.config.mjs") 1`] = `
+[
+  ".base",
+  ".config",
+  ".mjs",
+]
+`;
+
+exports[`unit:lib/extnames > should return list of extensions ("grease.config.mjs") 1`] = `
+[
+  ".config",
+  ".mjs",
+]
+`;
+
+exports[`unit:lib/extnames > should return list of extensions ("src/lib/extnames.ts") 1`] = `
+[
+  ".ts",
+]
+`;
