@@ -26,7 +26,7 @@ describe('unit:lib/toPosix', () => {
     ['another_path\\DIR with spaces\\1\\2\\33\\index'],
     [dot + '\\file'],
     [win32.sep]
-  ])('should return posix-compliant `path` (%#)', path => {
+  ])('should return `path` with posix-compliant separators (%#)', path => {
     expect(testSubject(path)).toMatchSnapshot()
   })
 })

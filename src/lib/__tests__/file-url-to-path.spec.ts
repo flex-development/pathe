@@ -97,7 +97,7 @@ describe('unit:lib/fileURLToPath', () => {
       const result = testSubject(url)
 
       // Expect
-      expect(result).to.eq(toPosix(fileURLToPath(url, { windows: false })))
+      expect(result).to.eq(fileURLToPath(url, { windows: false }))
     })
 
     it('should throw if `url` hostname is invalid', () => {

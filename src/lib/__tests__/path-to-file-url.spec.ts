@@ -33,15 +33,11 @@ describe('unit:lib/pathToFileURL', () => {
       ['/€'],
       ['/🚀']
     ])('should return `path` as `file:` URL (%#)', path => {
-      // Arrange
-      const url: URL = pathToFileURL(path, { windows: false })
-
       // Act
       const result = testSubject(path)
 
       // Expect
-      expect(result.href).to.eq(toPosix(url.href))
-      expect(result.pathname).to.eq(toPosix(url.pathname))
+      expect(result).to.eql(pathToFileURL(path, { windows: false }))
     })
   })
 

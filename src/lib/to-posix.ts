@@ -4,20 +4,10 @@
  */
 
 import validateString from '#internal/validate-string'
-import delimiter from './delimiter'
 import sep from './sep'
 
 /**
- * Make `path` POSIX-compliant.
- *
- * This includes:
- *
- * - Converting Windows-style path delimiters (`;`) to POSIX (`:`)
- * - Converting Windows-style path segment separators (`\`) to POSIX (`/`)
- *
- * @see https://nodejs.org/api/path.html#windows-vs-posix
- * @see https://nodejs.org/api/path.html#pathdelimiter
- * @see https://nodejs.org/api/path.html#pathsep
+ * Make separators in `path` POSIX-compliant.
  *
  * @category
  *  utils
@@ -25,11 +15,11 @@ import sep from './sep'
  * @param {string} path
  *  Path to handle
  * @return {string}
- *  POSIX-compliant `path`
+ *  `path` with POSIX-compliant separators
  */
 function toPosix(path: string): string {
   validateString(path, 'path')
-  return path.replace(/;/g, delimiter).replace(/\\/g, sep)
+  return path.replace(/\\/g, sep)
 }
 
 export default toPosix
