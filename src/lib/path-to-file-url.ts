@@ -3,6 +3,7 @@
  * @module pathe/lib/pathToFileURL
  */
 
+import { isWindows } from '#internal/constants'
 import domainToASCII from '#internal/domain-to-ascii'
 import validateString from '#internal/validate-string'
 import {
@@ -55,7 +56,10 @@ function pathToFileURL(
   // handle extended and standard UNC path
   // "\\?\UNC\" path prefix should be ignored.
   // ref: https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
-  if (options?.windows && path.startsWith(sep.repeat(2))) {
+  if (
+    (options?.windows ?? /* c8 ignore next */ isWindows) &&
+    path.startsWith(sep.repeat(2))
+  ) {
     /**
      * Length of UNC path prefix.
      *
