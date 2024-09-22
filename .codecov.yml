@@ -87,10 +87,6 @@ flags:
     carryforward: false
     paths:
       - src/
-  node20:
-    carryforward: false
-    paths:
-      - src/
 
 github_checks:
   annotations: true

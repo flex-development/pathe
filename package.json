@@ -56,6 +56,18 @@
     "./win32": "./dist/win32.mjs"
   },
   "imports": {
+    "#internal/domain-to-ascii": {
+      "pathe": "./src/internal/domain-to-ascii.node.ts",
+      "browser": "./dist/internal/domain-to-ascii.browser.mjs",
+      "node": "./dist/internal/domain-to-ascii.node.mjs",
+      "default": "./dist/internal/domain-to-ascii.node.mjs"
+    },
+    "#internal/domain-to-unicode": {
+      "pathe": "./src/internal/domain-to-unicode.node.ts",
+      "browser": "./dist/internal/domain-to-unicode.browser.mjs",
+      "node": "./dist/internal/domain-to-unicode.node.mjs",
+      "default": "./dist/internal/domain-to-unicode.node.mjs"
+    },
     "#internal/process": {
       "browser": "./dist/internal/process.browser.mjs",
       "node": "process",
@@ -113,7 +125,8 @@
   "dependencies": {
     "@flex-development/errnode": "3.1.1",
     "@types/micromatch": "4.0.9",
-    "micromatch": "4.0.8"
+    "micromatch": "4.0.8",
+    "punycode.js": "2.3.1"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.16.4",

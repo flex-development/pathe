@@ -299,7 +299,6 @@ jobs:
       matrix:
         node-version:
           - 22
-          - 20
     steps:
       - id: checkout
         name: Checkout ${{ env.REF_NAME }}

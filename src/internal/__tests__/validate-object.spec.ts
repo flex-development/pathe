@@ -3,7 +3,7 @@
  * @module pathe/internal/tests/unit/validateObject
  */
 
-import { codes, type ErrInvalidArgType } from '@flex-development/errnode'
+import { codes, isNodeError, type NodeError } from '@flex-development/errnode'
 import testSubject from '../validate-object'
 
 describe('unit:internal/validateObject', () => {
@@ -19,7 +19,7 @@ describe('unit:internal/validateObject', () => {
 
   it('should throw if `value` is not curly-braced object', () => {
     // Arrange
-    let error!: ErrInvalidArgType
+    let error!: NodeError
 
     // Act
     try {
@@ -29,7 +29,7 @@ describe('unit:internal/validateObject', () => {
     }
 
     // Expect
-    expect(error).to.be.instanceof(TypeError)
+    expect(error).to.satisfy(isNodeError)
     expect(error).to.have.property('code', codes.ERR_INVALID_ARG_TYPE)
   })
 })

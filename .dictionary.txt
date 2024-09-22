@@ -1,8 +1,11 @@
+abar
 attw
 barx
+cbar
 cefc
 codecov
 commitlintrc
+dbar
 dedupe
 deno
 dessant
@@ -10,7 +13,9 @@ devlop
 docast
 dohm
 dprint
+fbar
 fbca
+fóóbàr
 ggshield
 gpgsign
 hmarr
@@ -35,4 +40,5 @@ unstub
 vates
 vfile
 vitest
+whatwg
 yarnrc

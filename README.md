@@ -93,6 +93,7 @@ import {
   dirname,
   dot,
   extname,
+  fileURLToPath,
   format,
   formatExt,
   isAbsolute,
@@ -102,6 +103,7 @@ import {
   matchesGlob,
   normalize,
   parse,
+  pathToFileURL,
   relative,
   removeExt,
   resolve,
@@ -126,6 +128,7 @@ This package exports the following identifiers:
 - [`dot`](./src/lib/dot.ts)
 - [`extname`](./src/lib/extname.ts)
 - [`extnames`](./src/lib/extnames.ts)
+- [`fileURLToPath`](./src/lib/file-url-to-path.ts)
 - [`formatExt`](./src/lib/format-ext.ts)
 - [`format`](./src/lib/format.ts)
 - [`isAbsolute`](./src/lib/is-absolute.ts)
@@ -135,6 +138,7 @@ This package exports the following identifiers:
 - [`matchesGlob`](./src/lib/matches-glob.ts)
 - [`normalize`](./src/lib/normalize.ts)
 - [`parse`](./src/lib/parse.ts)
+- [`pathToFileURL`](./src/lib/path-to-file-url.ts)
 - [`posix`](./src/pathe.ts)
 - [`relative`](./src/lib/relative.ts)
 - [`removeExt`](./src/lib/remove-ext.ts)
@@ -164,13 +168,14 @@ This package is fully typed with [TypeScript][].
 - [`FormatInputPathObject`](src/interfaces/format-input-path-object.ts)
 - [`ParsedPath`](src/interfaces/parsed-path.ts)
 - [`Pathe`](src/interfaces/pathe.ts)
-- [`PlatformPath`](src/interfaces/platform-path-posix.ts)
+- [`PlatformOptions`](src/interfaces/platform-options.ts)
+- [`PlatformPath`](src/interfaces/platform-path.ts)
 - [`PosixDelimiter`](src/types/delimiter-posix.ts)
-- [`PosixPlatformPath`](src/interfaces/platform-path-windows.ts)
+- [`PosixPlatformPath`](src/interfaces/platform-path-posix.ts)
 - [`PosixSep`](src/types/sep-posix.ts)
 - [`Sep`](src/types/sep.ts)
 - [`WindowsDelimiter`](src/types/delimiter-windows.ts)
-- [`WindowsPlatformPath`](src/interfaces/platform-path.ts)
+- [`WindowsPlatformPath`](src/interfaces/platform-path-windows.ts)
 - [`WindowsSep`](src/types/sep-windows.ts)
 
 ## Contribute

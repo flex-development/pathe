@@ -5,6 +5,13 @@
 
 import type extname from '#lib/extname'
 import type {
+  ErrInvalidArgType,
+  ErrInvalidArgValue,
+  ErrInvalidFileUrlHost,
+  ErrInvalidFileUrlPath,
+  ErrInvalidUrlScheme
+} from '@flex-development/errnode'
+import type {
   Cwd,
   DeviceRoot,
   Dot,
@@ -12,6 +19,7 @@ import type {
   Ext,
   Sep
 } from '@flex-development/pathe'
+import type PlatformOptions from './platform-options'
 import type PosixPlatformPath from './platform-path-posix'
 
 /**
@@ -71,19 +79,6 @@ interface Pathe extends PosixPlatformPath {
   readonly dot: Dot
 
   /**
-   * Format a file extension.
-   *
-   * @see {@linkcode EmptyString}
-   * @see {@linkcode Ext}
-   *
-   * @param {string | null | undefined} ext
-   *  File extension to format
-   * @return {EmptyString | Ext}
-   *  Formatted file extension or empty string
-   */
-  formatExt(this: void, ext: string | null | undefined): EmptyString | Ext
-
-  /**
    * Get a list of file extensions for `path`.
    *
    * @see {@linkcode Ext}
@@ -95,6 +90,44 @@ interface Pathe extends PosixPlatformPath {
    *  List of extensions
    */
   extnames(path: string): Ext[]
+
+  /**
+   * Convert a `file:` URL to a path.
+   *
+   * @see {@linkcode ErrInvalidArgType}
+   * @see {@linkcode ErrInvalidFileUrlHost}
+   * @see {@linkcode ErrInvalidFileUrlPath}
+   * @see {@linkcode ErrInvalidUrlScheme}
+   * @see {@linkcode PlatformOptions}
+   *
+   * @param {URL | string} url
+   *  The file URL string or URL object to convert to a path
+   * @param {PlatformOptions | null | undefined} [options]
+   *  Platform options
+   * @return {string}
+   *  `url` as path
+   * @throws {ErrInvalidArgType}
+   * @throws {ErrInvalidFileUrlHost}
+   * @throws {ErrInvalidFileUrlPath}
+   * @throws {ErrInvalidUrlScheme}
+   */
+  fileURLToPath(
+    url: URL | string,
+    options?: PlatformOptions | null | undefined
+  ): string
+
+  /**
+   * Format a file extension.
+   *
+   * @see {@linkcode EmptyString}
+   * @see {@linkcode Ext}
+   *
+   * @param {string | null | undefined} ext
+   *  File extension to format
+   * @return {EmptyString | Ext}
+   *  Formatted file extension or empty string
+   */
+  formatExt(this: void, ext: string | null | undefined): EmptyString | Ext
 
   /**
    * Check if `value` is a device root.
@@ -119,6 +152,35 @@ interface Pathe extends PosixPlatformPath {
    *  `true` if `value` is path segment separator, `false` otherwise
    */
   isSep(this: void, value: unknown): value is Sep
+
+  /**
+   * Convert a file `path` to a `file:` {@linkcode URL}.
+   *
+   * > The following characters are percent-encoded when converting from file
+   * > path to a `URL`:
+   * >
+   * > - %: Only character not encoded by the `pathname` setter
+   * > - CR: Stripped out by the `pathname` setter (see [`whatwg/url#419`][419])
+   * > - LF: Stripped out by the `pathname` setter (see [`whatwg/url#419`][419])
+   * > - TAB: Stripped out by the `pathname` setter
+   *
+   * [419]: https://github.com/whatwg/url/issues/419
+   *
+   * @see {@linkcode ErrInvalidArgValue}
+   * @see {@linkcode PlatformOptions}
+   *
+   * @param {URL | string} path
+   *  Path to handle
+   * @param {PlatformOptions | null | undefined} [options]
+   *  Platform options
+   * @return {URL}
+   *  `path` as `file:` URL
+   * @throws {ErrInvalidArgValue}
+   */
+  pathToFileURL(
+    path: string,
+    options?: PlatformOptions | null | undefined
+  ): URL
 
   /**
    * Remove the file extension of `path`.

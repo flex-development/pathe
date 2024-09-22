@@ -44,7 +44,6 @@ branches:
           - context: gitguardian
           - context: lint
           - context: spelling
-          - context: test (20)
           - context: test (22)
           - context: typescript (5.0.4)
           - context: typescript (5.4.5)
