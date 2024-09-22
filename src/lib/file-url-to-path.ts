@@ -3,6 +3,7 @@
  * @module pathe/lib/fileURLToPath
  */
 
+import { isWindows } from '#internal/constants'
 import domainToUnicode from '#internal/domain-to-unicode'
 import isURL from '#internal/is-url'
 import process from '#internal/process'
@@ -79,9 +80,16 @@ function fileURLToPath(
   // decode pathname
   pathname = decodeURIComponent(pathname)
 
+  /**
+   * Windows operating system?
+   *
+   * @const {boolean} windows
+   */
+  const windows: boolean = options?.windows ?? /* c8 ignore next */ isWindows
+
   // hostname -> UNC path
   if (url.hostname) {
-    if (options?.windows) {
+    if (windows) {
       // pass the hostname through domainToUnicode just in case it is an IDN
       // using punycode encoding.
       // note: this only causes IDNs with an `xn--` prefix to be decoded.
@@ -94,7 +102,7 @@ function fileURLToPath(
   // drive path
   if (isSep(pathname[0]) && isDeviceRoot(pathname.slice(1, 4))) {
     if (!url.hostname) pathname = pathname.slice(1)
-  } else if (options?.windows && !url.hostname) {
+  } else if (windows && !url.hostname) {
     throw new ERR_INVALID_FILE_URL_PATH('must be absolute')
   }
 

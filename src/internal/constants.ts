@@ -3,6 +3,7 @@
  * @module pathe/internal/constants
  */
 
+import process from '#internal/process'
 import type { WindowsDelimiter, WindowsSep } from '@flex-development/pathe'
 
 /**
@@ -22,17 +23,30 @@ const DRIVE_PATH_REGEX: RegExp = /^(?<drive>(?<letter>[a-z]):(?:\/|\\{2})?)/i
  *
  * @see {@linkcode WindowsDelimiter}
  *
+ * @internal
+ *
  * @const {WindowsDelimiter} delimiterWindows
  */
 const delimiterWindows: WindowsDelimiter = ';'
+
+/**
+ * Windows operating system?
+ *
+ * @internal
+ *
+ * @const {boolean} isWindows
+ */
+const isWindows: boolean = process.platform === 'win32'
 
 /**
  * Windows path segment separator.
  *
  * @see {@linkcode WindowsSep}
  *
+ * @internal
+ *
  * @const {WindowsSep} sepWindows
  */
 const sepWindows: WindowsSep = '\\'
 
-export { delimiterWindows, DRIVE_PATH_REGEX, sepWindows }
+export { delimiterWindows, DRIVE_PATH_REGEX, isWindows, sepWindows }
