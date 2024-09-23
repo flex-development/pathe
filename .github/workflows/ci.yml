@@ -302,7 +302,7 @@ jobs:
     env:
       COVERAGE_SUMMARY: ./coverage/coverage-summary.json
       PCT: .total.branches.pct + .total.functions.pct + .total.lines.pct + .total.statements.pct
-      VITEST_REPORT: ./.vitest-reports/blob.json
+      VITEST_REPORT: ./.vitest-reports/test.blob.json
     steps:
       - id: checkout
         name: Checkout ${{ env.REF_NAME }}

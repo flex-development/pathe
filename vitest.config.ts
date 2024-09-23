@@ -102,7 +102,7 @@ const config: UserConfigExport = defineConfig((env: ConfigEnv): UserConfig => {
       ],
       mockReset: true,
       outputFile: {
-        blob: '.vitest-reports/blob.json',
+        blob: `.vitest-reports/${env.mode}.blob.json`,
         json: path.join('__tests__', 'reports', env.mode + '.json')
       },
       passWithNoTests: true,
