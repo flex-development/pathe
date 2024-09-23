@@ -45,7 +45,6 @@ env:
   HUSKY: 0
   REF: ${{ github.head_ref || github.ref }}
   REF_NAME: ${{ github.head_ref || github.ref_name }}
-  SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 concurrency:
   cancel-in-progress: true
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -299,6 +298,11 @@ jobs:
       matrix:
         node-version:
           - 22
+    env:
+      COVERAGE_SUMMARY: ./coverage/coverage-summary.json
+      PCT: .total.branches.pct + .total.functions.pct + .total.lines.pct + .total.statements.pct
+      SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      VITEST_REPORT: ./.vitest-reports/blob.json
     steps:
       - id: checkout
         name: Checkout ${{ env.REF_NAME }}
@@ -330,10 +334,27 @@ jobs:
       - id: test
         if: steps.test-files-check.outputs.files_exists == 'true'
         name: Run tests
-        run: yarn test:cov
-      - id: codecov
-        name: Upload coverage report to Codecov
+        run: |
+          yarn test:cov --coverage.thresholds.100=false \
+          && echo "coverage=$(jq '${{ env.PCT }}' ${{ env.COVERAGE_SUMMARY }} -r)" >>$GITHUB_OUTPUT
+      - id: report
         if: steps.test-files-check.outputs.files_exists == 'true'
+        name: Upload report
+        uses: actions/upload-artifact@v4.4.0
+        with:
+          name: ${{ format('vitest-report-{0}-{1}.json', github.event.repository.name, env.SHA) }}
+          path: ${{ env.VITEST_REPORT }}
+      - id: coverage-summary
+        if: steps.test-files-check.outputs.files_exists == 'true'
+        name: Upload coverage summary
+        uses: actions/upload-artifact@v4.4.0
+        with:
+          name: |
+            ${{ format('coverage-summary-{0}-{1}.json', github.event.repository.name, env.SHA) }}
+          path: ${{ env.COVERAGE_SUMMARY }}
+      - id: codecov
+        if: steps.test-files-check.outputs.files_exists == 'true'
+        name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v4.5.0
         env:
           GITHUB_JOB: ${{ github.job }}
@@ -352,6 +373,12 @@ jobs:
           override_commit: ${{ env.SHA }}
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
+      - id: coverage-failure
+        if: |
+          steps.test-files-check.outputs.files_exists == 'true'
+          && ${{ toJson(steps.test.outputs.coverage) }} != 100
+        name: Coverage threshold failure (${{ steps.test.outputs.coverage }})
+        run: yarn test:cov:reports
   build:
     needs:
       - commitlint

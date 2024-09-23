@@ -4,7 +4,6 @@
  * @see https://vitest.dev/config/
  */
 
-import { ifelse, includes, sift } from '@flex-development/tutils'
 import ci from 'is-ci'
 import path from 'node:path'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -77,9 +76,13 @@ const config: UserConfigExport = defineConfig((env: ConfigEnv): UserConfig => {
         extension: ['.ts'],
         include: ['src'],
         provider: 'v8',
-        reporter: [ci ? 'lcovonly' : 'html', 'text'],
+        reportOnFailure: !ci,
+        reporter: env.mode === 'reports'
+          ? ['text']
+          : [ci ? 'lcovonly' : 'html', 'json-summary', 'text'],
         reportsDirectory: './coverage',
-        skipFull: false
+        skipFull: false,
+        thresholds: { 100: true, perFile: true }
       },
       environment: 'node',
       environmentOptions: {},
@@ -95,16 +98,17 @@ const config: UserConfigExport = defineConfig((env: ConfigEnv): UserConfig => {
       globals: true,
       hookTimeout: 10 * 1000,
       include: [
-        `**/__tests__/*.${ifelse(LINT_STAGED, '{spec,spec-d}', 'spec')}.ts?(x)`
+        `**/__tests__/*.${LINT_STAGED ? '{spec,spec-d}' : 'spec'}.ts?(x)`
       ],
       mockReset: true,
       outputFile: {
-        json: includes(['benchmark', 'typecheck'], env.mode)
-          ? path.join('__tests__', env.mode + '.json')
-          : '__tests__/report.json'
+        blob: '.vitest-reports/blob.json',
+        json: path.join('__tests__', 'reports', env.mode + '.json')
       },
       passWithNoTests: true,
-      reporters: sift([ifelse(ci, null, new Notifier()), 'json', 'verbose']),
+      reporters: env.mode === 'reports'
+        ? ['verbose']
+        : [ci ? 'github-actions' : new Notifier(), 'blob', 'json', 'verbose'],
       /**
        * Stores snapshots next to `file`'s directory.
        *
