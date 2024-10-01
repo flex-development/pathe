@@ -3,7 +3,7 @@
  * @module pathe/types/Ext
  */
 
-import type Dot from './dot'
+import type { Dot } from '@flex-development/pathe'
 
 /**
  * File extension schema.

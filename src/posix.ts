@@ -3,4 +3,4 @@
  * @module pathe/posix
  */
 
-export { posix as default } from './pathe'
+export { posix as default } from '#pathe'

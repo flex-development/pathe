@@ -5,10 +5,10 @@
  */
 
 import process from '#internal/process'
+import testSubject from '#lib/file-url-to-path'
+import toPosix from '#lib/to-posix'
 import { codes, isNodeError, type NodeError } from '@flex-development/errnode'
 import { fileURLToPath } from 'node:url'
-import testSubject from '../file-url-to-path'
-import toPosix from '../to-posix'
 
 describe('unit:lib/fileURLToPath', () => {
   it.each<string>([

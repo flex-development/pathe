@@ -7,11 +7,11 @@ import { DRIVE_PATH_REGEX } from '#internal/constants'
 import normalizeString from '#internal/normalize-string'
 import process from '#internal/process'
 import validateString from '#internal/validate-string'
+import dot from '#lib/dot'
+import isSep from '#lib/is-sep'
+import sep from '#lib/sep'
+import toPosix from '#lib/to-posix'
 import type { Cwd } from '@flex-development/pathe'
-import dot from './dot'
-import isSep from './is-sep'
-import sep from './sep'
-import toPosix from './to-posix'
 
 /**
  * Resolve a sequence of paths or path segments into an absolute path.

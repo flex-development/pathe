@@ -3,8 +3,7 @@
  * @module pathe/types/Delimiter
  */
 
-import type PosixDelimiter from './delimiter-posix'
-import type WindowsDelimiter from './delimiter-windows'
+import type { PosixDelimiter, WindowsDelimiter } from '@flex-development/pathe'
 
 /**
  * Union of path delimiters.

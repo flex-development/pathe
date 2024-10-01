@@ -3,9 +3,9 @@
  * @module pathe/interfaces/tests/unit-d/ParsedPath
  */
 
+import type TestSubject from '#interfaces/parsed-path'
 import type { EmptyString, Ext } from '@flex-development/pathe'
 import type path from 'node:path'
-import type TestSubject from '../parsed-path'
 
 describe('unit-d:interfaces/ParsedPath', () => {
   it('should have path.ParsedPath keys', () => {

@@ -4,8 +4,8 @@
  */
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
+import isSep from '#lib/is-sep'
 import type { DeviceRoot } from '@flex-development/pathe'
-import isSep from './is-sep'
 
 /**
  * Check if `value` is a device root.

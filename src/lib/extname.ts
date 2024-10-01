@@ -5,10 +5,10 @@
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
 import validateString from '#internal/validate-string'
+import dot from '#lib/dot'
+import isSep from '#lib/is-sep'
+import toPosix from '#lib/to-posix'
 import type { EmptyString, Ext } from '@flex-development/pathe'
-import dot from './dot'
-import isSep from './is-sep'
-import toPosix from './to-posix'
 
 /**
  * Get the file extension of `path` from the last occurrence of the `.` (dot)

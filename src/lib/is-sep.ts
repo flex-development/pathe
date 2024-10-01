@@ -4,8 +4,8 @@
  */
 
 import { sepWindows } from '#internal/constants'
+import sep from '#lib/sep'
 import type { Sep } from '@flex-development/pathe'
-import sep from './sep'
 
 /**
  * Check if `value` is a path segment separator.

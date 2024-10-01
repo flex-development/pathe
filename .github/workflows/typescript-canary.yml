@@ -14,7 +14,6 @@
 # - https://github.com/actions/setup-node
 # - https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#yarn2-configuration
 # - https://github.com/hmarr/debug-action
-# - https://github.com/oven-sh/setup-bun
 # - https://vitest.dev/guide/testing-types.html#run-typechecking
 
 ---
@@ -69,9 +68,6 @@ jobs:
       - id: print-typescript-version
         name: Print TypeScript version
         run: jq .devDependencies.typescript package.json -r
-      - id: bun
-        name: Setup Bun
-        uses: oven-sh/setup-bun@v2.0.1
       - id: build
         name: Build project
         run: yarn build

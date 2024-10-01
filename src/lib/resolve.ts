@@ -4,7 +4,7 @@
  */
 
 import process from '#internal/process'
-import resolveWith from './resolve-with'
+import resolveWith from '#lib/resolve-with'
 
 /**
  * Resolve a sequence of paths or path segments into an absolute path.

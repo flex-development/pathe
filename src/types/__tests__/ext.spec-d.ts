@@ -3,7 +3,7 @@
  * @module pathe/types/tests/unit-d/Ext
  */
 
-import type Dot from '../dot'
+import type { Dot } from '@flex-development/pathe'
 import type TestSubject from '../ext'
 
 describe('unit-d:types/Ext', () => {

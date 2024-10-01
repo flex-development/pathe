@@ -4,10 +4,10 @@
  * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-url-pathtofileurl.js
  */
 
+import testSubject from '#lib/path-to-file-url'
+import toPosix from '#lib/to-posix'
 import { codes, isNodeError, type NodeError } from '@flex-development/errnode'
 import { pathToFileURL } from 'node:url'
-import testSubject from '../path-to-file-url'
-import toPosix from '../to-posix'
 
 describe('unit:lib/pathToFileURL', () => {
   describe('posix', () => {

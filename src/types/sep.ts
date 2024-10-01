@@ -3,8 +3,7 @@
  * @module pathe/types/Sep
  */
 
-import type PosixSep from './sep-posix'
-import type WindowsSep from './sep-windows'
+import type { PosixSep, WindowsSep } from '@flex-development/pathe'
 
 /**
  * Union of path segment separators.

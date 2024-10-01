@@ -4,9 +4,9 @@
  * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-normalize.js
  */
 
+import testSubject from '#lib/normalize'
+import toPosix from '#lib/to-posix'
 import { posix, win32 } from 'node:path'
-import testSubject from '../normalize'
-import toPosix from '../to-posix'
 
 describe('unit:lib/normalize', () => {
   describe('posix', () => {

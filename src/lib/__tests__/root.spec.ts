@@ -4,10 +4,10 @@
  * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-parse-format.js
  */
 
+import dot from '#lib/dot'
+import testSubject from '#lib/root'
+import toPosix from '#lib/to-posix'
 import { posix, win32 } from 'node:path'
-import dot from '../dot'
-import testSubject from '../root'
-import toPosix from '../to-posix'
 
 describe('unit:lib/root', () => {
   describe('posix', () => {

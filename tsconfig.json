@@ -6,7 +6,7 @@
     "alwaysStrict": false,
     "baseUrl": ".",
     "checkJs": false,
-    "customConditions": ["pathe", "development", "import", "node"],
+    "customConditions": ["pathe", "development"],
     "declaration": false,
     "declarationMap": false,
     "emitDecoratorMetadata": false,
@@ -28,11 +28,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "outDir": "dist",
-    "paths": {
-      "#fixtures/*": ["__fixtures__/*"],
-      "#tests/*": ["__tests__/*"],
-      "@flex-development/pathe": ["src/index"]
-    },
+    "paths": {},
     "preserveConstEnums": true,
     "preserveSymlinks": false,
     "pretty": true,

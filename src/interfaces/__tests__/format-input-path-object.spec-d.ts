@@ -3,10 +3,10 @@
  * @module pathe/interfaces/tests/unit-d/FormatInputPathObject
  */
 
+import type TestSubject from '#interfaces/format-input-path-object'
+import type { ParsedPath } from '@flex-development/pathe'
 import type { Nilable } from '@flex-development/tutils'
 import type path from 'node:path'
-import type TestSubject from '../format-input-path-object'
-import type ParsedPath from '../parsed-path'
 
 describe('unit-d:interfaces/FormatInputPathObject', () => {
   it('should allow ParsedPath', () => {

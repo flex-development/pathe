@@ -4,9 +4,9 @@
  * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-makelong.js
  */
 
+import testSubject from '#lib/to-namespaced-path'
+import toPosix from '#lib/to-posix'
 import { win32 } from 'node:path'
-import testSubject from '../to-namespaced-path'
-import toPosix from '../to-posix'
 
 describe('unit:lib/toNamespacedPath', () => {
   describe('windows', () => {

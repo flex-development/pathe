@@ -3,7 +3,7 @@
  * @module pathe/lib/tests/unit/formatExt
  */
 
-import testSubject from '../format-ext'
+import testSubject from '#lib/format-ext'
 
 describe('unit:lib/formatExt', () => {
   it.each<Parameters<typeof testSubject>>([

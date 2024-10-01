@@ -3,8 +3,8 @@
  * @module pathe/lib/tests/unit/isDeviceRoot
  */
 
+import testSubject from '#lib/is-device-root'
 import { posix, win32 } from 'node:path'
-import testSubject from '../is-device-root'
 
 describe('unit:lib/isDeviceRoot', () => {
   it.each<Parameters<typeof testSubject>>([

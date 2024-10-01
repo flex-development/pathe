@@ -4,8 +4,8 @@
  */
 
 import validateString from '#internal/validate-string'
-import extname from './extname'
-import formatExt from './format-ext'
+import extname from '#lib/extname'
+import formatExt from '#lib/format-ext'
 
 /**
  * Append a file extension to `path`.

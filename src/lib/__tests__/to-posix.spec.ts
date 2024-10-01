@@ -3,9 +3,9 @@
  * @module pathe/lib/tests/unit/toPosix
  */
 
+import dot from '#lib/dot'
+import testSubject from '#lib/to-posix'
 import { win32 } from 'node:path'
-import dot from '../dot'
-import testSubject from '../to-posix'
 
 describe('unit:lib/toPosix', () => {
   it.each<Parameters<typeof testSubject>>([

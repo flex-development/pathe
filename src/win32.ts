@@ -3,4 +3,4 @@
  * @module pathe/win32
  */
 
-export { win32 as default } from './pathe'
+export { win32 as default } from '#pathe'

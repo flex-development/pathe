@@ -4,11 +4,11 @@
  */
 
 import validateString from '#internal/validate-string'
+import addExt from '#lib/add-ext'
 import extname from '#lib/extname'
+import formatExt from '#lib/format-ext'
+import removeExt from '#lib/remove-ext'
 import type { EmptyString, Ext } from '@flex-development/pathe'
-import addExt from './add-ext'
-import formatExt from './format-ext'
-import removeExt from './remove-ext'
 
 /**
  * Change the file extension of `path`.

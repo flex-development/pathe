@@ -3,7 +3,7 @@
  * @module pathe/types/DriveLetter
  */
 
-import type PosixDelimiter from './delimiter-posix'
+import type { PosixDelimiter } from '@flex-development/pathe'
 
 /**
  * Union of lowercase letters.
@@ -43,4 +43,4 @@ type Letter =
  */
 type DriveLetter = `${Letter | Uppercase<Letter>}${PosixDelimiter}`
 
-export type { Letter, DriveLetter as default }
+export type { DriveLetter as default, Letter }

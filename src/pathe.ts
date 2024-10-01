@@ -4,11 +4,6 @@
  */
 
 import { delimiterWindows, sepWindows } from '#internal/constants'
-import type {
-  Pathe,
-  PosixPlatformPath,
-  WindowsPlatformPath
-} from './interfaces'
 import {
   addExt,
   basename,
@@ -38,7 +33,12 @@ import {
   sep,
   toNamespacedPath,
   toPosix
-} from './lib'
+} from '#lib'
+import type {
+  Pathe,
+  PosixPlatformPath,
+  WindowsPlatformPath
+} from '@flex-development/pathe'
 
 /**
  * POSIX utilities for working with file and directory paths.

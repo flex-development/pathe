@@ -20,7 +20,6 @@
 # - https://github.com/flex-development/grease
 # - https://github.com/hmarr/debug-action
 # - https://github.com/kaisugi/action-regex-match
-# - https://github.com/oven-sh/setup-bun
 # - https://regex101.com/r/OwpOr2
 # - https://regex101.com/r/VIIVGd
 
@@ -155,9 +154,6 @@ jobs:
         env:
           HUSKY: 0
         run: yarn && echo "$GITHUB_WORKSPACE/node_modules/.bin" >>$GITHUB_PATH
-      - id: bun
-        name: Setup Bun
-        uses: oven-sh/setup-bun@v2.0.1
       - id: bump-manifest
         name: Bump manifest version to ${{ needs.preflight.outputs.version }}
         run: grease bump -w ${{ needs.preflight.outputs.version }}

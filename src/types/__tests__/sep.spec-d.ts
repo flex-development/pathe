@@ -3,9 +3,8 @@
  * @module pathe/types/tests/unit-d/Sep
  */
 
-import type TestSubject from '../sep'
-import type PosixSep from '../sep-posix'
-import type WindowsSep from '../sep-windows'
+import type TestSubject from '#types/sep'
+import type { PosixSep, WindowsSep } from '@flex-development/pathe'
 
 describe('unit-d:types/Sep', () => {
   it('should extract PosixSep', () => {

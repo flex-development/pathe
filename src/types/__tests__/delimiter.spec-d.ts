@@ -3,9 +3,8 @@
  * @module pathe/types/tests/unit-d/Delimiter
  */
 
-import type TestSubject from '../delimiter'
-import type PosixDelimiter from '../delimiter-posix'
-import type WindowsDelimiter from '../delimiter-windows'
+import type TestSubject from '#types/delimiter'
+import type { PosixDelimiter, WindowsDelimiter } from '@flex-development/pathe'
 
 describe('unit-d:types/Delimiter', () => {
   it('should extract PosixDelimiter', () => {

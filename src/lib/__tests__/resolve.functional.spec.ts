@@ -4,10 +4,10 @@
  */
 
 import process from '#internal/process'
+import testSubject from '#lib/resolve'
+import * as resolveWith from '#lib/resolve-with'
+import sep from '#lib/sep'
 import type { MockInstance } from 'vitest'
-import testSubject from '../resolve'
-import * as resolveWith from '../resolve-with'
-import sep from '../sep'
 
 describe('functional:lib/resolve', () => {
   let spy: MockInstance<(typeof resolveWith)['default']>

@@ -4,10 +4,10 @@
  */
 
 import validateString from '#internal/validate-string'
+import dot from '#lib/dot'
+import extname from '#lib/extname'
+import toPosix from '#lib/to-posix'
 import type { EmptyString, Ext } from '@flex-development/pathe'
-import dot from './dot'
-import extname from './extname'
-import toPosix from './to-posix'
 
 /**
  * Get a list of file extensions for `path`.

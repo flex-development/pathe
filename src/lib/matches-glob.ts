@@ -5,8 +5,8 @@
 
 import process from '#internal/process'
 import validateString from '#internal/validate-string'
+import toPosix from '#lib/to-posix'
 import micromatch from 'micromatch'
-import toPosix from './to-posix'
 
 /**
  * Check if `path` matches `pattern`.

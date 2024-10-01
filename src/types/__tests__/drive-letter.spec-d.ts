@@ -3,8 +3,8 @@
  * @module pathe/types/tests/unit-d/DriveLetter
  */
 
-import type PosixDelimiter from '../delimiter-posix'
-import type * as TestSubject from '../drive-letter'
+import type * as TestSubject from '#types/drive-letter'
+import type { PosixDelimiter } from '@flex-development/pathe'
 
 describe('unit-d:types/DriveLetter', () => {
   it('should extract `${Letter}${PosixDelimiter}`', () => {

@@ -4,11 +4,11 @@
  */
 
 import validateObject from '#internal/validate-object'
+import formatExt from '#lib/format-ext'
+import type parse from '#lib/parse'
+import sep from '#lib/sep'
+import toPosix from '#lib/to-posix'
 import type { FormatInputPathObject } from '@flex-development/pathe'
-import formatExt from './format-ext'
-import type parse from './parse'
-import sep from './sep'
-import toPosix from './to-posix'
 
 /**
  * Get a path string from an object.

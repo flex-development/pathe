@@ -3,8 +3,8 @@
  * @module pathe/interfaces/tests/unit-d/PlatformPath
  */
 
+import type TestSubject from '#interfaces/platform-path'
 import type path from 'node:path'
-import type TestSubject from '../platform-path'
 
 describe('unit-d:interfaces/PlatformPath', () => {
   it('should have path.PlatformPath keys', () => {

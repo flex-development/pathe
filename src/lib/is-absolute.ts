@@ -5,7 +5,7 @@
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
 import validateString from '#internal/validate-string'
-import isSep from './is-sep'
+import isSep from '#lib/is-sep'
 
 /**
  * Determine if `path` is absolute.

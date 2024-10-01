@@ -3,9 +3,12 @@
  * @module pathe/interfaces/WindowsPlatformPath
  */
 
-import type { WindowsDelimiter, WindowsSep } from '@flex-development/pathe'
-import type PlatformPath from './platform-path'
-import type PosixPlatformPath from './platform-path-posix'
+import type {
+  PlatformPath,
+  PosixPlatformPath,
+  WindowsDelimiter,
+  WindowsSep
+} from '@flex-development/pathe'
 
 /**
  * Windows utilities for working with file and directory paths.

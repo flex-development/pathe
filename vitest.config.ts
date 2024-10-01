@@ -6,7 +6,6 @@
 
 import ci from 'is-ci'
 import path from 'node:path'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import {
   defineConfig,
   type ConfigEnv,
@@ -15,7 +14,7 @@ import {
 } from 'vitest/config'
 import { BaseSequencer, type WorkspaceSpec } from 'vitest/node'
 import Notifier from './__tests__/reporters/notifier'
-import tsconfigJson from './tsconfig.json'
+import tsconfigJson from './tsconfig.test.json'
 
 /**
  * Vitest configuration export.
@@ -32,28 +31,11 @@ const config: UserConfigExport = defineConfig((env: ConfigEnv): UserConfig => {
    */
   const LINT_STAGED: boolean = !!Number.parseInt(process.env.LINT_STAGED ?? '0')
 
-  /**
-   * Relative path to tsconfig file.
-   *
-   * @const {string} tsconfig
-   */
-  const tsconfig: string = 'tsconfig.typecheck.json'
-
   return {
     define: {},
-    plugins: [tsconfigPaths({ projects: [tsconfig] })],
-    resolve: {
-      conditions: [
-        'pathe/vitest',
-        ...tsconfigJson.compilerOptions.customConditions
-      ]
-    },
+    resolve: { conditions: tsconfigJson.compilerOptions.customConditions },
     test: {
       allowOnly: !ci,
-      benchmark: {
-        include: ['**/__tests__/*.bench.spec.ts?(x)'],
-        reporters: [new Notifier(), 'verbose']
-      },
       chaiConfig: {
         includeStack: true,
         showDiff: true,
@@ -97,9 +79,7 @@ const config: UserConfigExport = defineConfig((env: ConfigEnv): UserConfig => {
       globalSetup: [],
       globals: true,
       hookTimeout: 10 * 1000,
-      include: [
-        `**/__tests__/*.${LINT_STAGED ? '{spec,spec-d}' : 'spec'}.ts?(x)`
-      ],
+      include: [`**/__tests__/*.${LINT_STAGED ? '{spec,spec-d}' : 'spec'}.ts`],
       mockReset: true,
       outputFile: {
         blob: `.vitest-reports/${env.mode}.blob.json`,
@@ -171,7 +151,7 @@ const config: UserConfigExport = defineConfig((env: ConfigEnv): UserConfig => {
         ignoreSourceErrors: false,
         include: ['**/__tests__/*.spec-d.ts'],
         only: true,
-        tsconfig
+        tsconfig: 'tsconfig.typecheck.json'
       },
       unstubEnvs: true,
       unstubGlobals: true

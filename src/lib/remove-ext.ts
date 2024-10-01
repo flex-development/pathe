@@ -4,7 +4,7 @@
  */
 
 import validateString from '#internal/validate-string'
-import formatExt from './format-ext'
+import formatExt from '#lib/format-ext'
 
 /**
  * Remove the file extension of `path`.

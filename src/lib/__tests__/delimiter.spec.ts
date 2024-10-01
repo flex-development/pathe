@@ -3,8 +3,8 @@
  * @module pathe/lib/tests/unit/delimiter
  */
 
+import TEST_SUBJECT from '#lib/delimiter'
 import path from 'node:path'
-import TEST_SUBJECT from '../delimiter'
 
 describe('unit:lib/delimiter', () => {
   it('should equal path.posix.delimiter', () => {

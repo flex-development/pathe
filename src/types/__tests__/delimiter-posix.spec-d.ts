@@ -3,7 +3,7 @@
  * @module pathe/types/tests/unit-d/PosixDelimiter
  */
 
-import type TestSubject from '../delimiter-posix'
+import type TestSubject from '#types/delimiter-posix'
 
 describe('unit-d:types/PosixDelimiter', () => {
   it('should equal ":"', () => {

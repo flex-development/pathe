@@ -3,9 +3,9 @@
  * @module pathe/interfaces/tests/unit-d/Pathe
  */
 
+import type TestSubject from '#interfaces/pathe'
 import type * as lib from '#lib/index'
-import type TestSubject from '../pathe'
-import type PosixPlatformPath from '../platform-path-posix'
+import type { PosixPlatformPath } from '@flex-development/pathe'
 
 describe('unit-d:interfaces/Pathe', () => {
   it('should extend PosixPlatformPath', () => {

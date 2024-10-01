@@ -6,11 +6,11 @@
 import { DRIVE_PATH_REGEX } from '#internal/constants'
 import normalizeString from '#internal/normalize-string'
 import validateString from '#internal/validate-string'
-import dot from './dot'
-import isAbsolute from './is-absolute'
-import isSep from './is-sep'
-import sep from './sep'
-import toPosix from './to-posix'
+import dot from '#lib/dot'
+import isAbsolute from '#lib/is-absolute'
+import isSep from '#lib/is-sep'
+import sep from '#lib/sep'
+import toPosix from '#lib/to-posix'
 
 /**
  * Normalize `path`, resolving `'..'` and `'.'` segments.

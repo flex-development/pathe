@@ -4,7 +4,7 @@
  */
 
 import process from '#internal/process'
-import testSubject from '../cwd'
+import testSubject from '#lib/cwd'
 
 describe('unit:lib/cwd', () => {
   it('should return path to current working directory', () => {

@@ -4,10 +4,10 @@
  */
 
 import validateString from '#internal/validate-string'
-import dot from './dot'
-import isSep from './is-sep'
-import normalize from './normalize'
-import sep from './sep'
+import dot from '#lib/dot'
+import isSep from '#lib/is-sep'
+import normalize from '#lib/normalize'
+import sep from '#lib/sep'
 
 /**
  * Join all path segments in `paths` using {@linkcode sep} as the delimiter and

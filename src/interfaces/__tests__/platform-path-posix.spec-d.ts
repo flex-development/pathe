@@ -3,11 +3,14 @@
  * @module pathe/interfaces/tests/unit-d/PosixPlatformPath
  */
 
-import type { PosixDelimiter, PosixSep } from '@flex-development/pathe'
+import type TestSubject from '#interfaces/platform-path-posix'
+import type {
+  PlatformPath,
+  PosixDelimiter,
+  PosixSep,
+  WindowsPlatformPath
+} from '@flex-development/pathe'
 import type { ReadonlyKeys } from '@flex-development/tutils'
-import type PlatformPath from '../platform-path'
-import type TestSubject from '../platform-path-posix'
-import type WindowsPlatformPath from '../platform-path-windows'
 
 describe('unit-d:interfaces/PosixPlatformPath', () => {
   it('should extend PlatformPath', () => {

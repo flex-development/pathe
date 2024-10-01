@@ -3,11 +3,11 @@
  * @module pathe/internal/normalizeString
  */
 
+import validateString from '#internal/validate-string'
 import dot from '#lib/dot'
 import isSep from '#lib/is-sep'
 import sep from '#lib/sep'
 import toPosix from '#lib/to-posix'
-import validateString from './validate-string'
 
 /**
  * Normalize `path`.

@@ -4,8 +4,8 @@
  * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-isabsolute.js
  */
 
+import testSubject from '#lib/is-absolute'
 import { posix, win32 } from 'node:path'
-import testSubject from '../is-absolute'
 
 describe('unit:lib/isAbsolute', () => {
   describe('posix', () => {

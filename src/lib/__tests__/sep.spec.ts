@@ -3,8 +3,8 @@
  * @module pathe/lib/tests/unit/sep
  */
 
+import TEST_SUBJECT from '#lib/sep'
 import path from 'node:path'
-import TEST_SUBJECT from '../sep'
 
 describe('unit:lib/sep', () => {
   it('should equal path.posix.sep', () => {

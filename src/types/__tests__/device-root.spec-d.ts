@@ -3,9 +3,8 @@
  * @module pathe/types/tests/unit-d/DeviceRoot
  */
 
-import type TestSubject from '../device-root'
-import type DriveLetter from '../drive-letter'
-import type Sep from '../sep'
+import type TestSubject from '#types/device-root'
+import type { DriveLetter, Sep } from '@flex-development/pathe'
 
 describe('unit-d:types/DeviceRoot', () => {
   it('should equal `${DriveLetter}${Sep}`', () => {

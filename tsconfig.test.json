@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "customConditions": ["pathe", "development"]
+  },
+  "extends": "./tsconfig.json"
+}

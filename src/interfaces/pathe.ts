@@ -17,10 +17,10 @@ import type {
   Dot,
   EmptyString,
   Ext,
+  PlatformOptions,
+  PosixPlatformPath,
   Sep
 } from '@flex-development/pathe'
-import type PlatformOptions from './platform-options'
-import type PosixPlatformPath from './platform-path-posix'
 
 /**
  * Utilities for working with directory paths, file paths, and file extensions.

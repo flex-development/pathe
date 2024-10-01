@@ -3,8 +3,8 @@
  * @module pathe/internal/tests/unit/validateObject
  */
 
+import testSubject from '#internal/validate-object'
 import { codes, isNodeError, type NodeError } from '@flex-development/errnode'
-import testSubject from '../validate-object'
 
 describe('unit:internal/validateObject', () => {
   let name: string

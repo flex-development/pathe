@@ -4,9 +4,9 @@
  * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-extname.js
  */
 
+import testSubject from '#lib/extname'
+import toPosix from '#lib/to-posix'
 import { posix, win32 } from 'node:path'
-import testSubject from '../extname'
-import toPosix from '../to-posix'
 
 describe('unit:lib/extname', () => {
   describe('posix', () => {

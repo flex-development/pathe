@@ -7,6 +7,10 @@ import { isWindows } from '#internal/constants'
 import domainToUnicode from '#internal/domain-to-unicode'
 import isURL from '#internal/is-url'
 import process from '#internal/process'
+import isDeviceRoot from '#lib/is-device-root'
+import isSep from '#lib/is-sep'
+import sep from '#lib/sep'
+import toPosix from '#lib/to-posix'
 import {
   ERR_INVALID_ARG_TYPE,
   ERR_INVALID_FILE_URL_HOST,
@@ -18,10 +22,6 @@ import {
   type ErrInvalidUrlScheme
 } from '@flex-development/errnode'
 import type { PlatformOptions } from '@flex-development/pathe'
-import isDeviceRoot from './is-device-root'
-import isSep from './is-sep'
-import sep from './sep'
-import toPosix from './to-posix'
 
 /**
  * Convert a `file:` URL to a path.

@@ -6,15 +6,15 @@
 import { isWindows } from '#internal/constants'
 import domainToASCII from '#internal/domain-to-ascii'
 import validateString from '#internal/validate-string'
+import isSep from '#lib/is-sep'
+import resolve from '#lib/resolve'
+import sep from '#lib/sep'
+import toPosix from '#lib/to-posix'
 import {
   ERR_INVALID_ARG_VALUE,
   type ErrInvalidArgValue
 } from '@flex-development/errnode'
 import type { PlatformOptions } from '@flex-development/pathe'
-import isSep from './is-sep'
-import resolve from './resolve'
-import sep from './sep'
-import toPosix from './to-posix'
 
 export default pathToFileURL
 

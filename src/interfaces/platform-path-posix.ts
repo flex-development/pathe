@@ -3,9 +3,12 @@
  * @module pathe/interfaces/PosixPlatformPath
  */
 
-import type { PosixDelimiter, PosixSep } from '@flex-development/pathe'
-import type PlatformPath from './platform-path'
-import type WindowsPlatformPath from './platform-path-windows'
+import type {
+  PlatformPath,
+  PosixDelimiter,
+  PosixSep,
+  WindowsPlatformPath
+} from '@flex-development/pathe'
 
 /**
  * POSIX utilities for working with file and directory paths.

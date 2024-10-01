@@ -5,11 +5,11 @@
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
 import validateString from '#internal/validate-string'
-import delimiter from './delimiter'
-import dot from './dot'
-import isSep from './is-sep'
-import sep from './sep'
-import toPosix from './to-posix'
+import delimiter from '#lib/delimiter'
+import dot from '#lib/dot'
+import isSep from '#lib/is-sep'
+import sep from '#lib/sep'
+import toPosix from '#lib/to-posix'
 
 /**
  * Get the directory name of `path`, similar to the Unix `dirname` command.

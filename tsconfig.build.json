@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "customConditions": ["production"],
+    "customConditions": [],
     "declaration": true,
     "noEmitOnError": true,
     "paths": {},

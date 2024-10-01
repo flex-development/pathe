@@ -4,7 +4,7 @@
  */
 
 import validateString from '#internal/validate-string'
-import sep from './sep'
+import sep from '#lib/sep'
 
 /**
  * Make separators in `path` POSIX-compliant.

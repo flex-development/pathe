@@ -4,9 +4,9 @@
  * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-parse-format.js
  */
 
+import testSubject from '#lib/format'
+import toPosix from '#lib/to-posix'
 import { posix, win32 } from 'node:path'
-import testSubject from '../format'
-import toPosix from '../to-posix'
 
 describe('unit:lib/format', () => {
   describe('posix', () => {

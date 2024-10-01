@@ -3,7 +3,7 @@
  * @module pathe/lib/tests/unit/extnames
  */
 
-import testSubject from '../extnames'
+import testSubject from '#lib/extnames'
 
 describe('unit:lib/extnames', () => {
   it.each<Parameters<typeof testSubject>>([

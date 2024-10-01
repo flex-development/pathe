@@ -4,10 +4,10 @@
  * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-resolve.js
  */
 
+import dot from '#lib/dot'
+import testSubject from '#lib/resolve-with'
+import toPosix from '#lib/to-posix'
 import { posix, win32 } from 'node:path'
-import dot from '../dot'
-import testSubject from '../resolve-with'
-import toPosix from '../to-posix'
 
 describe('unit:lib/resolveWith', () => {
   it('should return "." on `cwd()` failure', () => {

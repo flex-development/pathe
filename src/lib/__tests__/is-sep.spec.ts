@@ -4,8 +4,8 @@
  */
 
 import { sepWindows } from '#internal/constants'
-import testSubject from '../is-sep'
-import sep from '../sep'
+import testSubject from '#lib/is-sep'
+import sep from '#lib/sep'
 
 describe('unit:lib/isSep', () => {
   it('should return `false` if `value` is not path separator', () => {

@@ -10,11 +10,11 @@ import type {
   Delimiter,
   EmptyString,
   Ext,
+  FormatInputPathObject,
+  ParsedPath,
   Sep
 } from '@flex-development/pathe'
 import type micromatch from 'micromatch'
-import type FormatInputPathObject from './format-input-path-object'
-import type ParsedPath from './parsed-path'
 
 /**
  * Utilities for working with file and directory paths.

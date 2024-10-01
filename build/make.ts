@@ -3,12 +3,15 @@
  * @module build/make
  */
 
+import cleaner from '#build/plugins/clean'
+import declarations from '#build/plugins/dts'
+import writer from '#build/plugins/write'
 import {
   ERR_MODULE_NOT_FOUND,
   type ErrModuleNotFound
 } from '@flex-development/errnode'
 import type { OutputExtension, OutputMetadata } from '@flex-development/mkbuild'
-import { readPackageJson, RESOLVE_EXTENSIONS } from '@flex-development/mlly'
+import { RESOLVE_EXTENSIONS, readPackageJson } from '@flex-development/mlly'
 import pathe from '@flex-development/pathe'
 import type { PackageJson } from '@flex-development/pkg-types'
 import {
@@ -27,13 +30,8 @@ import {
   type LogLevel,
   type ServeOptions
 } from 'esbuild'
-import { fileURLToPath } from 'node:url'
 import pb from 'pretty-bytes'
 import color from 'tinyrainbow'
-import cleaner from './plugins/clean'
-import declarations from './plugins/dts'
-import fullySpecified from './plugins/fully-specified'
-import writer from './plugins/write'
 
 export { make as default, type Options }
 
@@ -187,12 +185,14 @@ async function make(
    *
    * @const {PackageJson | null} pkg
    */
-  const pkg: PackageJson | null = readPackageJson(absWorkingDir)
+  const pkg: PackageJson | null = readPackageJson(
+    pathe.pathToFileURL(absWorkingDir + pathe.sep)
+  )
 
   if (!pkg) {
     throw new ERR_MODULE_NOT_FOUND(
       pathe.join(absWorkingDir, 'package.json'),
-      fileURLToPath(import.meta.url),
+      pathe.fileURLToPath(import.meta.url),
       'module'
     )
   } else {
@@ -320,7 +320,6 @@ async function make(
         clean && cleaner(),
         dts && declarations({ only: dts === 'only' }),
         ...plugins,
-        fullySpecified(),
         write && writer()
       ]),
       pure: [...new Set(pure)],

@@ -5,10 +5,10 @@
  */
 
 import process from '#internal/process'
+import testSubject from '#lib/matches-glob'
+import toPosix from '#lib/to-posix'
 import micromatch from 'micromatch'
 import type { MockInstance } from 'vitest'
-import testSubject from '../matches-glob'
-import toPosix from '../to-posix'
 
 describe('functional:lib/matchesGlob', () => {
   let spy: MockInstance<typeof micromatch['isMatch']>

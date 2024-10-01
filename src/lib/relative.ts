@@ -5,11 +5,11 @@
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
 import validateString from '#internal/validate-string'
+import dot from '#lib/dot'
+import isSep from '#lib/is-sep'
+import resolveWith from '#lib/resolve-with'
+import sep from '#lib/sep'
 import type { Cwd } from '@flex-development/pathe'
-import dot from './dot'
-import isSep from './is-sep'
-import resolveWith from './resolve-with'
-import sep from './sep'
 
 export default relative
 

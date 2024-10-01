@@ -3,7 +3,7 @@
  * @module pathe/internal/tests/unit/isURL
  */
 
-import testSubject from '../is-url'
+import testSubject from '#internal/is-url'
 
 describe('unit:internal/isURL', () => {
   it.each<Parameters<typeof testSubject>>([

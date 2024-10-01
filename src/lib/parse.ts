@@ -5,13 +5,13 @@
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
 import validateString from '#internal/validate-string'
+import extname from '#lib/extname'
+import isDeviceRoot from '#lib/is-device-root'
+import isSep from '#lib/is-sep'
+import removeExt from '#lib/remove-ext'
+import root from '#lib/root'
+import toPosix from '#lib/to-posix'
 import type { ParsedPath } from '@flex-development/pathe'
-import extname from './extname'
-import isDeviceRoot from './is-device-root'
-import isSep from './is-sep'
-import removeExt from './remove-ext'
-import root from './root'
-import toPosix from './to-posix'
 
 /**
  * Create an object whose properties represent significant elements of `path`.

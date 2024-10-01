@@ -3,7 +3,7 @@
  * @module pathe/types/tests/unit-d/Cwd
  */
 
-import type TestSubject from '../cwd'
+import type TestSubject from '#types/cwd'
 
 describe('unit-d:types/Cwd', () => {
   describe('returns', () => {

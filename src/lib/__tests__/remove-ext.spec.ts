@@ -3,7 +3,7 @@
  * @module pathe/lib/tests/unit/removeExt
  */
 
-import testSubject from '../remove-ext'
+import testSubject from '#lib/remove-ext'
 
 describe('unit:lib/removeExt', () => {
   it.each<Parameters<typeof testSubject>>([

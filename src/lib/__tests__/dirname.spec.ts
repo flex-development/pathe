@@ -4,9 +4,9 @@
  * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-dirname.js
  */
 
+import testSubject from '#lib/dirname'
+import toPosix from '#lib/to-posix'
 import { posix, win32 } from 'node:path'
-import testSubject from '../dirname'
-import toPosix from '../to-posix'
 
 describe('unit:lib/dirname', () => {
   describe('posix', () => {
