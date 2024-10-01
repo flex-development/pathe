@@ -4,6 +4,7 @@
  * @see https://vitest.dev/config/
  */
 
+import Notifier from '#tests/reporters/notifier'
 import ci from 'is-ci'
 import path from 'node:path'
 import {
@@ -13,7 +14,6 @@ import {
   type UserConfigExport
 } from 'vitest/config'
 import { BaseSequencer, type WorkspaceSpec } from 'vitest/node'
-import Notifier from './__tests__/reporters/notifier'
 import tsconfigJson from './tsconfig.test.json'
 
 /**

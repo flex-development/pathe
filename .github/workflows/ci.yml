@@ -286,6 +286,8 @@ jobs:
       - id: typecheck
         if: steps.test-files-check.outputs.files_exists == 'true'
         name: Run typecheck
+        env:
+          NODE_OPTIONS: --experimental-strip-types --experimental-transform-types
         run: yarn typecheck
   test:
     needs:
@@ -333,6 +335,8 @@ jobs:
       - id: test
         if: steps.test-files-check.outputs.files_exists == 'true'
         name: Run tests
+        env:
+          NODE_OPTIONS: --experimental-strip-types --experimental-transform-types
         run: |
           yarn test:cov --coverage.thresholds.100=false \
           && echo "coverage=$(jq '${{ env.PCT }}' ${{ env.COVERAGE_SUMMARY }} -r)" >>$GITHUB_OUTPUT
@@ -377,6 +381,8 @@ jobs:
           steps.test-files-check.outputs.files_exists == 'true'
           && ${{ toJson(steps.test.outputs.coverage) }} != 400
         name: Coverage threshold failure (${{ steps.test.outputs.coverage }})
+        env:
+          NODE_OPTIONS: --experimental-strip-types --experimental-transform-types
         run: yarn test:cov:reports
   build:
     needs:
