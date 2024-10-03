@@ -1754,7 +1754,7 @@ __metadata:
     "@flex-development/grease": "npm:3.0.0-alpha.9"
     "@flex-development/mkbuild": "npm:1.0.0-alpha.23"
     "@flex-development/mlly": "npm:1.0.0-alpha.18"
-    "@flex-development/pkg-types": "npm:4.0.0"
+    "@flex-development/pkg-types": "npm:4.1.0"
     "@flex-development/tsconfig-utils": "npm:2.0.2"
     "@flex-development/tutils": "npm:6.0.0-alpha.25"
     "@stylistic/eslint-plugin": "npm:2.8.0"
@@ -1883,10 +1883,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@flex-development/pkg-types@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@flex-development/pkg-types@npm:4.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fpkg-types%2F4.0.0%2Ff35da5b7f2d5777518eb274f73cddc067a3608c0"
-  checksum: 10/617374c652fc1c081d4fb2e97d689b36d95e769c238e0d1d95ec934e5bdf36e7af694014e8cae1fcee236094dc20f089caf8f9eba26a8c50eefcca1f97efbe52
+"@flex-development/pkg-types@npm:4.1.0":
+  version: 4.1.0
+  resolution: "@flex-development/pkg-types@npm:4.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fpkg-types%2F4.1.0%2F2e1d878d4dc0e935d3ed08eaf3132e925ea5b721"
+  checksum: 10/9188a373fab25821a56c07d492520a40b72da2e9c90d878514616e619f7ed8ea6c461b85e41b15660d6e625eb7d68668566483c9c94dc49263a0deea9c7a481e
   languageName: node
   linkType: hard
 
