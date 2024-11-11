@@ -13,6 +13,6 @@ describe('unit-d:interfaces/Pathe', () => {
   })
 
   it('should register library functions', () => {
-    assertType<typeof lib>(<Omit<TestSubject, 'posix' | 'win32'>>{})
+    assertType<typeof lib>({} as Omit<TestSubject, 'posix' | 'win32'>)
   })
 })

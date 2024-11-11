@@ -92,7 +92,7 @@ describe('unit:lib/pathToFileURL', () => {
       try {
         testSubject(path, { windows: true })
       } catch (e: unknown) {
-        error = <typeof error>e
+        error = e as typeof error
       }
 
       // Expect

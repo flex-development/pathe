@@ -5,6 +5,7 @@
 
 import cleaner from '#build/plugins/clean'
 import declarations from '#build/plugins/dts'
+import ignore from '#build/plugins/ignore'
 import writer from '#build/plugins/write'
 import {
   ERR_MODULE_NOT_FOUND,
@@ -81,8 +82,6 @@ interface Options extends Task {
  * Build task.
  *
  * @see {@linkcode BuildOptions}
- *
- * @todo `ignore`
  *
  * @extends {Omit<BuildOptions,'metafile'>}
  */
@@ -166,9 +165,9 @@ async function make(
   const { entries, serve, watch, ...opts } = defaults(options, {
     absWorkingDir: '.',
     bundle: false,
-    logLevel: <LogLevel>'info',
+    logLevel: 'info' as LogLevel,
     outdir: 'dist',
-    serve: <ServeOptions | boolean>false,
+    serve: false as ServeOptions | boolean,
     watch: false,
     write: false
   })
@@ -279,7 +278,7 @@ async function make(
       footer,
       format,
       inject: [...new Set(inject)],
-      loader: <Record<string, Loader>>{
+      loader: {
         '.cjs': format === 'cjs' && !bundle ? 'copy' : 'js',
         '.css': bundle ? 'css' : 'copy',
         '.cts': 'ts',
@@ -307,7 +306,7 @@ async function make(
         '.woff': 'copy',
         '.woff2': 'copy',
         ...loader
-      },
+      } as Record<string, Loader>,
       logLimit,
       logOverride,
       mainFields: [...new Set(mainFields)],
@@ -317,6 +316,7 @@ async function make(
       outdir,
       platform,
       plugins: sift([
+        ignore(),
         clean && cleaner(),
         dts && declarations({ only: dts === 'only' }),
         ...plugins,

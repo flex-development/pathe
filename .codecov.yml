@@ -4,17 +4,18 @@
 ---
 codecov:
   notify:
-    after_n_builds: 3
+    after_n_builds: 2
     wait_for_ci: true
   require_ci_to_pass: true
 
 comment:
-  after_n_builds: 3
+  after_n_builds: 2
   behavior: default
-  layout: header,diff,files,components,footer
+  layout: header,diff,flags,files,components,tree,footer
   require_base: false
   require_changes: false
   require_head: true
+  show_carryforward_flags: true
   show_critical_paths: true
 
 component_management:
@@ -26,11 +27,11 @@ component_management:
     - component_id: internal
       name: internal
       paths:
-        - src/internal/*.ts
+        - src/internal/*.mts
     - component_id: lib
       name: lib
       paths:
-        - src/lib/*.ts
+        - src/lib/*.mts
 
 coverage:
   precision: 2
@@ -79,6 +80,10 @@ coverage:
         threshold: 0%
 
 flags:
+  node23:
+    carryforward: false
+    paths:
+      - src/
   node22:
     carryforward: false
     paths:
@@ -88,14 +93,15 @@ github_checks:
   annotations: true
 
 ignore:
+  - '**/*.d.mts'
   - '**/__mocks__/**'
   - '**/__tests__/**'
-  - '**/index.ts'
-  - '!src/index.ts'
-  - src/interfaces/
-  - src/internal/*.browser.ts
-  - src/types/
+  - '**/index.mts'
+  - '**/interfaces/**'
+  - '**/types/**'
+  - '!src/index.mts'
+  - src/internal/*.browser.mts
 
 profiling:
   critical_files_paths:
-    - src/lib/*.ts
+    - src/lib/*.mts

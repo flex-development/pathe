@@ -11,21 +11,28 @@ import ts from 'typescript-eslint'
 import pkg from './package.json' with { type: 'json' }
 
 /**
+ * @typedef {import('eslint').ESLint.Plugin} Plugin
+ * @typedef {import('eslint').Linter.Config} Config
+ * @typedef {import('eslint').Linter.Parser} Parser
+ * @typedef {import('eslint').Linter.SourceType} SourceType
+ */
+
+/**
  * Load a plugin.
  *
  * @async
  *
  * @param {string} name
  *  Plugin module name
- * @return {Promise<import('eslint').ESLint.Plugin>}
+ * @return {Promise<Plugin>}
  *  Eslint plugin
  */
 const plugin = async name => (await import(name)).default
 
 /**
- * Base eslint configuration object.
+ * Eslint configuration objects.
  *
- * @type {import('eslint').Linter.Config[]}
+ * @type {Config[]}
  */
 export default [
   eslint.configs.recommended,
@@ -38,7 +45,7 @@ export default [
           jsx: true
         }
       },
-      sourceType: pkg.type
+      sourceType: /** @type {SourceType} */ (pkg.type)
     },
     linterOptions: {
       reportUnusedDisableDirectives: true
@@ -169,7 +176,7 @@ export default [
         NodeJS: 'readonly',
         React: fs.existsSync('node_modules/react') ? 'readonly' : false
       },
-      parser: ts.parser,
+      parser: /** @type {Parser} */ (ts.parser),
       parserOptions: {
         extraFileExtensions: [],
         program: null,
@@ -180,7 +187,7 @@ export default [
     },
     plugins: {
       '@stylistic': await plugin('@stylistic/eslint-plugin'),
-      '@typescript-eslint': ts.plugin,
+      '@typescript-eslint': /** @type {Plugin} */ (ts.plugin),
       import: await plugin('eslint-plugin-import'),
       jsdoc: await plugin('eslint-plugin-jsdoc'),
       node: await plugin('eslint-plugin-n'),
@@ -938,7 +945,7 @@ export default [
         {
           ignoreConditionalTests: true,
           ignoreMixedLogicalExpressions: true,
-          ignorePrimitives: { string: true }
+          ignorePrimitives: { boolean: true, string: true }
         }
       ],
       '@typescript-eslint/prefer-optional-chain': 2,
@@ -992,6 +999,24 @@ export default [
     }
   },
   {
+    files: ['**/*.+(cjs|cts)'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 0,
+      'unicorn/prefer-module': 0
+    }
+  },
+  {
+    files: ['**/*.+(cts|mts)'],
+    rules: {
+      '@typescript-eslint/consistent-type-assertions': [
+        2,
+        {
+          assertionStyle: 'as'
+        }
+      ]
+    }
+  },
+  {
     files: ['**/*.d.+(cts|mts|ts)'],
     rules: {
       '@typescript-eslint/triple-slash-reference': 0,
@@ -1004,24 +1029,28 @@ export default [
     }
   },
   {
-    files: ['**/*.+(cjs|cts)'],
+    files: ['**/*.abstract.+(mts|ts)'],
     rules: {
-      '@typescript-eslint/no-require-imports': 0,
-      'unicorn/prefer-module': 0
+      '@typescript-eslint/no-useless-constructor': 0
     }
   },
   {
-    files: ['**/*.interface.ts', '**/interfaces/*.ts', '**/types/*.ts'],
+    files: [
+      '**/*.interface.+(mts|ts)',
+      '**/interfaces/*.+(mts|ts)',
+      '**/types/*.+(mts|ts)'
+    ],
     rules: {
       '@typescript-eslint/no-invalid-void-type': 0
     }
   },
   {
     files: [
-      '**/__mocks__/**/*.+(ts|tsx)',
-      '**/__tests__/*.spec.+(ts|tsx)',
-      '**/__tests__/*.spec-d.ts',
-      '__tests__/setup/*.ts'
+      '**/__mocks__/**/*.+(mts|ts|tsx)',
+      '**/__tests__/*.spec.+(mts|ts|tsx)',
+      '**/__tests__/*.spec-d.+(mts|ts)',
+      '**/__tests__/setup/*.+(mts|ts|tsx)',
+      '**/__tests__/utils/*.+(mts|ts|tsx)'
     ],
     languageOptions: {
       globals: {
@@ -1085,7 +1114,7 @@ export default [
     }
   },
   {
-    files: ['**/__tests__/*.spec-d.ts'],
+    files: ['**/__tests__/*.spec-d.+(mts|ts)'],
     languageOptions: {
       globals: {
         assertType: true,
@@ -1099,13 +1128,18 @@ export default [
     }
   },
   {
-    files: ['**/*.abstract.ts'],
+    files: ['**/cli/**/*.+(mts|ts)'],
     rules: {
-      '@typescript-eslint/no-useless-constructor': 0
+      'node/prefer-global/process': [2, 'never'],
+      'unicorn/no-process-exit': 0
     }
   },
   {
-    files: ['**/enums/*.ts', '**/interfaces/*.ts', '**/types/*.ts'],
+    files: [
+      '**/enums/*.+(mts|ts)',
+      '**/interfaces/*.+(mts|ts)',
+      '**/types/*.+(mts|ts)'
+    ],
     rules: {
       'unicorn/no-keyword-prefix': 0
     }
@@ -1122,7 +1156,7 @@ export default [
       parser: await import('jsonc-eslint-parser')
     },
     plugins: {
-      jsonc: (await import('eslint-plugin-jsonc')).default
+      jsonc: /** @type {any} */ ((await import('eslint-plugin-jsonc')).default)
     },
     rules: {
       'jsonc/no-bigint-literals': 2,
@@ -1250,7 +1284,7 @@ export default [
       parser: await import('yaml-eslint-parser')
     },
     plugins: {
-      yml: (await import('eslint-plugin-yml')).default
+      yml: /** @type {any} */ ((await import('eslint-plugin-yml')).default)
     },
     rules: {
       'spaced-comment': 0,

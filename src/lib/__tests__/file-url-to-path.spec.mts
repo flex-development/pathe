@@ -24,7 +24,7 @@ describe('unit:lib/fileURLToPath', () => {
     try {
       testSubject('file://' + process.cwd() + separator)
     } catch (e: unknown) {
-      error = <typeof error>e
+      error = e as typeof error
     }
 
     // Expect
@@ -44,9 +44,9 @@ describe('unit:lib/fileURLToPath', () => {
 
     // Act
     try {
-      testSubject(<URL | string>url)
+      testSubject(url as URL | string)
     } catch (e: unknown) {
-      error = <typeof error>e
+      error = e as typeof error
     }
 
     // Expect
@@ -62,7 +62,7 @@ describe('unit:lib/fileURLToPath', () => {
     try {
       testSubject('https://a/b/c')
     } catch (e: unknown) {
-      error = <typeof error>e
+      error = e as typeof error
     }
 
     // Expect
@@ -108,7 +108,7 @@ describe('unit:lib/fileURLToPath', () => {
       try {
         testSubject(new URL('file://host/a'))
       } catch (e: unknown) {
-        error = <typeof error>e
+        error = e as typeof error
       }
 
       // Expect
@@ -160,7 +160,7 @@ describe('unit:lib/fileURLToPath', () => {
       try {
         testSubject(new URL('file:///?:/'), { windows: true })
       } catch (e: unknown) {
-        error = <typeof error>e
+        error = e as typeof error
       }
 
       // Expect

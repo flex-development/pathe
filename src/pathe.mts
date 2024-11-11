@@ -56,12 +56,12 @@ const posix: PosixPlatformPath = {
   matchesGlob,
   normalize,
   parse,
-  posix: <PosixPlatformPath>{},
+  posix: {} as PosixPlatformPath,
   relative,
   resolve,
   sep,
   toNamespacedPath,
-  win32: <WindowsPlatformPath>{}
+  win32: {} as WindowsPlatformPath
 }
 
 /**
@@ -80,12 +80,12 @@ const win32: WindowsPlatformPath = {
   matchesGlob,
   normalize,
   parse,
-  posix: <PosixPlatformPath>{},
+  posix: {} as PosixPlatformPath,
   relative,
   resolve,
   sep: sepWindows,
   toNamespacedPath,
-  win32: <WindowsPlatformPath>{}
+  win32: {} as WindowsPlatformPath
 }
 
 // @ts-expect-error ts(2540): init.

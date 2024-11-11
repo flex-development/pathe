@@ -5,7 +5,7 @@
  */
 
 import { defineBuildConfig, type Config } from '@flex-development/mkbuild'
-import tsconfig from './tsconfig.build.json' assert { type: 'json' }
+import tsconfig from './tsconfig.build.json' with { type: 'json' }
 
 /**
  * Build configuration options.
@@ -17,15 +17,20 @@ const config: Config = defineBuildConfig({
     {
       dts: 'only',
       pattern: [
-        'src/*.ts',
-        'src/interfaces/*.ts',
-        'src/lib/*.ts',
-        'src/types/*.ts'
+        'src/*.mts',
+        'src/interfaces/*.mts',
+        'src/lib/*.mts',
+        'src/types/*.mts'
       ]
     },
     {
       dts: false,
-      pattern: ['src/internal/*.ts', 'src/lib/*.ts', 'src/*.ts']
+      pattern: [
+        '!src/internal/*.d.mts',
+        'src/internal/*.mts',
+        'src/lib/*.mts',
+        'src/*.mts'
+      ]
     }
   ],
   target: ['node18', tsconfig.compilerOptions.target],

@@ -25,7 +25,7 @@ describe('unit:internal/validateObject', () => {
     try {
       testSubject(import.meta.url, name)
     } catch (e: unknown) {
-      error = <typeof error>e
+      error = e as typeof error
     }
 
     // Expect

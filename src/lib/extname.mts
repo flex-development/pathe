@@ -131,7 +131,7 @@ function extname(path: string): EmptyString | Ext {
     return ''
   }
 
-  return <Ext>path.slice(start, end)
+  return path.slice(start, end) as Ext
 }
 
 export default extname

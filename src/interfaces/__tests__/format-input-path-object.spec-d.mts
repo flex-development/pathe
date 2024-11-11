@@ -10,15 +10,15 @@ import type path from 'node:path'
 
 describe('unit-d:interfaces/FormatInputPathObject', () => {
   it('should allow ParsedPath', () => {
-    assertType<TestSubject>(<ParsedPath>{})
+    assertType<TestSubject>({} as ParsedPath)
   })
 
   it('should allow path.FormatInputPathObject', () => {
-    assertType<TestSubject>(<path.FormatInputPathObject>{})
+    assertType<TestSubject>({} as path.FormatInputPathObject)
   })
 
   it('should allow path.ParsedPath', () => {
-    assertType<TestSubject>(<path.ParsedPath>{})
+    assertType<TestSubject>({} as path.ParsedPath)
   })
 
   it('should have path.FormatInputPathObject keys', () => {

@@ -25,7 +25,7 @@ describe('unit:internal/validateString', () => {
     try {
       testSubject(null, name)
     } catch (e: unknown) {
-      error = <typeof error>e
+      error = e as typeof error
     }
 
     // Expect

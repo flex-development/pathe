@@ -14,7 +14,7 @@ export default [
   {
     ignores: [
       '!**/__fixtures__/**/dist/',
-      '!**/__fixtures__/**/node_modules/',
+      '!**/__fixtures__/node_modules/',
       '!**/typings/**/dist/',
       '**/*config.*.timestamp*',
       '**/.vitest-reports/',
@@ -22,6 +22,7 @@ export default [
       '**/CHANGELOG.md',
       '**/LICENSE.md',
       '**/RELEASE_NOTES.md',
+      '**/__fixtures__/**empty.json',
       '**/__tests__/reports/',
       '**/coverage/',
       '**/dist/',

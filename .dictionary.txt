@@ -1,7 +1,6 @@
 abar
 attw
 barx
-cbar
 cefc
 codecov
 commitlintrc
@@ -20,11 +19,10 @@ ggshield
 gpgsign
 hmarr
 iife
-infile
 jchen
 kaisugi
+ksort
 lcov
-lintstagedrc
 mkbuild
 mlly
 nocheck

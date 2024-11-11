@@ -38,7 +38,7 @@ function formatExt(ext: string | null | undefined): EmptyString | Ext {
   }
 
   if (!ext) return ''
-  if (ext.startsWith('.')) return <Ext>ext
+  if (ext.startsWith('.')) return ext as Ext
   return `.${ext}`
 }
 

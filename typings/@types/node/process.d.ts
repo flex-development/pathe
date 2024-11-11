@@ -1,5 +1,8 @@
 declare namespace NodeJS {
   interface Process {
+    /**
+     * Browser environment?
+     */
     browser?: boolean | undefined
 
     /**

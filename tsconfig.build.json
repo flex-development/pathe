@@ -1,13 +1,21 @@
 {
   "compilerOptions": {
-    "customConditions": [],
-    "declaration": true,
+    "allowImportingTsExtensions": false,
+    "allowJs": false,
+    "checkJs": false,
+    "customConditions": ["pathe"],
+    "declarationMap": false,
     "noEmitOnError": true,
-    "paths": {},
-    "skipLibCheck": false,
+    "outDir": "dist",
+    "rootDir": "src",
+    "sourceMap": false,
     "target": "es2023"
   },
-  "exclude": [],
+  "exclude": ["**/__tests__/**"],
   "extends": "./tsconfig.json",
-  "include": ["./dist/*"]
+  "files": [
+    "typings/punycode.js/index.d.ts",
+    "typings/typescript/lib.es5.d.ts"
+  ],
+  "include": ["dist/**/*", "src/**/**.mts"]
 }

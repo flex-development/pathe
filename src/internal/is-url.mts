@@ -56,8 +56,8 @@ function isURL(value: unknown): value is URLLike {
       typeof value.protocol === 'string' &&
       value.href &&
       value.protocol &&
-      (<Record<string, unknown>>value).auth === undefined &&
-      (<Record<string, unknown>>value).path === undefined
+      (value as Record<string, unknown>)['auth'] === undefined &&
+      (value as Record<string, unknown>)['path'] === undefined
   )
 }
 

@@ -1,20 +1,23 @@
 {
   "compilerOptions": {
-    "customConditions": ["types", "pathe"]
+    "allowJs": false,
+    "checkJs": false,
+    "customConditions": ["types", "pathe", "node"]
   },
+  "exclude": [],
   "extends": "./tsconfig.json",
   "files": [
-    "src/internal/process.d.mts",
     "typings/@faker-js/faker/global.d.ts",
     "typings/@types/node/process.d.ts",
     "typings/punycode.js/index.d.ts",
     "typings/typescript/lib.es5.d.ts",
-    "vitest-env.d.ts"
+    "vitest-env.d.mts"
   ],
   "include": [
-    "__fixtures__/**/**.ts",
-    "__tests__/**/**.ts",
-    "src/**/**.ts",
-    "src/**/.*.ts"
+    "__fixtures__/**/*",
+    "__tests__/**/*",
+    "src/**.mts",
+    "typings/**/*",
+    "vitest-env.d.mts"
   ]
 }

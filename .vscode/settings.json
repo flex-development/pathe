@@ -131,6 +131,7 @@
     "*.log": "log",
     "*.snap": "jest-snapshot",
     ".env.zsh": "shellscript",
+    "*.map": "json",
     ".npmrc": "ini",
     ".remarkignore": "ignore",
     "commit-msg": "shellscript",
@@ -211,6 +212,7 @@
   "typescript.format.insertSpaceAfterTypeAssertion": true,
   "typescript.format.semicolons": "remove",
   "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
   "typescript.preferences.includePackageJsonAutoImports": "on",
   "typescript.preferences.quoteStyle": "single",
@@ -231,12 +233,7 @@
   ],
   "vsicons.associations.files": [
     {
-      "extensions": [".eslintrc.base.cjs"],
-      "format": "svg",
-      "icon": "eslint"
-    },
-    {
-      "extensions": ["build.json", "typecheck.json"],
+      "extensions": ["build.json", "empty.json", "typecheck.json"],
       "format": "svg",
       "icon": "tsconfig"
     },
@@ -246,19 +243,14 @@
       "icon": "vitest"
     },
     {
-      "extensions": ["spec-d.ts"],
+      "extensions": ["spec-d.mts"],
       "format": "svg",
       "icon": "testts"
-    },
-    {
-      "extensions": ["yarnrc.yml"],
-      "format": "svg",
-      "icon": "yarn"
     }
   ],
   "vsicons.associations.folders": [
     {
-      "extensions": ["__fixtures__", "__tests__/baselines"],
+      "extensions": ["__fixtures__"],
       "format": "svg",
       "icon": "db"
     },
