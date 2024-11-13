@@ -5,18 +5,16 @@
 
 import { isWindows } from '#internal/constants'
 import domainToUnicode from '#internal/domain-to-unicode'
-import isURL from '#internal/is-url'
 import process from '#internal/process'
+import validateURLString from '#internal/validate-url-string'
 import isDeviceRoot from '#lib/is-device-root'
 import isSep from '#lib/is-sep'
 import sep from '#lib/sep'
 import toPosix from '#lib/to-posix'
 import {
-  ERR_INVALID_ARG_TYPE,
   ERR_INVALID_FILE_URL_HOST,
   ERR_INVALID_FILE_URL_PATH,
   ERR_INVALID_URL_SCHEME,
-  type ErrInvalidArgType,
   type ErrInvalidFileUrlHost,
   type ErrInvalidFileUrlPath,
   type ErrInvalidUrlScheme
@@ -26,7 +24,6 @@ import type { PlatformOptions } from '@flex-development/pathe'
 /**
  * Convert a `file:` URL to a path.
  *
- * @see {@linkcode ErrInvalidArgType}
  * @see {@linkcode ErrInvalidFileUrlHost}
  * @see {@linkcode ErrInvalidFileUrlPath}
  * @see {@linkcode ErrInvalidUrlScheme}
@@ -41,7 +38,6 @@ import type { PlatformOptions } from '@flex-development/pathe'
  *  Platform options
  * @return {string}
  *  `url` as path
- * @throws {ErrInvalidArgType}
  * @throws {ErrInvalidFileUrlHost}
  * @throws {ErrInvalidFileUrlPath}
  * @throws {ErrInvalidUrlScheme}
@@ -50,23 +46,20 @@ function fileURLToPath(
   url: URL | string,
   options?: PlatformOptions | null | undefined
 ): string {
+  validateURLString(url, 'url')
+
+  if (!String(url).startsWith('file:')) throw new ERR_INVALID_URL_SCHEME('file')
   if (typeof url === 'string') url = new URL(url)
-
-  if (!isURL(url)) {
-    throw new ERR_INVALID_ARG_TYPE('url', ['string', 'URL'], url)
-  }
-
-  if (url.protocol !== 'file:') throw new ERR_INVALID_URL_SCHEME('file')
 
   /**
    * URL pathname.
    *
    * @var {string} pathname
    */
-  let pathname: string = toPosix(url.pathname)
+  let pathname: string = toPosix(url).pathname
 
   // check for encoded separators
-  if (/(?:%2f)/i.test(pathname.replace(/(?:%5c)/gi, '%2f'))) {
+  if (/(?:%2f)/i.test(pathname)) {
     /**
      * Error message.
      *

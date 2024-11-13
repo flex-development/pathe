@@ -5,7 +5,6 @@
 
 import type extname from '#lib/extname'
 import type {
-  ErrInvalidArgType,
   ErrInvalidArgValue,
   ErrInvalidFileUrlHost,
   ErrInvalidFileUrlPath,
@@ -36,8 +35,10 @@ interface Pathe extends PosixPlatformPath {
    * Does nothing if a file extension is not provided, or the
    * {@linkcode extname} of `path` is already `ext`.
    *
+   * @this {void}
+   *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @param {string | null | undefined} ext
    *  File extension to add
    * @return {string}
@@ -52,8 +53,10 @@ interface Pathe extends PosixPlatformPath {
    * If the file extension is an empty string, however, `path`'s file extension
    * will be removed.
    *
+   * @this {void}
+   *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @param {string | null | undefined} [ext]
    *  File extension to add
    * @return {string} `path` unmodified or with changed file extension
@@ -63,6 +66,8 @@ interface Pathe extends PosixPlatformPath {
 
   /**
    * Get the path to the current working directory.
+   *
+   * @this {void}
    *
    * @return {string}
    *  Absolute path to current working directory
@@ -84,21 +89,24 @@ interface Pathe extends PosixPlatformPath {
    * @see {@linkcode Ext}
    * @see {@linkcode extname}
    *
+   * @this {void}
+   *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @return {Ext[]}
    *  List of extensions
    */
-  extnames(path: string): Ext[]
+  extnames(this: void, path: string): Ext[]
 
   /**
    * Convert a `file:` URL to a path.
    *
-   * @see {@linkcode ErrInvalidArgType}
    * @see {@linkcode ErrInvalidFileUrlHost}
    * @see {@linkcode ErrInvalidFileUrlPath}
    * @see {@linkcode ErrInvalidUrlScheme}
    * @see {@linkcode PlatformOptions}
+   *
+   * @this {void}
    *
    * @param {URL | string} url
    *  The file URL string or URL object to convert to a path
@@ -106,12 +114,12 @@ interface Pathe extends PosixPlatformPath {
    *  Platform options
    * @return {string}
    *  `url` as path
-   * @throws {ErrInvalidArgType}
    * @throws {ErrInvalidFileUrlHost}
    * @throws {ErrInvalidFileUrlPath}
    * @throws {ErrInvalidUrlScheme}
    */
   fileURLToPath(
+    this: void,
     url: URL | string,
     options?: PlatformOptions | null | undefined
   ): string
@@ -121,6 +129,8 @@ interface Pathe extends PosixPlatformPath {
    *
    * @see {@linkcode EmptyString}
    * @see {@linkcode Ext}
+   *
+   * @this {void}
    *
    * @param {string | null | undefined} ext
    *  File extension to format
@@ -134,6 +144,8 @@ interface Pathe extends PosixPlatformPath {
    *
    * @see {@linkcode DeviceRoot}
    *
+   * @this {void}
+   *
    * @param {unknown} [value]
    *  Value to check
    * @return {value is DeviceRoot}
@@ -145,6 +157,8 @@ interface Pathe extends PosixPlatformPath {
    * Check if `value` is a path segment separator.
    *
    * @see {@linkcode Sep}
+   *
+   * @this {void}
    *
    * @param {unknown} [value]
    *  Value to check
@@ -169,8 +183,10 @@ interface Pathe extends PosixPlatformPath {
    * @see {@linkcode ErrInvalidArgValue}
    * @see {@linkcode PlatformOptions}
    *
+   * @this {void}
+   *
    * @param {URL | string} path
-   *  Path to handle
+   *  The path to handle
    * @param {PlatformOptions | null | undefined} [options]
    *  Platform options
    * @return {URL}
@@ -178,6 +194,7 @@ interface Pathe extends PosixPlatformPath {
    * @throws {ErrInvalidArgValue}
    */
   pathToFileURL(
+    this: void,
     path: string,
     options?: PlatformOptions | null | undefined
   ): URL
@@ -188,8 +205,10 @@ interface Pathe extends PosixPlatformPath {
    * Does nothing if `path` does not end with the provided file extension, or if
    * a file extension is not provided.
    *
+   * @this {void}
+   *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @param {string | null | undefined} ext
    *  File extension to remove
    * @return {string}
@@ -220,6 +239,8 @@ interface Pathe extends PosixPlatformPath {
    *
    * @see {@linkcode Cwd}
    *
+   * @this {void}
+   *
    * @param {ReadonlyArray<string> | string} paths
    *  Sequence of paths or path segments
    * @param {Cwd | null | undefined} [cwd]
@@ -239,31 +260,38 @@ interface Pathe extends PosixPlatformPath {
   /**
    * Get the root of `path`.
    *
+   * @this {void}
+   *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @return {string}
    *  Root of `path`
    */
   root(this: void, path: string): string
 
   /**
-   * Make `path` POSIX-compliant.
+   * Make separators in `path` POSIX-compliant.
    *
-   * This includes:
-   *
-   * - Converting Windows-style path delimiters (`;`) to POSIX (`:`)
-   * - Converting Windows-style path segment separators (`\`) to POSIX (`/`)
-   *
-   * @see https://nodejs.org/api/path.html#windows-vs-posix
-   * @see https://nodejs.org/api/path.html#pathdelimiter
-   * @see https://nodejs.org/api/path.html#pathsep
+   * @this {void}
    *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @return {string}
-   *  POSIX-compliant `path`
+   *  `path` with POSIX-compliant separators
    */
   toPosix(this: void, path: string): string
+
+  /**
+   * Make separators in `url` POSIX-compliant.
+   *
+   * @this {void}
+   *
+   * @param {string} url
+   *  The {@linkcode URL} to handle
+   * @return {URL}
+   *  `url` with POSIX-compliant separators
+   */
+  toPosix(this: void, url: URL): URL
 }
 
 export type { Pathe as default }

@@ -20,7 +20,7 @@ import toPosix from '#lib/to-posix'
  *  core
  *
  * @param {string} path
- *  Path to handle
+ *  The path to handle
  * @param {string | null | undefined} [suffix]
  *  Suffix to remove
  * @return {string}

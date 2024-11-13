@@ -18,7 +18,7 @@ import {
  * @param {string} name
  *  Name of invalid argument or property
  * @return {value is string}
- *  `true` if `value` is a string, `false` otherwise
+ *  `true` if `value` is a string
  * @throws {ErrInvalidArgType}
  *  If `value` is not a string
  */

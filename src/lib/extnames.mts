@@ -16,7 +16,7 @@ import type { EmptyString, Ext } from '@flex-development/pathe'
  * @see {@linkcode extname}
  *
  * @param {string} path
- *  Path to handle
+ *  The path to handle
  * @return {Ext[]}
  *  List of extensions
  */

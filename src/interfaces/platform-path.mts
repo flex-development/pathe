@@ -60,7 +60,7 @@ interface PlatformPath {
    * [sep]: https://nodejs.org/api/path.html#pathsep
    *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @param {string | null | undefined} [suffix]
    *  Suffix to remove
    * @return {string}
@@ -76,7 +76,7 @@ interface PlatformPath {
    * [sep]: https://nodejs.org/api/path.html#pathsep
    *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @return {string}
    *  Directory name of `path`
    */
@@ -94,7 +94,7 @@ interface PlatformPath {
    * @see {@linkcode Ext}
    *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @return {EmptyString | Ext}
    *  Extension of `path` or empty string
    */
@@ -210,7 +210,7 @@ interface PlatformPath {
    * @see {@linkcode ParsedPath}
    *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @return {ParsedPath}
    *  Significant elements of `path`
    */
@@ -286,7 +286,7 @@ interface PlatformPath {
    * [unc]: https://learn.microsoft.com/dotnet/standard/io/file-path-formats#unc-paths
    *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
    * @return {string}
    *  Namespace-prefixed path or `path` without modifications
    */

@@ -1,35 +1,44 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (0) 1`] = `"C:."`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators (".\\\\file") 1`] = `"./file"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (1) 1`] = `"C:/"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("\\\\") 1`] = `"/"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (2) 1`] = `"C:"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("\\\\\\\\?\\\\UNC") 1`] = `"//?/UNC"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (3) 1`] = `"C:/Windows/system32;C:/Windows;C:/Program Files/node/"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("\\\\\\\\?\\\\UNC\\\\server\\\\share") 1`] = `"//?/UNC/server/share"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (4) 1`] = `"C:/abc"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("\\\\\\\\server two\\\\shared folder\\\\file path.zip") 1`] = `"//server two/shared folder/file path.zip"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (5) 1`] = `"C:/another_path/DIR/1/2/33//index"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("\\\\\\\\server\\\\share\\\\file_path") 1`] = `"//server/share/file_path"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (6) 1`] = `"C:/path/dir/index.html"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("\\\\\\\\user\\\\admin$\\\\system32") 1`] = `"//user/admin$/system32"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (7) 1`] = `"C:abc"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("\\\\foo\\\\C:") 1`] = `"/foo/C:"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (8) 1`] = `"//?/UNC"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("C:") 1`] = `"C:"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (9) 1`] = `"//?/UNC/server/share"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("C:.") 1`] = `"C:."`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (10) 1`] = `"//server two/shared folder/file path.zip"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("C:\\\\") 1`] = `"C:/"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (11) 1`] = `"//server/share/file_path"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("C:\\\\Windows\\\\system32;C:\\\\Windows;C:\\\\Program Files\\\\node\\\\") 1`] = `"C:/Windows/system32;C:/Windows;C:/Program Files/node/"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (12) 1`] = `"//user/admin$/system32"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("C:\\\\abc") 1`] = `"C:/abc"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (13) 1`] = `"/foo/C:"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("C:\\\\another_path\\\\DIR\\\\1\\\\2\\\\33\\\\\\\\index") 1`] = `"C:/another_path/DIR/1/2/33//index"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (14) 1`] = `"another_path/DIR with spaces/1/2/33/index"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("C:\\\\path%5Cdir%5cindex.html") 1`] = `"C:/path%2Fdir%2findex.html"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (15) 1`] = `"./file"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("C:\\\\path\\\\dir\\\\index.html") 1`] = `"C:/path/dir/index.html"`;
 
-exports[`unit:lib/toPosix > should return \`path\` with posix-compliant separators (16) 1`] = `"/"`;
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("C:abc") 1`] = `"C:abc"`;
+
+exports[`unit:lib/toPosix > path > should return \`path\` with posix-compliant separators ("another_path\\\\DIR with spaces\\\\1\\\\2\\\\33\\\\index") 1`] = `"another_path/DIR with spaces/1/2/33/index"`;
+
+exports[`unit:lib/toPosix > url > should return \`url\` with posix-compliant separators 1`] = `
+{
+  "href": "file:///C:/path%2Fdir%2findex.html",
+  "pathname": "/C:/path%2Fdir%2findex.html",
+}
+`;

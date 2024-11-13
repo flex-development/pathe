@@ -1,7 +1,9 @@
 abar
 attw
 barx
+cdir
 cefc
+cindex
 codecov
 commitlintrc
 dbar

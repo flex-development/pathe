@@ -37,8 +37,8 @@ export default pathToFileURL
  * @category
  *  utils
  *
- * @param {URL | string} path
- *  Path to handle
+ * @param {string} path
+ *  The path to handle
  * @param {PlatformOptions | null | undefined} [options]
  *  Platform options
  * @return {URL}
@@ -139,7 +139,7 @@ function pathToFileURL(
  * @internal
  *
  * @param {string} path
- *  Path to handle
+ *  The path to handle
  * @return {string}
  *  `path` with special characters encoded
  */

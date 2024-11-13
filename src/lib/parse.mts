@@ -23,7 +23,7 @@ import type { ParsedPath } from '@flex-development/pathe'
  *  core
  *
  * @param {string} path
- *  Path to handle
+ *  The path to handle
  * @return {ParsedPath}
  *  Significant elements of `path`
  */

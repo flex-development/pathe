@@ -28,7 +28,7 @@ import type { EmptyString, Ext } from '@flex-development/pathe'
  *  utils
  *
  * @param {string} path
- *  Path to handle
+ *  The path to handle
  * @param {string | null | undefined} [ext]
  *  File extension to add
  * @return {string}

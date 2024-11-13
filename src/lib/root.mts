@@ -16,7 +16,7 @@ import toPosix from '#lib/to-posix'
  *  utils
  *
  * @param {string} path
- *  Path to handle
+ *  The path to handle
  * @return {string}
  *  Root of `path`
  */

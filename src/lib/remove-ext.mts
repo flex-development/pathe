@@ -25,7 +25,7 @@ import formatExt from '#lib/format-ext'
  *  utils
  *
  * @param {string} path
- *  Path to handle
+ *  The path to handle
  * @param {string | null | undefined} ext
  *  File extension to remove
  * @return {string}
