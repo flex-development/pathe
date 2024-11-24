@@ -5,7 +5,6 @@
  */
 
 import testSubject from '#lib/is-absolute'
-import toPath from '#lib/to-path'
 import { posix, win32 } from 'node:path'
 
 describe('unit:lib/isAbsolute', () => {
@@ -13,26 +12,24 @@ describe('unit:lib/isAbsolute', () => {
     it.each<Parameters<typeof testSubject>>([
       [''],
       ['./baz'],
-      ['bar/'],
-      [new URL('node:path')]
-    ])('should return `false` if `input` is not absolute (%j)', input => {
+      ['bar/']
+    ])('should return `false` if `path` is not absolute (%j)', path => {
       // Act
-      const result = testSubject(input)
+      const result = testSubject(path)
 
       // Expect
-      expect(result).to.be.false.and.eq(posix.isAbsolute(toPath(input)))
+      expect(result).to.be.false.and.eq(posix.isAbsolute(path))
     })
 
     it.each<Parameters<typeof testSubject>>([
       ['/home/foo'],
-      ['/home/foo/..'],
-      [new URL('file:///.npmrc')]
-    ])('should return `true` if `input` is absolute (%j)', input => {
+      ['/home/foo/..']
+    ])('should return `true` if `path` is absolute (%j)', path => {
       // Act
-      const result = testSubject(input)
+      const result = testSubject(path)
 
       // Expect
-      expect(result).to.be.true.and.eq(posix.isAbsolute(toPath(input)))
+      expect(result).to.be.true.and.eq(posix.isAbsolute(path))
     })
   })
 
@@ -47,12 +44,12 @@ describe('unit:lib/isAbsolute', () => {
       ['c:'],
       ['directory/directory'],
       ['directory\\directory']
-    ])('should return `false` if `input` is not absolute (%j)', input => {
+    ])('should return `false` if `path` is not absolute (%j)', path => {
       // Act
-      const result = testSubject(input)
+      const result = testSubject(path)
 
       // Expect
-      expect(result).to.be.false.and.eq(win32.isAbsolute(toPath(input)))
+      expect(result).to.be.false.and.eq(win32.isAbsolute(path))
     })
 
     it.each<Parameters<typeof testSubject>>([
@@ -70,12 +67,12 @@ describe('unit:lib/isAbsolute', () => {
       ['c:/'],
       ['c://'],
       ['c:\\']
-    ])('should return `true` if `input` is absolute (%j)', input => {
+    ])('should return `true` if `path` is absolute (%j)', path => {
       // Act
-      const result = testSubject(input)
+      const result = testSubject(path)
 
       // Expect
-      expect(result).to.be.true.and.eq(win32.isAbsolute(toPath(input)))
+      expect(result).to.be.true.and.eq(win32.isAbsolute(path))
     })
   })
 })

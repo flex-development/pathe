@@ -158,19 +158,16 @@ interface PlatformPath {
   ): string
 
   /**
-   * Determine if `input` is absolute.
-   *
-   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
-   * > `URL`, it will be converted to a path using {@linkcode toPath}.
+   * Determine if `path` is absolute.
    *
    * @this {void}
    *
-   * @param {URL | string} input
-   *  The {@linkcode URL}, URL string, or path to check
+   * @param {string} path
+   *  The path to check
    * @return {boolean}
-   *  `true` if `input` is absolute, `false` otherwise
+   *  `true` if `path` is absolute, `false` otherwise
    */
-  isAbsolute(this: void, input: URL | string): boolean
+  isAbsolute(this: void, path: string): boolean
 
   /**
    * Join all path segments in `paths` using {@linkcode sep} as the delimiter
