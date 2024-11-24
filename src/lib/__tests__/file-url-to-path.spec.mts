@@ -1,7 +1,7 @@
 /**
  * @file Unit Tests - fileURLToPath
  * @module pathe/lib/tests/unit/fileURLToPath
- * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-url-fileurltopath.js
+ * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-url-fileurltopath.js
  */
 
 import process from '#internal/process'
@@ -30,28 +30,6 @@ describe('unit:lib/fileURLToPath', () => {
     // Expect
     expect(error).to.satisfy(isNodeError)
     expect(error).to.have.property('code', codes.ERR_INVALID_FILE_URL_PATH)
-  })
-
-  it.each<[unknown]>([
-    [3],
-    [null],
-    [true],
-    [undefined],
-    [{}]
-  ])('should throw if `url` is not an `URL` or string (%#)', url => {
-    // Arrange
-    let error!: NodeError
-
-    // Act
-    try {
-      testSubject(url as URL | string)
-    } catch (e: unknown) {
-      error = e as typeof error
-    }
-
-    // Expect
-    expect(error).to.satisfy(isNodeError)
-    expect(error).to.have.property('code', codes.ERR_INVALID_ARG_TYPE)
   })
 
   it('should throw if `url` protocol is not `file:`', () => {
@@ -118,6 +96,12 @@ describe('unit:lib/fileURLToPath', () => {
   })
 
   describe('windows', () => {
+    let windows: true
+
+    beforeAll(() => {
+      windows = true
+    })
+
     it.each<Parameters<typeof testSubject>>([
       ['file:///C:/%E2%82%AC'],
       ['file:///C:/%F0%9F%9A%80'],
@@ -142,9 +126,6 @@ describe('unit:lib/fileURLToPath', () => {
       ['file:///C:/foo=bar'],
       ['file://nas/My%20Docs/File.doc']
     ])('should return `url` as path (%#)', url => {
-      // Arrange
-      const windows: boolean = true
-
       // Act
       const result = testSubject(url, { windows })
 
@@ -158,7 +139,7 @@ describe('unit:lib/fileURLToPath', () => {
 
       // Act
       try {
-        testSubject(new URL('file:///?:/'), { windows: true })
+        testSubject(new URL('file:///?:/'), { windows })
       } catch (e: unknown) {
         error = e as typeof error
       }

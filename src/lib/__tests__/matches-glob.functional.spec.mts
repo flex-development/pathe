@@ -1,7 +1,7 @@
 /**
  * @file Functional Tests - matchesGlob
  * @module pathe/lib/tests/functional/matchesGlob
- * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-glob.js
+ * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-glob.js
  */
 
 import process from '#internal/process'
@@ -45,19 +45,19 @@ describe('functional:lib/matchesGlob', () => {
     ['foo\\bar\\baz\\boo', ['foo\\[bc-r]ar\\baz\\*']],
     ['foo\\barx\\baz', ['foo/bar[a-z]/baz']],
     ['foo\\barx\\baz', ['foo\\bar[a-z]\\baz']]
-  ])('should call `micromatch.isMatch` (%#)', (path, pattern, options) => {
-    // Arrange
-    const pat: typeof pattern = Array.isArray(pattern)
-      ? pattern
-      : toPosix(pattern)
-
+  ])('should call `micromatch.isMatch` (%#)', (input, pattern, options) => {
     // Act
-    testSubject(path, pattern, options)
+    testSubject(input, pattern, options)
 
     // Expect
     expect(spy).toHaveBeenCalledOnce()
-    expect(spy.mock.lastCall?.[0]).to.eq(toPosix(path))
-    expect(spy.mock.lastCall?.[1]).to.eq(pat)
-    expect(spy.mock.lastCall?.[2]).to.eql({ ...options, cwd: process.cwd() })
+    expect(spy.mock.lastCall?.[0]).to.eq(toPosix(input))
+    expect(spy.mock.lastCall?.[1]).to.eq(toPosix(pattern))
+    expect(spy.mock.lastCall?.[2]).to.eql({
+      ...options,
+      basename: options?.basename ?? true,
+      cwd: process.cwd(),
+      windows: false
+    })
   })
 })

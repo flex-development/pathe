@@ -20,12 +20,14 @@ import sep from '#lib/sep'
  * @category
  *  core
  *
+ * @this {void}
+ *
  * @param {string[]} paths
- *  Path segment sequence
+ *  The path segment sequence
  * @return {string}
  *  Path segment sequence as one path
  */
-function join(...paths: string[]): string {
+function join(this: void, ...paths: string[]): string {
   if (!paths.length) return dot
 
   /**

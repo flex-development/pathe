@@ -4,6 +4,7 @@
  */
 
 import process from '#internal/process'
+import toPosix from '#lib/to-posix'
 
 /**
  * Get the path to the current working directory.
@@ -11,11 +12,13 @@ import process from '#internal/process'
  * @category
  *  utils
  *
+ * @this {void}
+ *
  * @return {string}
  *  Absolute path to current working directory
  */
-function cwd(): string {
-  return process.cwd()
+function cwd(this: void): string {
+  return toPosix(process.cwd())
 }
 
 export default cwd

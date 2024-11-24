@@ -1780,6 +1780,8 @@ __metadata:
     "@flex-development/tutils": "npm:6.0.0-alpha.25"
     "@stylistic/eslint-plugin": "npm:2.10.1"
     "@tsconfig/strictest": "npm:2.0.5"
+    "@types/chai": "npm:5.0.1"
+    "@types/chai-string": "npm:1.4.5"
     "@types/eslint": "npm:9.6.1"
     "@types/eslint__js": "npm:8.42.3"
     "@types/is-ci": "npm:3.0.4"
@@ -1791,6 +1793,8 @@ __metadata:
     "@vates/toggle-scripts": "npm:1.0.0"
     "@vitest/coverage-v8": "npm:2.1.4"
     "@vitest/ui": "npm:2.1.4"
+    chai: "npm:5.1.2"
+    chai-string: "npm:1.5.0"
     consola: "npm:3.2.3"
     cross-env: "npm:7.0.3"
     cspell: "npm:8.16.0"
@@ -2534,6 +2538,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/chai-string@npm:1.4.5":
+  version: 1.4.5
+  resolution: "@types/chai-string@npm:1.4.5"
+  dependencies:
+    "@types/chai": "npm:*"
+  checksum: 10/9bfceeab6afa67e904908032f459bd0cac94bd2fdf49160fd765c1b7e585b831bed08b7110904f5fdb6ec18c046f57912ede571c4bd654098ba488588db2476b
+  languageName: node
+  linkType: hard
+
+"@types/chai@npm:*, @types/chai@npm:5.0.1":
+  version: 5.0.1
+  resolution: "@types/chai@npm:5.0.1"
+  dependencies:
+    "@types/deep-eql": "npm:*"
+  checksum: 10/0f829d4f4be06d6a32c9d89ac08c356df89bafc4b923d8b7fd56cf78d681f5fddfe7aa3391b747f076c57129428f4df694026f344ad3bf8bda65e2ca50c0fd37
+  languageName: node
+  linkType: hard
+
 "@types/concat-stream@npm:^2.0.0":
   version: 2.0.3
   resolution: "@types/concat-stream@npm:2.0.3"
@@ -2567,6 +2589,13 @@ __metadata:
   dependencies:
     "@types/ms": "npm:*"
   checksum: 10/47876a852de8240bfdaf7481357af2b88cb660d30c72e73789abf00c499d6bc7cd5e52f41c915d1b9cd8ec9fef5b05688d7b7aef17f7f272c2d04679508d1053
+  languageName: node
+  linkType: hard
+
+"@types/deep-eql@npm:*":
+  version: 4.0.2
+  resolution: "@types/deep-eql@npm:4.0.2"
+  checksum: 10/249a27b0bb22f6aa28461db56afa21ec044fa0e303221a62dff81831b20c8530502175f1a49060f7099e7be06181078548ac47c668de79ff9880241968d43d0c
   languageName: node
   linkType: hard
 
@@ -3573,7 +3602,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chai@npm:^5.1.2":
+"chai-string@npm:1.5.0":
+  version: 1.5.0
+  resolution: "chai-string@npm:1.5.0"
+  peerDependencies:
+    chai: ^4.1.2
+  checksum: 10/39b9511525c99b9d378210897caf6352be34976c24f2e773680c2de4173d2071f3010ea0348bf681e2a201564524e28dd5541ebce8a181a455c8aeefe2a7bda3
+  languageName: node
+  linkType: hard
+
+"chai@npm:5.1.2, chai@npm:^5.1.2":
   version: 5.1.2
   resolution: "chai@npm:5.1.2"
   dependencies:

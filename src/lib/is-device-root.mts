@@ -15,12 +15,14 @@ import type { DeviceRoot } from '@flex-development/pathe'
  * @category
  *  utils
  *
- * @param {unknown} [value]
- *  Value to check
+ * @this {void}
+ *
+ * @param {unknown} value
+ *  The value to check
  * @return {value is DeviceRoot}
  *  `true` if `value` is device root, `false` otherwise
  */
-function isDeviceRoot(value: unknown): value is DeviceRoot {
+function isDeviceRoot(this: void, value: unknown): value is DeviceRoot {
   return (
     typeof value === 'string' &&
     value.length === 3 &&

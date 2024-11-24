@@ -1,7 +1,7 @@
 /**
- * @file Internal - isURL
- * @module pathe/internal/isURL
- * @see https://github.com/nodejs/node/blob/v22.8.0/lib/internal/url.js#L756-L773
+ * @file Internal - isURLObject
+ * @module pathe/internal/isURLObject
+ * @see https://github.com/nodejs/node/blob/v23.2.0/lib/internal/url.js#L755-L772
  */
 
 /**
@@ -39,12 +39,14 @@ interface URLLike {
  * The `auth` and `path` properties are checked to distinguish between legacy
  * url instances and the WHATWG URL object.
  *
+ * @internal
+ *
  * @param {unknown} value
  *  Value to check
  * @return {value is URLLike}
  *  `true` if `value` looks like WHATWG URL object, `false` otherwise
  */
-function isURL(value: unknown): value is URLLike {
+function isURLObject(value: unknown): value is URLLike {
   return Boolean(
     value !== null &&
       typeof value === 'object' &&
@@ -61,4 +63,4 @@ function isURL(value: unknown): value is URLLike {
   )
 }
 
-export default isURL
+export default isURLObject

@@ -4,12 +4,13 @@
  */
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
-import validateString from '#internal/validate-string'
+import validateURLString from '#internal/validate-url-string'
 import dot from '#lib/dot'
 import isSep from '#lib/is-sep'
 import resolveWith from '#lib/resolve-with'
 import sep from '#lib/sep'
-import type { Cwd } from '@flex-development/pathe'
+import toPath from '#lib/to-path'
+import type { RelativeOptions } from '@flex-development/pathe'
 
 export default relative
 
@@ -23,35 +24,45 @@ export default relative
  * If a zero-length string is passed as `from` or `to`, the current working
  * directory will be used instead of the zero-length strings.
  *
- * @see {@linkcode Cwd}
+ * > 👉 **Note**: If `from` or `to` is a {@linkcode URL}, or can be parsed to a
+ * > `URL`, they'll be converted to paths using {@linkcode toPath}.
+ *
+ * @see {@linkcode RelativeOptions}
  *
  * @category
  *  core
  *
- * @param {string} from
- *  Start path
- * @param {string} to
- *  Destination path
- * @param {Cwd | null | undefined} [cwd]
- *  Get the path to the current working directory
- * @param {Partial<Record<string, string>> | null | undefined} [env]
- *  Environment variables
+ * @this {void}
+ *
+ * @param {URL | string[] | string} from
+ *  Start path, path segments, or URL
+ * @param {URL | string[] | string} to
+ *  Destination path, path segments, or URL
+ * @param {RelativeOptions | null | undefined} [options]
+ *  Relative path generation options
  * @return {string}
  *  Relative path from `from` to `to`
  */
 function relative(
-  from: string,
-  to: string,
-  cwd?: Cwd | null | undefined,
-  env?: Partial<Record<string, string>> | null | undefined
+  this: void,
+  from: URL | string[] | string,
+  to: URL | string[] | string,
+  options?: RelativeOptions | null | undefined
 ): string {
-  validateString(from, 'from')
-  validateString(to, 'to')
+  if (!Array.isArray(from)) {
+    validateURLString(from, 'from')
+    from = toPath(from)
+  }
+
+  if (!Array.isArray(to)) {
+    validateURLString(to, 'to')
+    to = toPath(to)
+  }
 
   if (from === to) return ''
 
-  from = resolveWith(from, cwd, env)
-  to = resolveWith(to, cwd, env)
+  from = resolveWith(from, options)
+  to = resolveWith(to, options)
 
   if (from.toLowerCase() === to.toLowerCase()) return ''
 

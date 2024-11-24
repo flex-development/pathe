@@ -1,5 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`unit:lib/addExt > should return \`path\` with new extension ("add-ext", "mjs") 1`] = `"add-ext.mjs"`;
-
-exports[`unit:lib/addExt > should return \`path\` with new extension ("add-ext.d", ".mts") 1`] = `"add-ext.d.mts"`;

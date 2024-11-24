@@ -32,7 +32,6 @@ branches:
           - context: gitguardian
           - context: lint
           - context: spelling
-          - context: test (22)
           - context: test (23)
           - context: typescript (5.6.3)
           - context: typescript (5.7.1-rc)

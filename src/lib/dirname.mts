@@ -4,34 +4,39 @@
  */
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
-import validateString from '#internal/validate-string'
+import validateURLString from '#internal/validate-url-string'
 import delimiter from '#lib/delimiter'
 import dot from '#lib/dot'
 import isSep from '#lib/is-sep'
 import sep from '#lib/sep'
+import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 
 /**
- * Get the directory name of `path`, similar to the Unix `dirname` command.
+ * Get the directory name of `input`, similar to the Unix `dirname` command.
  *
  * Trailing [directory separators][sep] are ignored.
+ *
+ * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a `URL`,
+ * > it will be converted to a path using {@linkcode toPath}.
  *
  * [sep]: https://nodejs.org/api/path.html#pathsep
  *
  * @category
  *  core
  *
- * @param {string} path
- *  Path to handle
+ * @this {void}
+ *
+ * @param {URL | string} input
+ *  The {@linkcode URL}, URL string, or path to handle
  * @return {string}
- *  Directory name of `path`
+ *  Directory name of `input`
  */
-function dirname(path: string): string {
-  validateString(path, 'path')
-  path = toPosix(path)
+function dirname(this: void, input: URL | string): string {
+  validateURLString(input, 'input')
+  input = toPosix(toPath(input))
 
-  if (!path.length) return dot
-  if (path.length === 1) return isSep(path) ? path : dot
+  if (input.length <= 1) return isSep(input) ? input : dot
 
   /**
    * Index to begin searching for directory name.
@@ -47,41 +52,41 @@ function dirname(path: string): string {
    */
   let rootEnd: number = -1
 
-  if (isSep(path[offset])) {
+  if (isSep(input[offset])) {
     rootEnd = offset = 1
 
-    if (isSep(path[offset])) {
+    if (isSep(input[offset])) {
       /**
-       * Current position in {@linkcode path}.
+       * Current position in {@linkcode input}.
        *
        * @var {number} j
        */
       let j: number = offset + 1
 
       /**
-       * Last visited position in {@linkcode path}.
+       * Last visited position in {@linkcode input}.
        *
        * @var {number} last
        */
       let last: number = j
 
       // match 1 or more non-path separators
-      while (j < path.length && !isSep(path[j])) j++
+      while (j < input.length && !isSep(input[j])) j++
 
-      if (j < path.length && j !== last) {
+      if (j < input.length && j !== last) {
         last = j
 
         // match 1 or more path separators
-        while (j < path.length && isSep(path[j])) j++
+        while (j < input.length && isSep(input[j])) j++
 
-        if (j < path.length && j !== last) {
+        if (j < input.length && j !== last) {
           last = j
 
           // match 1 or more non-path separators
-          while (j < path.length && !isSep(path[j])) j++
+          while (j < input.length && !isSep(input[j])) j++
 
           // matched UNC root only
-          if (j === path.length) return path
+          if (j === input.length) return input
 
           // matched UNC root with leftovers.
           // offset by 1 to include the separator after the UNC root to
@@ -90,15 +95,15 @@ function dirname(path: string): string {
         }
       }
     }
-  } else if (DRIVE_PATH_REGEX.test(path)) {
+  } else if (DRIVE_PATH_REGEX.test(input)) {
     /**
      * Index of character after colon (`:`).
      *
      * @const {number} afterColon
      */
-    const afterColon: number = path.indexOf(delimiter, offset) + 1
+    const afterColon: number = input.indexOf(delimiter, offset) + 1
 
-    rootEnd = offset = path.length > 2 && isSep(path[afterColon])
+    rootEnd = offset = input.length > 2 && isSep(input[afterColon])
       ? afterColon + 1
       : afterColon
   }
@@ -117,8 +122,8 @@ function dirname(path: string): string {
    */
   let separator: boolean = true
 
-  for (let i = path.length - 1; i >= offset; --i) {
-    if (isSep(path[i])) {
+  for (let i = input.length - 1; i >= offset; --i) {
+    if (isSep(input[i])) {
       if (!separator) {
         end = i
         break
@@ -131,9 +136,9 @@ function dirname(path: string): string {
 
   return end === -1 && rootEnd === -1
     ? dot
-    : path[0] === sep && end === 1
+    : input[0] === sep && end === 1
     ? sep + sep
-    : path.slice(0, end === -1 ? rootEnd : end)
+    : input.slice(0, end === -1 ? rootEnd : end)
 }
 
 export default dirname

@@ -1,10 +1,12 @@
 /**
  * @file Unit Tests - dirname
  * @module pathe/lib/tests/unit/dirname
- * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-dirname.js
+ * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-dirname.js
  */
 
 import testSubject from '#lib/dirname'
+import pathToFileURL from '#lib/path-to-file-url'
+import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 import { posix, win32 } from 'node:path'
 
@@ -19,9 +21,10 @@ describe('unit:lib/dirname', () => {
       ['a'],
       ['foo'],
       [posix.sep.repeat(4)],
-      [posix.sep]
-    ])('should return directory name of `path` (%j)', path => {
-      expect(testSubject(path)).to.eq(posix.dirname(path))
+      [posix.sep],
+      [pathToFileURL('/test/dirname.mjs')]
+    ])('should return directory name of `input` (%j)', input => {
+      expect(testSubject(input)).to.eq(posix.dirname(toPath(input)))
     })
   })
 
@@ -60,14 +63,15 @@ describe('unit:lib/dirname', () => {
       ['c:foo\\bar\\'],
       ['c:foo\\bar\\baz'],
       ['dir\\file:stream'],
+      ['file:///test\\path-dirname.mjs'],
       ['file:stream'],
       ['foo'],
       [posix.sep.repeat(4)],
       [posix.sep],
       [win32.sep.repeat(2)],
       [win32.sep]
-    ])('should return directory name of `path` (%j)', path => {
-      expect(testSubject(path)).to.eq(toPosix(win32.dirname(path)))
+    ])('should return directory name of `input` (%j)', input => {
+      expect(testSubject(input)).to.eq(toPosix(win32.dirname(toPath(input))))
     })
   })
 })

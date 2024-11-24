@@ -5,35 +5,46 @@
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
 import validateString from '#internal/validate-string'
+import validateURLString from '#internal/validate-url-string'
 import delimiter from '#lib/delimiter'
 import isSep from '#lib/is-sep'
+import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 
 /**
- * Get the last portion of `path`, similar to the Unix `basename` command.
+ * Get the last portion of `input`, similar to the Unix `basename` command.
  *
  * Trailing [directory separators][sep] are ignored.
+ *
+ * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a `URL`,
+ * > it will be converted to a path using {@linkcode toPath}.
  *
  * [sep]: https://nodejs.org/api/path.html#pathsep
  *
  * @category
  *  core
  *
- * @param {string} path
- *  Path to handle
+ * @this {void}
+ *
+ * @param {URL | string} input
+ *  The {@linkcode URL}, URL string, or path to handle
  * @param {string | null | undefined} [suffix]
- *  Suffix to remove
+ *  The suffix to remove
  * @return {string}
- *  Last portion of `path` or empty string
+ *  Last portion of `input` or empty string
  */
-function basename(path: string, suffix?: string | null | undefined): string {
+function basename(
+  this: void,
+  input: URL | string,
+  suffix?: string | null | undefined
+): string {
   if (suffix !== null && suffix !== undefined) {
     validateString(suffix, 'suffix')
     suffix = toPosix(suffix)
   }
 
-  validateString(path, 'path')
-  path = toPosix(path)
+  validateURLString(input, 'input')
+  input = toPosix(toPath(input))
 
   /**
    * Start index of basename.
@@ -58,14 +69,14 @@ function basename(path: string, suffix?: string | null | undefined): string {
 
   // check for drive path so as not to mistake the next path separator as an
   // extra separator at the end of the path that can be disregarded
-  if (DRIVE_PATH_REGEX.test(path)) start = path.indexOf(delimiter) + 1
+  if (DRIVE_PATH_REGEX.test(input)) start = input.indexOf(delimiter) + 1
 
   if (
     typeof suffix === 'string' &&
     suffix.length &&
-    suffix.length <= path.length
+    suffix.length <= input.length
   ) {
-    if (path === suffix) return ''
+    if (input === suffix) return ''
 
     /**
      * Start index of file extension.
@@ -81,13 +92,13 @@ function basename(path: string, suffix?: string | null | undefined): string {
      */
     let firstNonSlashEnd: number = -1
 
-    for (let i = path.length - 1; i >= start; --i) {
+    for (let i = input.length - 1; i >= start; --i) {
       /**
        * Current character.
        *
        * @const {string} char
        */
-      const char: string = path[i]!
+      const char: string = input[i]!
 
       if (isSep(char)) {
         // stop if a non-trailing path separator was reached
@@ -117,10 +128,10 @@ function basename(path: string, suffix?: string | null | undefined): string {
     }
 
     if (start === end) end = firstNonSlashEnd
-    else if (end === -1) end = path.length
+    else if (end === -1) end = input.length
   } else {
-    for (let i = path.length - 1; i >= start; --i) {
-      if (isSep(path[i])) {
+    for (let i = input.length - 1; i >= start; --i) {
+      if (isSep(input[i])) {
         if (!separator) {
           // exit if a non-trailing path separator was reached
           start = i + 1
@@ -137,7 +148,7 @@ function basename(path: string, suffix?: string | null | undefined): string {
     if (end === -1) return ''
   }
 
-  return path.slice(start, end)
+  return input.slice(start, end)
 }
 
 export default basename

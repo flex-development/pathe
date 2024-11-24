@@ -20,6 +20,7 @@ import {
   isAbsolute,
   isDeviceRoot,
   isSep,
+  isURL,
   join,
   matchesGlob,
   normalize,
@@ -32,6 +33,7 @@ import {
   root,
   sep,
   toNamespacedPath,
+  toPath,
   toPosix
 } from '#lib'
 import type {
@@ -119,6 +121,7 @@ const pathe: Pathe = {
   isAbsolute,
   isDeviceRoot,
   isSep,
+  isURL,
   join,
   matchesGlob,
   normalize,
@@ -132,6 +135,7 @@ const pathe: Pathe = {
   root,
   sep,
   toNamespacedPath,
+  toPath,
   toPosix,
   win32
 }

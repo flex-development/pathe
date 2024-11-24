@@ -15,12 +15,14 @@ import type { Sep } from '@flex-development/pathe'
  * @category
  *  utils
  *
- * @param {unknown} [value]
- *  Value to check
+ * @this {void}
+ *
+ * @param {unknown} value
+ *  The value to check
  * @return {value is Sep}
  *  `true` if `value` is path segment separator, `false` otherwise
  */
-function isSep(value: unknown): value is Sep {
+function isSep(this: void, value: unknown): value is Sep {
   return value === sep || value === sepWindows
 }
 

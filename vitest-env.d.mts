@@ -2,13 +2,13 @@
 
 interface ImportMetaEnv {
   readonly BASE_URL: string
-  readonly DEV: '1' | import('@flex-development/tutils').EmptyString
+  readonly DEV: '1' | import('@flex-development/pathe').EmptyString
   readonly GITHUB_TOKEN: string
   readonly MODE: string
   readonly NODE_ENV: string
-  readonly PROD: '1' | import('@flex-development/tutils').EmptyString
+  readonly PROD: '1' | import('@flex-development/pathe').EmptyString
   readonly PWD: string
-  readonly SSR: '1' | import('@flex-development/tutils').EmptyString
+  readonly SSR: '1' | import('@flex-development/pathe').EmptyString
   readonly TEST: 'true'
   readonly USER: string
   readonly VITEST: 'true'

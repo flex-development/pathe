@@ -5,13 +5,15 @@
 
 import type dot from '#lib/dot'
 import type resolveWith from '#lib/resolve-with'
+import type toPath from '#lib/to-path'
 import type {
-  Cwd,
   Delimiter,
   EmptyString,
   Ext,
   FormatInputPathObject,
   ParsedPath,
+  RelativeOptions,
+  ResolveWithOptions,
   Sep
 } from '@flex-development/pathe'
 import type micromatch from 'micromatch'
@@ -53,52 +55,71 @@ interface PlatformPath {
   readonly win32: PlatformPath
 
   /**
-   * Get the last portion of `path`, similar to the Unix `basename` command.
+   * Get the last portion of `input`, similar to the Unix `basename` command.
    *
    * Trailing [directory separators][sep] are ignored.
    *
+   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
+   * > `URL`, it will be converted to a path using {@linkcode toPath}.
+   *
    * [sep]: https://nodejs.org/api/path.html#pathsep
    *
-   * @param {string} path
-   *  Path to handle
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to handle
    * @param {string | null | undefined} [suffix]
-   *  Suffix to remove
+   *  The suffix to remove
    * @return {string}
-   *  Last portion of `path` or empty string
+   *  Last portion of `input` or empty string
    */
-  basename(this: void, path: string, suffix?: string | null | undefined): string
+  basename(
+    this: void,
+    input: URL | string,
+    suffix?: string | null | undefined
+  ): string
 
   /**
-   * Get the directory name of `path`, similar to the Unix `dirname` command.
+   * Get the directory name of `input`, similar to the Unix `dirname` command.
    *
    * Trailing [directory separators][sep] are ignored.
    *
+   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
+   * > `URL`, it will be converted to a path using {@linkcode toPath}.
+   *
    * [sep]: https://nodejs.org/api/path.html#pathsep
    *
-   * @param {string} path
-   *  Path to handle
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to handle
    * @return {string}
-   *  Directory name of `path`
+   *  Directory name of `input`
    */
-  dirname(this: void, path: string): string
+  dirname(this: void, input: URL | string): string
 
   /**
-   * Get the file extension of `path` from the last occurrence of the `.` (dot)
-   * character (`.`) to end of the string in the last portion of `path`.
+   * Get the file extension of `input` from the last occurrence of the `.` (dot)
+   * character (`.`) to end of the string in the last portion of `input`.
    *
-   * If there is no `.` in the last portion of `path`, or if there are no `.`
+   * If there is no `.` in the last portion of `input`, or if there are no `.`
    * characters other than the first character of the {@linkcode basename} of
-   * `path`, an empty string is returned.
+   * `input`, an empty string is returned.
+   *
+   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
+   * > `URL`, it will be converted to a path using {@linkcode toPath}.
    *
    * @see {@linkcode EmptyString}
    * @see {@linkcode Ext}
    *
-   * @param {string} path
-   *  Path to handle
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to handle
    * @return {EmptyString | Ext}
-   *  Extension of `path` or empty string
+   *  Extension of `input` or empty string
    */
-  extname(this: void, path: string): EmptyString | Ext
+  extname(this: void, input: URL | string): EmptyString | Ext
 
   /**
    * Get a path string from an object.
@@ -114,8 +135,10 @@ interface PlatformPath {
    *
    * @see {@linkcode FormatInputPathObject}
    *
+   * @this {void}
+   *
    * @param {FormatInputPathObject | null | undefined} pathObject
-   *  Path object to handle
+   *  The path object to handle
    * @param {string | null | undefined} [pathObject.base]
    *  File name including extension (if any)
    * @param {string | null | undefined} [pathObject.dir]
@@ -135,14 +158,19 @@ interface PlatformPath {
   ): string
 
   /**
-   * Determine if `path` is absolute.
+   * Determine if `input` is absolute.
    *
-   * @param {string} path
-   *  Path to check
+   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
+   * > `URL`, it will be converted to a path using {@linkcode toPath}.
+   *
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to check
    * @return {boolean}
-   *  `true` if `path` is absolute, `false` otherwise
+   *  `true` if `input` is absolute, `false` otherwise
    */
-  isAbsolute(this: void, path: string): boolean
+  isAbsolute(this: void, input: URL | string): boolean
 
   /**
    * Join all path segments in `paths` using {@linkcode sep} as the delimiter
@@ -152,30 +180,35 @@ interface PlatformPath {
    * If the joined path string is a zero-length string, {@linkcode dot} is
    * returned, representing the current working directory.
    *
+   * @this {void}
+   *
    * @param {string[]} paths
-   *  Path segment sequence
+   *  The path segment sequence
    * @return {string}
    *  Path segment sequence as one path
    */
   join(this: void, ...paths: string[]): string
 
   /**
-   * Check if `path` matches `pattern`.
+   * Check if `input` matches `pattern`.
    *
    * @see {@linkcode micromatch.Options}
    * @see {@linkcode micromatch.isMatch}
    *
-   * @param {string} path
-   *  The path to glob-match against
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to glob-match against
    * @param {string | string[]} pattern
    *  Glob patterns to use for matching
    * @param {micromatch.Options | null | undefined} [options]
    *  Options for matching
    * @return {boolean}
-   *  `true` if `path` matches `pattern`, `false` otherwise
+   *  `true` if `input` matches `pattern`, `false` otherwise
    */
   matchesGlob(
-    path: string,
+    this: void,
+    input: URL | string,
     pattern: string | string[],
     options?: micromatch.Options | null | undefined
   ): boolean
@@ -190,31 +223,32 @@ interface PlatformPath {
    * If `path` is a zero-length string, {@linkcode dot} is returned,
    * representing the current working directory.
    *
+   * @this {void}
+   *
    * @param {string} path
-   *  Path to normalize
+   *  The path to normalize
    * @return {string}
    *  Normalized `path`
    */
   normalize(this: void, path: string): string
 
   /**
-   * Create an object whose properties represent significant elements of `path`.
-   * Trailing directory separators are ignored.
+   * Create an object whose properties represent significant elements of
+   * `input`. Trailing directory separators are ignored.
    *
-   * > 👉 **Note**: Like Node.js, when `path` does not have a base (i.e.
-   * > `'file.mjs'`), `parsedPath.dir` is **not** equivalent to `dirname(path)`.
-   * > See [`nodejs/node#18655`][18655] for details.
-   *
-   * [18655]: https://github.com/nodejs/node#18655
+   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
+   * > `URL`, it will be converted to a path using {@linkcode toPath}.
    *
    * @see {@linkcode ParsedPath}
    *
-   * @param {string} path
-   *  Path to handle
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to parse
    * @return {ParsedPath}
    *  Significant elements of `path`
    */
-  parse(this: void, path: string): ParsedPath
+  parse(this: void, input: URL | string): ParsedPath
 
   /**
    * Get the relative path from `from` to `to` based on the current working
@@ -226,25 +260,30 @@ interface PlatformPath {
    * If a zero-length string is passed as `from` or `to`, the current working
    * directory will be used instead of the zero-length strings.
    *
-   * @see {@linkcode Cwd}
+   * > 👉 **Note**: If `from` or `to` is a {@linkcode URL}, or can be parsed to
+   * > a `URL`, they'll be converted to paths using {@linkcode toPath}.
    *
-   * @param {string} from
-   *  Start path
-   * @param {string} to
-   *  Destination path
-   * @param {Cwd | null | undefined} [cwd]
-   *  Get the path to the current working directory
-   * @param {Partial<Record<string, string>> | null | undefined} [env]
-   *  Environment variables
+   * @see {@linkcode RelativeOptions}
+   *
+   * @category
+   *  core
+   *
+   * @this {void}
+   *
+   * @param {URL | string[] | string} from
+   *  Start path, path segments, or URL
+   * @param {URL | string[] | string} to
+   *  Destination path, path segments, or URL
+   * @param {RelativeOptions | null | undefined} [options]
+   *  Relative path generation options
    * @return {string}
    *  Relative path from `from` to `to`
    */
   relative(
     this: void,
-    from: string,
-    to: string,
-    cwd?: Cwd | null | undefined,
-    env?: Partial<Record<string, string>> | null | undefined
+    from: URL | string[] | string,
+    to: URL | string[] | string,
+    options?: RelativeOptions | null | undefined
   ): string
 
   /**
@@ -268,6 +307,8 @@ interface PlatformPath {
    * If no `path` segments are passed, the absolute path of the current working
    * directory is returned.
    *
+   * @this {void}
+   *
    * @param {string[]} paths
    *  Sequence of paths or path segments
    * @return {string}
@@ -278,19 +319,29 @@ interface PlatformPath {
   /**
    * Get an equivalent [namespace-prefixed path][namespace] for `path`.
    *
-   * > 👉 If `path` is not a [drive][drive] or [UNC][unc] path, it will be
-   * > returned without modifications.
+   * > 👉 **Note**: If `path` is not a [drive][drive] or [UNC][unc] path, it
+   * > will be returned without modifications.
    *
    * [drive]: https://learn.microsoft.com/windows/win32/fileio/naming-a-file#naming-conventions
    * [namespace]: https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file#namespaces
    * [unc]: https://learn.microsoft.com/dotnet/standard/io/file-path-formats#unc-paths
    *
+   * @see {@linkcode ResolveWithOptions}
+   *
+   * @this {void}
+   *
    * @param {string} path
-   *  Path to handle
+   *  The path to handle
+   * @param {ResolveWithOptions | null | undefined} [options]
+   *  Resolution options
    * @return {string}
    *  Namespace-prefixed path or `path` without modifications
    */
-  toNamespacedPath(this: void, path: string): string
+  toNamespacedPath(
+    this: void,
+    path: string,
+    options?: ResolveWithOptions | null | undefined
+  ): string
 }
 
 export type { PlatformPath as default }

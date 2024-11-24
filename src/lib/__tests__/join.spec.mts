@@ -1,7 +1,7 @@
 /**
  * @file Unit Tests - join
  * @module pathe/lib/tests/unit/join
- * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-join.js
+ * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-join.js
  */
 
 import dot from '#lib/dot'

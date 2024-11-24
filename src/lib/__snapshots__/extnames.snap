@@ -22,6 +22,14 @@ exports[`unit:lib/extnames > should return list of extensions ("eslint.base.conf
 ]
 `;
 
+exports[`unit:lib/extnames > should return list of extensions ("file:///tsconfig.lib.prod.json") 1`] = `
+[
+  ".lib",
+  ".prod",
+  ".json",
+]
+`;
+
 exports[`unit:lib/extnames > should return list of extensions ("grease.config.mjs") 1`] = `
 [
   ".config",
@@ -29,8 +37,8 @@ exports[`unit:lib/extnames > should return list of extensions ("grease.config.mj
 ]
 `;
 
-exports[`unit:lib/extnames > should return list of extensions ("src/lib/extnames.ts") 1`] = `
+exports[`unit:lib/extnames > should return list of extensions ("src/lib/extnames.mts") 1`] = `
 [
-  ".ts",
+  ".mts",
 ]
 `;

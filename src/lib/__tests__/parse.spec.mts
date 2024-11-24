@@ -1,11 +1,12 @@
 /**
  * @file Unit Tests - parse
  * @module pathe/lib/tests/unit/parse
- * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-parse-format.js
+ * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-parse-format.js
  */
 
 import dot from '#lib/dot'
 import testSubject from '#lib/parse'
+import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 import { posix, win32 } from 'node:path'
 
@@ -25,14 +26,15 @@ describe('unit:lib/parse', () => {
       ['/home/user/a dir/another file.zip'],
       ['/home/user/a$$$dir//another file.zip'],
       ['/home/user/dir/file.txt'],
+      ['file:///home/user/dir/file.txt'],
       ['user/dir/another file.zip'],
       ['x'],
       [posix.sep + dot],
       [posix.sep.repeat(2)],
       [posix.sep.repeat(3)],
       [posix.sep]
-    ])('should return significant elements of `path` (%j)', path => {
-      expect(testSubject(path)).to.eql(posix.parse(path))
+    ])('should return significant elements of `input` (%j)', input => {
+      expect(testSubject(input)).to.eql(posix.parse(toPath(input)))
     })
   })
 
@@ -55,8 +57,8 @@ describe('unit:lib/parse', () => {
       ['another_path\\DIR with spaces\\1\\2\\33\\index'],
       [dot + '\\file'],
       [win32.sep]
-    ])('should return significant elements of `path` (%j)', path => {
-      expect(testSubject(path)).to.eql(win32.parse(toPosix(path)))
+    ])('should return significant elements of `input` (%j)', input => {
+      expect(testSubject(input)).to.eql(win32.parse(toPosix(toPath(input))))
     })
   })
 })

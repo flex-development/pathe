@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unit:lib/toPath > should return \`input\` as path (".") 1`] = `"."`;
+
+exports[`unit:lib/toPath > should return \`input\` as path ("../to-path.mts") 1`] = `"../to-path.mts"`;
+
+exports[`unit:lib/toPath > should return \`input\` as path ("/") 1`] = `"/"`;
+
+exports[`unit:lib/toPath > should return \`input\` as path ("/package.json") 1`] = `"/package.json"`;
+
+exports[`unit:lib/toPath > should return \`input\` as path ("\\\\") 1`] = `"\\"`;
+
+exports[`unit:lib/toPath > should return \`input\` as path ("file:///") 1`] = `"/"`;
+
+exports[`unit:lib/toPath > should return \`input\` as path ("file:///package.json") 1`] = `"/package.json"`;
+
+exports[`unit:lib/toPath > should return \`input\` as path ("node:test") 1`] = `"test"`;
+
+exports[`unit:lib/toPath > should return \`input\` as path ("t:\\\\package.json") 1`] = `"t:\\package.json"`;

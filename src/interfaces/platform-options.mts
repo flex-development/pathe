@@ -1,6 +1,6 @@
 /**
  * @file Interfaces - PlatformOptions
- * @module pathe/lib/PlatformOptions
+ * @module pathe/interfaces/PlatformOptions
  */
 
 /**

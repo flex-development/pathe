@@ -3,23 +3,23 @@
  * @module pathe/interfaces/Pathe
  */
 
-import type extname from '#lib/extname'
 import type {
-  ErrInvalidArgType,
   ErrInvalidArgValue,
   ErrInvalidFileUrlHost,
   ErrInvalidFileUrlPath,
   ErrInvalidUrlScheme
 } from '@flex-development/errnode'
 import type {
-  Cwd,
   DeviceRoot,
   Dot,
   EmptyString,
   Ext,
-  PlatformOptions,
+  FileUrlToPathOptions,
+  PathToFileUrlOptions,
   PosixPlatformPath,
-  Sep
+  ResolveWithOptions,
+  Sep,
+  ToPathOptions
 } from '@flex-development/pathe'
 
 /**
@@ -31,38 +31,116 @@ import type {
  */
 interface Pathe extends PosixPlatformPath {
   /**
-   * Append a file extension to `path`.
+   * Append a file extension to `input`.
    *
    * Does nothing if a file extension is not provided, or the
-   * {@linkcode extname} of `path` is already `ext`.
+   * {@linkcode extname} of `input` is already `ext`.
    *
-   * @param {string} path
-   *  Path to handle
+   * @this {void}
+   *
+   * @param {string} input
+   *  The path or URL string to handle
    * @param {string | null | undefined} ext
-   *  File extension to add
+   *  The file extension to add
    * @return {string}
-   *  `path` unmodified or with `ext` appended
+   *  `input` unmodified or with new extension
    */
-  addExt(this: void, path: string, ext: string | null | undefined): string
+  addExt(this: void, input: string, ext: string | null | undefined): string
 
   /**
-   * Change the file extension of `path`.
+   * Append a file extension to `url`.
    *
-   * Does nothing if a file extension isn't provided.
-   * If the file extension is an empty string, however, `path`'s file extension
-   * will be removed.
+   * Does nothing if a file extension is not provided, or the
+   * {@linkcode extname} of `url` is already `url`.
    *
-   * @param {string} path
-   *  Path to handle
-   * @param {string | null | undefined} [ext]
-   *  File extension to add
-   * @return {string} `path` unmodified or with changed file extension
-   * @throws {TypeError} If `path` is not a string or `ext` is not a string
+   * @this {void}
+   *
+   * @param {URL} url
+   *  The {@linkcode URL} to handle
+   * @param {string | null | undefined} ext
+   *  The file extension to add
+   * @return {URL}
+   *  `url` unmodified or with new extension
    */
-  changeExt(this: void, path: string, ext?: string | null | undefined): string
+  addExt(this: void, url: URL, ext: string | null | undefined): URL
+
+  /**
+   * Append a file extension to `input`.
+   *
+   * Does nothing if a file extension is not provided, or the
+   * {@linkcode extname} of `input` is already `ext`.
+   *
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to handle
+   * @param {string | null | undefined} ext
+   *  The file extension to add
+   * @return {URL | string}
+   *  `input` unmodified or with new extension
+   */
+  addExt(
+    this: void,
+    input: URL | string,
+    ext: string | null | undefined
+  ): URL | string
+
+  /**
+   * Change the file extension of `input`.
+   *
+   * Does nothing if the file extension of `input` is already `ext`.
+   *
+   * @this {void}
+   *
+   * @param {string} input
+   *  The path or URL string to handle
+   * @param {string | null | undefined} [ext]
+   *  The file extension to add
+   * @return {string}
+   *  `input` unmodified or with changed file extension
+   */
+  changeExt(this: void, input: string, ext?: string | null | undefined): string
+
+  /**
+   * Change the file extension of `url`.
+   *
+   * Does nothing if the file extension of `url` is already `ext`.
+   *
+   * @this {void}
+   *
+   * @param {URL} url
+   *  The {@linkcode URL} to handle
+   * @param {string | null | undefined} [ext]
+   *  The file extension to add
+   * @return {URL}
+   *  `url` unmodified or with changed file extension
+   */
+  changeExt(this: void, url: URL, ext?: string | null | undefined): URL
+
+  /**
+   * Change the file extension of `input`.
+   *
+   * Does nothing if the file extension of `input` is already `ext`.
+   *
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to handle
+   * @param {string | null | undefined} [ext]
+   *  The file extension to add
+   * @return {URL | string}
+   *  `input` unmodified or with changed file extension
+   */
+  changeExt(
+    this: void,
+    input: URL | string,
+    ext?: string | null | undefined
+  ): URL | string
 
   /**
    * Get the path to the current working directory.
+   *
+   * @this {void}
    *
    * @return {string}
    *  Absolute path to current working directory
@@ -79,41 +157,47 @@ interface Pathe extends PosixPlatformPath {
   readonly dot: Dot
 
   /**
-   * Get a list of file extensions for `path`.
+   * Get a list of file extensions for `input`.
+   *
+   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
+   * > `URL`, it will be converted to a path using {@linkcode toPath}.
    *
    * @see {@linkcode Ext}
    * @see {@linkcode extname}
    *
-   * @param {string} path
-   *  Path to handle
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to handle
    * @return {Ext[]}
    *  List of extensions
    */
-  extnames(path: string): Ext[]
+  extnames(this: void, input: URL | string): Ext[]
 
   /**
    * Convert a `file:` URL to a path.
    *
-   * @see {@linkcode ErrInvalidArgType}
    * @see {@linkcode ErrInvalidFileUrlHost}
    * @see {@linkcode ErrInvalidFileUrlPath}
    * @see {@linkcode ErrInvalidUrlScheme}
-   * @see {@linkcode PlatformOptions}
+   * @see {@linkcode FileUrlToPathOptions}
+   *
+   * @this {void}
    *
    * @param {URL | string} url
-   *  The file URL string or URL object to convert to a path
-   * @param {PlatformOptions | null | undefined} [options]
-   *  Platform options
+   *  The `file:` URL object or string to convert to a path
+   * @param {FileUrlToPathOptions | null | undefined} [options]
+   *  Conversion options
    * @return {string}
    *  `url` as path
-   * @throws {ErrInvalidArgType}
    * @throws {ErrInvalidFileUrlHost}
    * @throws {ErrInvalidFileUrlPath}
    * @throws {ErrInvalidUrlScheme}
    */
   fileURLToPath(
+    this: void,
     url: URL | string,
-    options?: PlatformOptions | null | undefined
+    options?: FileUrlToPathOptions | null | undefined
   ): string
 
   /**
@@ -122,8 +206,10 @@ interface Pathe extends PosixPlatformPath {
    * @see {@linkcode EmptyString}
    * @see {@linkcode Ext}
    *
+   * @this {void}
+   *
    * @param {string | null | undefined} ext
-   *  File extension to format
+   *  The file extension to format
    * @return {EmptyString | Ext}
    *  Formatted file extension or empty string
    */
@@ -134,8 +220,10 @@ interface Pathe extends PosixPlatformPath {
    *
    * @see {@linkcode DeviceRoot}
    *
-   * @param {unknown} [value]
-   *  Value to check
+   * @this {void}
+   *
+   * @param {unknown} value
+   *  The value to check
    * @return {value is DeviceRoot}
    *  `true` if `value` is device root, `false` otherwise
    */
@@ -146,12 +234,26 @@ interface Pathe extends PosixPlatformPath {
    *
    * @see {@linkcode Sep}
    *
-   * @param {unknown} [value]
-   *  Value to check
+   * @this {void}
+   *
+   * @param {unknown} value
+   *  The value to check
    * @return {value is Sep}
    *  `true` if `value` is path segment separator, `false` otherwise
    */
   isSep(this: void, value: unknown): value is Sep
+
+  /**
+   * Check if `value` is a {@linkcode URL} or can be parsed to a `URL`.
+   *
+   * @this {void}
+   *
+   * @param {unknown} value
+   *  The value to check
+   * @return {value is URL | string}
+   *  `true` if `value` is a `URL` or can be parsed to a `URL`
+   */
+  isURL(this: void, value: unknown): value is URL | string
 
   /**
    * Convert a file `path` to a `file:` {@linkcode URL}.
@@ -167,35 +269,78 @@ interface Pathe extends PosixPlatformPath {
    * [419]: https://github.com/whatwg/url/issues/419
    *
    * @see {@linkcode ErrInvalidArgValue}
-   * @see {@linkcode PlatformOptions}
+   * @see {@linkcode PathToFileUrlOptions}
    *
-   * @param {URL | string} path
-   *  Path to handle
-   * @param {PlatformOptions | null | undefined} [options]
-   *  Platform options
+   * @this {void}
+   *
+   * @param {string} path
+   *  The path to handle
+   * @param {PathToFileUrlOptions | null | undefined} [options]
+   *  Conversion options
    * @return {URL}
    *  `path` as `file:` URL
    * @throws {ErrInvalidArgValue}
    */
   pathToFileURL(
+    this: void,
     path: string,
-    options?: PlatformOptions | null | undefined
+    options?: PathToFileUrlOptions | null | undefined
   ): URL
 
   /**
-   * Remove the file extension of `path`.
+   * Remove the file extension of `input`.
    *
-   * Does nothing if `path` does not end with the provided file extension, or if
-   * a file extension is not provided.
+   * Does nothing if `input` does not end with the provided file extension, or
+   * if a file extension is not provided.
    *
-   * @param {string} path
-   *  Path to handle
+   * @this {void}
+   *
+   * @param {string} input
+   *  The path or URL string to handle
    * @param {string | null | undefined} ext
-   *  File extension to remove
+   *  The file extension to remove
    * @return {string}
-   *  `path` unmodified or with `ext` removed
+   *  `input` unmodified or with `ext` removed
    */
-  removeExt(this: void, path: string, ext: string | null | undefined): string
+  removeExt(this: void, input: string, ext: string | null | undefined): string
+
+  /**
+   * Remove the file extension of `url`.
+   *
+   * Does nothing if `url` does not end with the provided file extension, or
+   * if a file extension is not provided.
+   *
+   * @this {void}
+   *
+   * @param {URL} url
+   *  The {@linkcode URL} to handle
+   * @param {string | null | undefined} ext
+   *  The file extension to remove
+   * @return {URL}
+   *  `url` unmodified or with `ext` removed
+   */
+  removeExt(this: void, url: URL, ext: string | null | undefined): URL
+
+  /**
+   * Remove the file extension of `input`.
+   *
+   * Does nothing if `input` does not end with the provided file extension, or
+   * if a file extension is not provided.
+   *
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to handle
+   * @param {string | null | undefined} ext
+   *  The file extension to remove
+   * @return {URL | string}
+   *  `input` unmodified or with `ext` removed
+   */
+  removeExt(
+    this: void,
+    input: URL | string,
+    ext: string | null | undefined
+  ): URL | string
 
   /**
    * Resolve a sequence of paths or path segments into an absolute path.
@@ -218,52 +363,152 @@ interface Pathe extends PosixPlatformPath {
    * If no `path` segments are passed, the absolute path of the current working
    * directory is returned.
    *
-   * @see {@linkcode Cwd}
+   * @see {@linkcode ResolveWithOptions}
+   *
+   * @this {void}
    *
    * @param {ReadonlyArray<string> | string} paths
    *  Sequence of paths or path segments
-   * @param {Cwd | null | undefined} [cwd]
-   *  Get the path to the current working directory
-   * @param {Partial<Record<string, string>> | null | undefined} [env]
-   *  Environment variables
+   * @param {ResolveWithOptions | null | undefined} [options]
+   *  Resolution options
    * @return {string}
    *  Absolute path
    */
   resolveWith(
     this: void,
     paths: string | readonly string[],
-    cwd?: Cwd | null | undefined,
-    env?: Partial<Record<string, string>> | null | undefined
+    options?: ResolveWithOptions | null | undefined
   ): string
 
   /**
-   * Get the root of `path`.
+   * Get the root of `input`.
    *
-   * @param {string} path
-   *  Path to handle
+   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
+   * > `URL`, it will be converted to a path using {@linkcode toPath}.
+   *
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to handle
    * @return {string}
-   *  Root of `path`
+   *  Root of `input`
    */
-  root(this: void, path: string): string
+  root(this: void, input: URL | string): string
 
   /**
-   * Make `path` POSIX-compliant.
+   * Convert `input` to a path.
    *
-   * This includes:
+   * @see {@linkcode ToPathOptions}
    *
-   * - Converting Windows-style path delimiters (`;`) to POSIX (`:`)
-   * - Converting Windows-style path segment separators (`\`) to POSIX (`/`)
+   * @this {void}
    *
-   * @see https://nodejs.org/api/path.html#windows-vs-posix
-   * @see https://nodejs.org/api/path.html#pathdelimiter
-   * @see https://nodejs.org/api/path.html#pathsep
-   *
-   * @param {string} path
-   *  Path to handle
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to convert
+   * @param {ToPathOptions | null | undefined} [options]
+   *  Conversion options
    * @return {string}
-   *  POSIX-compliant `path`
+   *  `input` as path
    */
-  toPosix(this: void, path: string): string
+  toPath(
+    this: void,
+    input: URL | string,
+    options?: ToPathOptions | null | undefined
+  ): string
+
+  /**
+   * Convert a list of inputs to paths.
+   *
+   * @see {@linkcode ToPathOptions}
+   *
+   * @this {void}
+   *
+   * @param {ReadonlyArray<URL | string>} list
+   *  The list of {@linkcode URL}s, URL strings, or paths to convert
+   * @param {ToPathOptions | null | undefined} [options]
+   *  Conversion options
+   * @return {string[]}
+   *  List of paths
+   */
+  toPath(
+    this: void,
+    list: readonly (URL | string)[],
+    options?: ToPathOptions | null | undefined
+  ): string[]
+
+  /**
+   * Convert inputs to paths.
+   *
+   * @see {@linkcode ToPathOptions}
+   *
+   * @this {void}
+   *
+   * @param {ReadonlyArray<URL | string> | URL | string} value
+   *  The {@linkcode URL}, URL string, or path to convert,
+   *  or list of such values
+   * @param {ToPathOptions | null | undefined} [options]
+   *  Conversion options
+   * @return {string[] | string}
+   *  `value` as path or new list of paths
+   */
+  toPath(
+    this: void,
+    value: readonly (URL | string)[] | URL | string,
+    options?: ToPathOptions | null | undefined
+  ): string[] | string
+
+  /**
+   * Make separators in `input` POSIX-compliant.
+   *
+   * Supports encoded separators (e.g. `%5C`, `%5c`).
+   *
+   * @template {URL | string} Input
+   *  The URL or path to handle
+   *
+   * @this {void}
+   *
+   * @param {Input} input
+   *  The {@linkcode URL}, URL string, or path to handle
+   * @return {Input}
+   *  `input` with POSIX-compliant separators
+   */
+  toPosix<Input extends URL | string>(this: void, input: Input): Input
+
+  /**
+   * Make separators in `list` POSIX-compliant.
+   *
+   * Supports encoded separators (e.g. `%5C`, `%5c`).
+   *
+   * @template {(URL | string)[]} List
+   *  The list to handle
+   *
+   * @this {void}
+   *
+   * @param {List} list
+   *  The list of {@linkcode URL}s, URL strings, or paths to handle
+   * @return {List}
+   *  `list` with POSIX-compliant separators
+   */
+  toPosix<List extends (URL | string)[]>(this: void, list: List): List
+
+  /**
+   * Make separators in `value` POSIX-compliant.
+   *
+   * Supports encoded separators (e.g. `%5C`, `%5c`).
+   *
+   * @template {URL | string} Input
+   *  The URL or path to handle
+   *
+   * @this {void}
+   *
+   * @param {Input | Input[]} value
+   *  The {@linkcode URL}, URL string, or path to handle, or list of such values
+   * @return {Input | Input[]}
+   *  `value` with POSIX-compliant separators
+   */
+  toPosix<Input extends URL | string = URL | string>(
+    this: void,
+    value: Input | Input[]
+  ): Input | Input[]
 }
 
 export type { Pathe as default }

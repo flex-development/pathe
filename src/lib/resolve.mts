@@ -3,7 +3,6 @@
  * @module pathe/lib/resolve
  */
 
-import process from '#internal/process'
 import resolveWith from '#lib/resolve-with'
 
 /**
@@ -30,13 +29,15 @@ import resolveWith from '#lib/resolve-with'
  * @category
  *  core
  *
+ * @this {void}
+ *
  * @param {string[]} paths
  *  Sequence of paths or path segments
  * @return {string}
  *  Absolute path
  */
-function resolve(...paths: string[]): string {
-  return resolveWith(paths, process.cwd, process.env)
+function resolve(this: void, ...paths: string[]): string {
+  return resolveWith(paths)
 }
 
 export default resolve

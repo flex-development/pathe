@@ -3,7 +3,6 @@
  * @module pathe/lib/tests/functional/resolve
  */
 
-import process from '#internal/process'
 import testSubject from '#lib/resolve'
 import * as resolveWith from '#lib/resolve-with'
 import sep from '#lib/sep'
@@ -25,9 +24,7 @@ describe('functional:lib/resolve', () => {
 
     // Expect
     expect(spy).toHaveBeenCalledOnce()
-    expect(spy.mock.lastCall).to.have.property('length', 3)
+    expect(spy.mock.lastCall).to.have.property('length', 1)
     expect(spy.mock.lastCall?.[0]).to.have.ordered.members(paths)
-    expect(spy.mock.lastCall?.[1]).to.eq(process.cwd)
-    expect(spy.mock.lastCall?.[2]).to.eq(process.env)
   })
 })

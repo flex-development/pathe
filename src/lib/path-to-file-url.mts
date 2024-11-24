@@ -7,14 +7,14 @@ import { isWindows } from '#internal/constants'
 import domainToASCII from '#internal/domain-to-ascii'
 import validateString from '#internal/validate-string'
 import isSep from '#lib/is-sep'
-import resolve from '#lib/resolve'
+import resolveWith from '#lib/resolve-with'
 import sep from '#lib/sep'
 import toPosix from '#lib/to-posix'
 import {
   ERR_INVALID_ARG_VALUE,
   type ErrInvalidArgValue
 } from '@flex-development/errnode'
-import type { PlatformOptions } from '@flex-development/pathe'
+import type { PathToFileUrlOptions } from '@flex-development/pathe'
 
 export default pathToFileURL
 
@@ -32,22 +32,25 @@ export default pathToFileURL
  * [419]: https://github.com/whatwg/url/issues/419
  *
  * @see {@linkcode ErrInvalidArgValue}
- * @see {@linkcode PlatformOptions}
+ * @see {@linkcode PathToFileUrlOptions}
  *
  * @category
  *  utils
  *
- * @param {URL | string} path
- *  Path to handle
- * @param {PlatformOptions | null | undefined} [options]
- *  Platform options
+ * @this {void}
+ *
+ * @param {string} path
+ *  The path to handle
+ * @param {PathToFileUrlOptions | null | undefined} [options]
+ *  Conversion options
  * @return {URL}
  *  `path` as `file:` URL
  * @throws {ErrInvalidArgValue}
  */
 function pathToFileURL(
+  this: void,
   path: string,
-  options?: PlatformOptions | null | undefined
+  options?: PathToFileUrlOptions | null | undefined
 ): URL {
   validateString(path, 'path')
   path = toPosix(path)
@@ -115,7 +118,7 @@ function pathToFileURL(
    *
    * @var {string} resolved
    */
-  let resolved: string = resolve(path)
+  let resolved: string = resolveWith(path, options)
 
   // resolve strips trailing slash -> add it back
   if (isSep(lastChar) && !isSep(resolved[resolved.length - 1])) resolved += sep
@@ -139,7 +142,7 @@ function pathToFileURL(
  * @internal
  *
  * @param {string} path
- *  Path to handle
+ *  The path to handle
  * @return {string}
  *  `path` with special characters encoded
  */

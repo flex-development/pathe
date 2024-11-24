@@ -5,11 +5,12 @@
 
 import process from '#internal/process'
 import validateString from '#internal/validate-string'
+import validateURLString from '#internal/validate-url-string'
 import toPosix from '#lib/to-posix'
 import micromatch from 'micromatch'
 
 /**
- * Check if `path` matches `pattern`.
+ * Check if `input` matches `pattern`.
  *
  * @see {@linkcode micromatch.Options}
  * @see {@linkcode micromatch.isMatch}
@@ -17,21 +18,24 @@ import micromatch from 'micromatch'
  * @category
  *  core
  *
- * @param {string} path
- *  The path to glob-match against
+ * @this {void}
+ *
+ * @param {URL | string} input
+ *  The {@linkcode URL}, URL string, or path to glob-match against
  * @param {string | string[]} pattern
  *  Glob patterns to use for matching
  * @param {micromatch.Options | null | undefined} [options]
  *  Options for matching
  * @return {boolean}
- *  `true` if `path` matches `pattern`, `false` otherwise
+ *  `true` if `input` matches `pattern`, `false` otherwise
  */
 function matchesGlob(
-  path: string,
+  this: void,
+  input: URL | string,
   pattern: string | string[],
   options?: micromatch.Options | null | undefined
 ): boolean {
-  validateString(path, 'path')
+  validateURLString(input, 'input')
 
   if (Array.isArray<string>(pattern)) {
     /**
@@ -41,25 +45,18 @@ function matchesGlob(
      */
     let i: number = -1
 
-    while (++i < pattern.length) {
-      /**
-       * Current pattern.
-       *
-       * @const {string} pat
-       */
-      const pat: string = pattern[i]!
-
-      validateString(pat, `pattern[${i}]`)
-      pattern[i] = toPosix(pat)
-    }
+    while (++i < pattern.length) validateString(pattern[i], `pattern[${i}]`)
+    pattern = toPosix(pattern)
   } else {
     validateString(pattern, 'pattern')
     pattern = toPosix(pattern)
   }
 
-  return micromatch.isMatch(toPosix(path), pattern, {
+  return micromatch.isMatch(toPosix(String(input)), pattern, {
     ...options,
-    cwd: options?.cwd ?? process.cwd()
+    basename: options?.basename ?? true,
+    cwd: options?.cwd ?? process.cwd(),
+    windows: false
   })
 }
 

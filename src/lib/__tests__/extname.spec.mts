@@ -1,10 +1,11 @@
 /**
  * @file Unit Tests - extname
  * @module pathe/lib/tests/unit/extname
- * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-extname.js
+ * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-extname.js
  */
 
 import testSubject from '#lib/extname'
+import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 import { posix, win32 } from 'node:path'
 
@@ -53,9 +54,10 @@ describe('unit:lib/extname', () => {
       ['file.ext/'],
       ['file.ext//'],
       ['file/'],
-      ['file//']
-    ])('should return extension of `path` (%j)', path => {
-      expect(testSubject(path)).to.eq(posix.extname(path))
+      ['file//'],
+      [new URL(import.meta.url)]
+    ])('should return extension of `input` (%j)', input => {
+      expect(testSubject(input)).to.eq(posix.extname(toPath(input)))
     })
   })
 
@@ -120,9 +122,10 @@ describe('unit:lib/extname', () => {
       ['file/'],
       ['file//'],
       ['file\\'],
-      ['file\\\\']
-    ])('should return extension of `path` (%j)', path => {
-      expect(testSubject(path)).to.eq(toPosix(win32.extname(path)))
+      ['file\\\\'],
+      [import.meta.url.replaceAll(posix.sep, win32.sep)]
+    ])('should return extension of `input` (%j)', input => {
+      expect(testSubject(input)).to.eq(toPosix(win32.extname(toPath(input))))
     })
   })
 })

@@ -27,8 +27,10 @@ import type { FormatInputPathObject } from '@flex-development/pathe'
  * @category
  *  core
  *
+ * @this {void}
+ *
  * @param {FormatInputPathObject | null | undefined} pathObject
- *  Path object to handle
+ *  The path object to handle
  * @param {string | null | undefined} [pathObject.base]
  *  File name including extension (if any)
  * @param {string | null | undefined} [pathObject.dir]
@@ -42,7 +44,10 @@ import type { FormatInputPathObject } from '@flex-development/pathe'
  * @return {string}
  *  Path string
  */
-function format(pathObject: FormatInputPathObject | null | undefined): string {
+function format(
+  this: void,
+  pathObject: FormatInputPathObject | null | undefined
+): string {
   if (pathObject !== null && pathObject !== undefined) {
     validateObject(pathObject, 'pathObject')
 

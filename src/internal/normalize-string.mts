@@ -7,7 +7,6 @@ import validateString from '#internal/validate-string'
 import dot from '#lib/dot'
 import isSep from '#lib/is-sep'
 import sep from '#lib/sep'
-import toPosix from '#lib/to-posix'
 
 /**
  * Normalize `path`.
@@ -30,7 +29,6 @@ import toPosix from '#lib/to-posix'
  */
 function normalizeString(path: string, allowAboveRoot: boolean): string {
   validateString(path, 'path')
-  path = toPosix(path)
 
   /**
    * Current character in {@link path}.

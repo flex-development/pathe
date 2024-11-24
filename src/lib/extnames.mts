@@ -3,25 +3,33 @@
  * @module pathe/lib/extnames
  */
 
-import validateString from '#internal/validate-string'
-import dot from '#lib/dot'
+import validateURLString from '#internal/validate-url-string'
 import extname from '#lib/extname'
+import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 import type { EmptyString, Ext } from '@flex-development/pathe'
 
 /**
- * Get a list of file extensions for `path`.
+ * Get a list of file extensions for `input`.
+ *
+ * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a `URL`,
+ * > it will be converted to a path using {@linkcode toPath}.
  *
  * @see {@linkcode Ext}
  * @see {@linkcode extname}
  *
- * @param {string} path
- *  Path to handle
+ * @category
+ *  utils
+ *
+ * @this {void}
+ *
+ * @param {URL | string} input
+ *  The {@linkcode URL}, URL string, or path to handle
  * @return {Ext[]}
  *  List of extensions
  */
-function extnames(path: string): Ext[] {
-  validateString(path, 'path')
+function extnames(this: void, input: URL | string): Ext[] {
+  validateURLString(input, 'input')
 
   /**
    * List of extensions.
@@ -35,9 +43,9 @@ function extnames(path: string): Ext[] {
    *
    * @var {string} subpath
    */
-  let subpath: string = toPosix(path)
+  let subpath: string = toPosix(toPath(input))
 
-  while (subpath.includes(dot)) {
+  while (true) {
     /**
      * Current extension.
      *

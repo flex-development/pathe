@@ -3,7 +3,7 @@
  * @module pathe/lib/resolveWith
  */
 
-import { DRIVE_PATH_REGEX } from '#internal/constants'
+import { DRIVE_PATH_REGEX, sepWindows } from '#internal/constants'
 import normalizeString from '#internal/normalize-string'
 import process from '#internal/process'
 import validateString from '#internal/validate-string'
@@ -11,7 +11,7 @@ import dot from '#lib/dot'
 import isSep from '#lib/is-sep'
 import sep from '#lib/sep'
 import toPosix from '#lib/to-posix'
-import type { Cwd } from '@flex-development/pathe'
+import type { Cwd, ResolveWithOptions } from '@flex-development/pathe'
 
 /**
  * Resolve a sequence of paths or path segments into an absolute path.
@@ -34,25 +34,39 @@ import type { Cwd } from '@flex-development/pathe'
  * If no `path` segments are passed, the absolute path of the current working
  * directory is returned.
  *
- * @see {@linkcode Cwd}
+ * @see {@linkcode ResolveWithOptions}
  *
  * @category
  *  utils
  *
+ * @this {void}
+ *
  * @param {ReadonlyArray<string> | string} paths
  *  Sequence of paths or path segments
- * @param {Cwd | null | undefined} [cwd]
- *  Get the path to the current working directory
- * @param {Partial<Record<string, string>> | null | undefined} [env]
- *  Environment variables
+ * @param {ResolveWithOptions | null | undefined} [options]
+ *  Resolution options
  * @return {string}
  *  Absolute path
  */
 function resolveWith(
+  this: void,
   paths: string | readonly string[],
-  cwd?: Cwd | null | undefined,
-  env?: Partial<Record<string, string>> | null | undefined
+  options?: ResolveWithOptions | null | undefined
 ): string {
+  /**
+   * Get the path to the current working directory.
+   *
+   * @var {Cwd | null | undefined} cwd
+   */
+  let cwd: Cwd | null | undefined = options?.cwd
+
+  /**
+   * Environment variables.
+   *
+   * @var {Partial<Record<string, string>> | null | undefined} env
+   */
+  let env: Partial<Record<string, string>> | null | undefined = options?.env
+
   if (typeof cwd !== 'function') cwd = process.cwd
   if (typeof env !== 'object' || env === null) env = process.env
   if (typeof paths === 'string') paths = [paths]
@@ -89,12 +103,11 @@ function resolveWith(
     if (i >= 0) {
       path = paths[i]!
       validateString(path, `paths[${i}]`)
-      path = toPosix(path)
 
       // skip empty path segments
       if (!path.length) continue
     } else if (!resolvedDevice.length) {
-      path = toPosix(cwd())
+      path = cwd()
     } else {
       /*
        * Windows has the concept of drive-specific current working directories.
@@ -109,7 +122,7 @@ function resolveWith(
        * If a cwd was found, but doesn't point to the drive, we default to the
        * drive's root.
        */
-      path = toPosix(env[`=${resolvedDevice}`] || cwd())
+      path = env[`=${resolvedDevice}`] || cwd()
 
       // default to drive root if cwd was found but does not point to drive
       if (
@@ -119,7 +132,7 @@ function resolveWith(
           isSep(path[2])
         )
       ) {
-        path = `${resolvedDevice}`
+        path = resolvedDevice + sep
       }
     }
 
@@ -144,11 +157,17 @@ function resolveWith(
      */
     let rootEnd: number = 0
 
-    if (isSep(path[rootEnd])) {
+    if (path.length === 1) {
+      if (isSep(path)) {
+        absolute = true
+        rootEnd = 1
+      }
+    } else if (isSep(path[0])) {
       absolute = true
-      rootEnd++
 
-      if (isSep(path[rootEnd])) {
+      if (!isSep(path[1])) {
+        rootEnd = 1
+      } else {
         /**
          * Current position in {@linkcode path}.
          *
@@ -168,27 +187,37 @@ function resolveWith(
 
         if (j < path.length && j !== last) {
           /**
-           * Possible UNC path component.
+           * Path component.
            *
-           * @const {string} host
+           * @const {string} comp
            */
-          const host: string = path.slice(last, j)
+          const comp: string = path.slice(last, j)
 
+          // matched!
           last = j
 
           // match 1 or more path separators
           while (j < path.length && isSep(path[j])) j++
 
           if (j < path.length && j !== last) {
+            // matched!
             last = j
 
             // match 1 or more non-path separators
             while (j < path.length && !isSep(path[j])) j++
 
-            // matched unc root
+            // matched device root or unc root
             if (j === path.length || j !== last) {
-              device = `${sep}${sep}${host}${sep}${path.slice(last, j)}`
-              rootEnd = j
+              device = sepWindows.repeat(2) + comp
+
+              if (comp !== dot && comp !== '?') {
+                // matched unc root
+                device += sepWindows + path.slice(last, j)
+                rootEnd = j
+              } else {
+                // matched device root (i.e. `//./PHYSICALDRIVE0`)
+                rootEnd = 4
+              }
             }
           }
         }
@@ -198,8 +227,9 @@ function resolveWith(
       device = path.slice(0, rootEnd)
 
       if (path.length > rootEnd && isSep(path[rootEnd])) {
-        rootEnd++
+        // treat separator after drive name as absolute path indicator
         absolute = true
+        rootEnd++
       }
     }
 
@@ -225,9 +255,11 @@ function resolveWith(
   // normalized anyway in case of `cwd()` failure.
   resolvedTail = normalizeString(resolvedTail, !resolvedAbsolute)
 
-  return resolvedAbsolute
-    ? `${resolvedDevice}${sep}${resolvedTail}`
-    : `${resolvedDevice}${resolvedTail}` || dot
+  return toPosix(
+    resolvedAbsolute
+      ? `${resolvedDevice}${sep}${resolvedTail}`
+      : `${resolvedDevice}${resolvedTail}` || dot
+  )
 }
 
 export default resolveWith

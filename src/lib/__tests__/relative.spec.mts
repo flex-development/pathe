@@ -1,16 +1,19 @@
 /**
  * @file Unit Tests - relative
  * @module pathe/lib/tests/unit/relative
- * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-relative.js
+ * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-relative.js
  */
 
+import process from '#internal/process'
 import testSubject from '#lib/relative'
+import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
+import cwdWindows from '#tests/utils/cwd-windows'
 import { posix, win32 } from 'node:path'
 
 describe('unit:lib/relative', () => {
   describe('posix', () => {
-    it.each<Parameters<typeof testSubject>>([
+    it.each<[URL | string, URL | string]>([
       ['', ''],
       ['/Users/a/web/b/test/mails', '/Users/a/web/b'],
       ['/baz', '/baz-quux'],
@@ -27,15 +30,24 @@ describe('unit:lib/relative', () => {
       ['/var/lib', '/var'],
       ['/var/lib', '/var/apache'],
       ['/var/lib', '/var/lib'],
+      ['file:///package.json', new URL('file:///test/index.mjs')],
       [posix.sep, '/foo'],
       [posix.sep, '/var/lib']
-    ])('should return relative path (%#)', (from, to, cwd) => {
-      expect(testSubject(from, to, cwd)).to.eq(posix.relative(from, to))
+    ])('should return relative path (%j, %j)', (from, to) => {
+      // Act
+      const result = testSubject(from, to)
+
+      // Expect
+      expect(result).to.eq(posix.relative(toPath(from), toPath(to)))
     })
   })
 
   describe('windows', () => {
-    it.each<Parameters<typeof testSubject>>([
+    beforeEach(() => {
+      vi.spyOn(process, 'cwd').mockImplementation(cwdWindows)
+    })
+
+    it.each<[URL | string, URL | string]>([
       ['C:\\', 'C:\\foo'],
       ['C:\\baz', 'C:\\baz-quux'],
       ['C:\\baz', '\\\\foo\\bar\\baz'],
@@ -51,8 +63,12 @@ describe('unit:lib/relative', () => {
       ['P:\\', 'package.json'],
       ['P:\\foo\\bar\\baz\\quux', 'P:\\'],
       ['P:\\foo\\test', 'P:\\foo\\test\\bar\\package.json'],
+      ['T:\\foo\\bar', 'T:\\foo\\bar\\baz'],
+      ['T:\\', '\\package.json'],
+      ['T:\\', 'package.json'],
       ['\\\\foo\\bar', '\\\\foo\\bar\\baz'],
       ['\\\\foo\\bar\\baz', 'C:\\baz'],
+      ['\\\\foo\\bar\\baz', 'T:\\baz'],
       ['\\\\foo\\bar\\baz', '\\\\foo\\bar'],
       ['\\\\foo\\bar\\baz', '\\\\foo\\bar\\baz-quux'],
       ['\\\\foo\\bar\\baz-quux', '\\\\foo\\bar\\baz'],
@@ -68,12 +84,12 @@ describe('unit:lib/relative', () => {
       ['c:/aaaa/bbbb', 'd:\\'],
       ['c:/aaaaa/', 'c:/aaaa/cccc'],
       ['c:/blah\\blah', 'd:/games']
-    ])('should return relative path (%#)', (from, to, cwd) => {
+    ])('should return relative path (%j, %j)', (from, to) => {
       // Act
-      const result = testSubject(from, to, cwd, null)
+      const result = testSubject(from, to)
 
       // Expect
-      expect(result).to.eq(toPosix(win32.relative(from, to)))
+      expect(result).to.eq(toPosix(win32.relative(toPath(from), toPath(to))))
     })
   })
 })

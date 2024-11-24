@@ -4,19 +4,24 @@
  */
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
-import validateString from '#internal/validate-string'
+import validateURLString from '#internal/validate-url-string'
+import type basename from '#lib/basename'
 import dot from '#lib/dot'
 import isSep from '#lib/is-sep'
+import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 import type { EmptyString, Ext } from '@flex-development/pathe'
 
 /**
- * Get the file extension of `path` from the last occurrence of the `.` (dot)
- * character (`.`) to end of the string in the last portion of `path`.
+ * Get the file extension of `input` from the last occurrence of the `.` (dot)
+ * character (`.`) to end of the string in the last portion of `input`.
  *
- * If there is no `.` in the last portion of `path`, or if there are no `.`
+ * If there is no `.` in the last portion of `input`, or if there are no `.`
  * characters other than the first character of the {@linkcode basename} of
- * `path`, an empty string is returned.
+ * `input`, an empty string is returned.
+ *
+ * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a `URL`,
+ * > it will be converted to a path using {@linkcode toPath}.
  *
  * @see {@linkcode EmptyString}
  * @see {@linkcode Ext}
@@ -24,16 +29,18 @@ import type { EmptyString, Ext } from '@flex-development/pathe'
  * @category
  *  core
  *
- * @param {string} path
- *  Path to handle
+ * @this {void}
+ *
+ * @param {URL | string} input
+ *  The {@linkcode URL}, URL string, or path to handle
  * @return {EmptyString | Ext}
- *  Extension of `path` or empty string
+ *  Extension of `input` or empty string
  */
-function extname(path: string): EmptyString | Ext {
-  validateString(path, 'path')
-  path = toPosix(path)
+function extname(this: void, input: URL | string): EmptyString | Ext {
+  validateURLString(input, 'input')
+  input = toPosix(toPath(input))
 
-  if (!path.includes(dot)) return ''
+  if (!input.includes(dot)) return ''
 
   /**
    * Index to begin searching for extension.
@@ -43,7 +50,7 @@ function extname(path: string): EmptyString | Ext {
   let offset: number = 0
 
   /**
-   * Start index of {@linkcode path}'s basename.
+   * Start index of {@linkcode input}'s basename.
    *
    * @var {number} part
    */
@@ -51,7 +58,7 @@ function extname(path: string): EmptyString | Ext {
 
   /**
    * State of characters, if any, before first dot character and after any path
-   * separators in {@linkcode path}.
+   * separators in {@linkcode input}.
    *
    * @var {number} predot
    */
@@ -80,18 +87,18 @@ function extname(path: string): EmptyString | Ext {
 
   // check for drive path so as not to mistake the next path separator as an
   // extra separator at the end of the path that can be disregarded
-  if (path.length >= 2 && DRIVE_PATH_REGEX.test(path)) {
+  if (input.length >= 2 && DRIVE_PATH_REGEX.test(input)) {
     offset = part = 2
   }
 
   // get start and end indices of extension
-  for (let i = path.length - 1; i >= offset; --i) {
+  for (let i = input.length - 1; i >= offset; --i) {
     /**
-     * Current character in {@linkcode path}.
+     * Current character in {@linkcode input}.
      *
      * @const {string} char
      */
-    const char: string = path[i]!
+    const char: string = input[i]!
 
     if (isSep(char)) {
       if (!separator) {
@@ -131,7 +138,7 @@ function extname(path: string): EmptyString | Ext {
     return ''
   }
 
-  return path.slice(start, end) as Ext
+  return input.slice(start, end) as Ext
 }
 
 export default extname

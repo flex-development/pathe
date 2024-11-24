@@ -1,16 +1,17 @@
 /**
  * @file Unit Tests - basename
  * @module pathe/lib/tests/unit/basename
- * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-basename.js
+ * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-basename.js
  */
 
 import testSubject from '#lib/basename'
+import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 import { posix, win32 } from 'node:path'
 
 describe('unit:lib/basename', () => {
   describe('posix', () => {
-    it.each<[string]>([
+    it.each<[Parameters<typeof testSubject>[0]]>([
       [''],
       ['//a'],
       ['/a/b'],
@@ -21,12 +22,13 @@ describe('unit:lib/basename', () => {
       ['/dir/basename.ext'],
       ['basename.ext'],
       ['basename.ext/'],
-      ['basename.ext//']
-    ])('should return last portion of `path` (%j)', path => {
-      expect(testSubject(path)).to.eq(posix.basename(path))
+      ['basename.ext//'],
+      [new URL('file:///test-path-basename.js')]
+    ])('should return last portion of `input` (%j)', input => {
+      expect(testSubject(input)).to.eq(posix.basename(toPath(input)))
     })
 
-    it.each<[string, string]>([
+    it.each<Parameters<typeof testSubject>>([
       ['.js', '.js'],
       ['/aaa/bbb', '/bbb'],
       ['/aaa/bbb', 'a/bbb'],
@@ -46,16 +48,20 @@ describe('unit:lib/basename', () => {
       ['file.js', '.ts'],
       ['file.js.old', '.js.old'],
       ['js', '.js']
-    ])('should return last portion of `path` without `suffix` (%j, %j)', (
-      path,
+    ])('should return last portion of `input` without `suffix` (%j, %j)', (
+      input,
       suffix
     ) => {
-      expect(testSubject(path, suffix)).to.eq(posix.basename(path, suffix))
+      // Act
+      const result = testSubject(input, suffix)
+
+      // Expect
+      expect(result).to.eq(posix.basename(toPath(input), suffix!))
     })
   })
 
   describe('windows', () => {
-    it.each<[string]>([
+    it.each<[Parameters<typeof testSubject>[0]]>([
       [''],
       ['//a'],
       ['/a/b'],
@@ -82,13 +88,13 @@ describe('unit:lib/basename', () => {
       ['basename.ext//'],
       ['basename.ext\\'],
       ['basename.ext\\\\'],
-      ['file:stream'],
-      ['foo']
-    ])('should return last portion of `path` (%j)', path => {
-      expect(testSubject(path)).to.eq(toPosix(win32.basename(path)))
+      ['foo'],
+      ['node:test/reporters']
+    ])('should return last portion of `input` (%j)', input => {
+      expect(testSubject(input)).to.eq(toPosix(win32.basename(toPath(input))))
     })
 
-    it.each<[string, string]>([
+    it.each<Parameters<typeof testSubject>>([
       ['.js', '.js'],
       ['/aaa/bbb', '/bbb'],
       ['/aaa/bbb', 'a/bbb'],
@@ -113,15 +119,15 @@ describe('unit:lib/basename', () => {
       ['file.js', '.ts'],
       ['file.js.old', '.js.old'],
       ['js', '.js']
-    ])('should return last portion of `path` without `suffix` (%j, %j)', (
-      path,
+    ])('should return last portion of `input` without `suffix` (%j, %j)', (
+      input,
       suffix
     ) => {
       // Act
-      const result = testSubject(path, suffix)
+      const result = testSubject(input, suffix)
 
       // Expect
-      expect(result).to.eq(toPosix(win32.basename(path, suffix)))
+      expect(result).to.eq(toPosix(win32.basename(toPath(input), suffix!)))
     })
   })
 })

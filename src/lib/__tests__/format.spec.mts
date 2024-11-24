@@ -1,7 +1,7 @@
 /**
  * @file Unit Tests - format
  * @module pathe/lib/tests/unit/format
- * @see https://github.com/nodejs/node/blob/v22.8.0/test/parallel/test-path-parse-format.js
+ * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-parse-format.js
  */
 
 import testSubject from '#lib/format'

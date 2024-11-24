@@ -1,11 +1,11 @@
 /**
- * @file Unit Tests - isURL
- * @module pathe/internal/tests/unit/isURL
+ * @file Unit Tests - isURLObject
+ * @module pathe/internal/tests/unit/isURLObject
  */
 
-import testSubject from '#internal/is-url'
+import testSubject from '#internal/is-url-object'
 
-describe('unit:internal/isURL', () => {
+describe('unit:internal/isURLObject', () => {
   it.each<Parameters<typeof testSubject>>([
     [null],
     ['https://github.com/flex-development/errnode'],

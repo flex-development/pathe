@@ -25,7 +25,7 @@ Universal drop-in replacement for [`node:path`][node-path]
 This package is a universal drop-in replacement for Node.js' [`path`][node-path] module.
 
 It enforces consistency between POSIX and Windows operating systems and also provides additional utilities for working
-with file paths and extensions.
+with file URLs, paths, and extensions.
 
 ## When should I use this?
 
@@ -99,6 +99,7 @@ import {
   isAbsolute,
   isDeviceRoot,
   isSep,
+  isURL,
   join,
   matchesGlob,
   normalize,
@@ -111,6 +112,7 @@ import {
   root,
   sep,
   toNamespacedPath,
+  toPath,
   toPosix
 } from '@flex-development/pathe'
 ```
@@ -134,6 +136,7 @@ This package exports the following identifiers:
 - [`isAbsolute`](./src/lib/is-absolute.mts)
 - [`isDeviceRoot`](./src/lib/is-device-root.mts)
 - [`isSep`](./src/lib/is-sep.mts)
+- [`isURL`](./src/lib/is-url.mts)
 - [`join`](./src/lib/join.mts)
 - [`matchesGlob`](./src/lib/matches-glob.mts)
 - [`normalize`](./src/lib/normalize.mts)
@@ -147,6 +150,7 @@ This package exports the following identifiers:
 - [`root`](./src/lib/root.mts)
 - [`sep`](./src/lib/sep.mts)
 - [`toNamespacedPath`](./src/lib/to-namespaced-path.mts)
+- [`toPath`](./src/lib/to-path.mts)
 - [`toPosix`](./src/lib/to-posix.mts)
 - [`win32`](./src/pathe.mts)
 

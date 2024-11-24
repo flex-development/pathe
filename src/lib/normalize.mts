@@ -3,7 +3,7 @@
  * @module pathe/lib/normalize
  */
 
-import { DRIVE_PATH_REGEX } from '#internal/constants'
+import { DRIVE_PATH_REGEX, sepWindows } from '#internal/constants'
 import normalizeString from '#internal/normalize-string'
 import validateString from '#internal/validate-string'
 import dot from '#lib/dot'
@@ -25,112 +25,134 @@ import toPosix from '#lib/to-posix'
  * @category
  *  core
  *
+ * @this {void}
+ *
  * @param {string} path
- *  Path to normalize
+ *  The path to normalize
  * @return {string}
  *  Normalized `path`
  */
-function normalize(path: string): string {
+function normalize(this: void, path: string): string {
   validateString(path, 'path')
 
-  if (!path.length) return dot
-  path = toPosix(path)
-  if (path.length === 1) return path
-
   /**
-   * Absolute path check.
+   * Normalized path.
    *
-   * @const {boolean} absolute
+   * @var {string} normalized
    */
-  const absolute: boolean = isAbsolute(path)
+  let normalized: string = ''
 
-  /**
-   * Drive letter or UNC path component(s), if any.
-   *
-   * @var {string} device
-   */
-  let device: string = ''
+  if (path.length <= 1) {
+    normalized = path || dot
+  } else {
+    /**
+     * Absolute path check.
+     *
+     * @var {boolean} absolute
+     */
+    let absolute: boolean = false
 
-  /**
-   * End index of root.
-   *
-   * @var {number} rootEnd
-   */
-  let rootEnd: number = 0
+    /**
+     * Drive letter or UNC path component(s), if any.
+     *
+     * @var {string} device
+     */
+    let device: string = ''
 
-  if (isSep(path[rootEnd])) {
-    rootEnd = 1
+    /**
+     * End index of root.
+     *
+     * @var {number} rootEnd
+     */
+    let rootEnd: number = 0
 
-    if (isSep(path[rootEnd])) {
-      /**
-       * Current position in {@linkcode path}.
-       *
-       * @var {number} j
-       */
-      let j: number = rootEnd + 1
+    if (isSep(path[0])) {
+      absolute = true
 
-      /**
-       * Last visited position in {@linkcode path}.
-       *
-       * @var {number} last
-       */
-      let last: number = j
-
-      // match 1 or more non-path separators
-      while (j < path.length && !isSep(path[j])) j++
-
-      if (j < path.length && j !== last) {
+      if (!isSep(path[1])) {
+        rootEnd = 1
+      } else {
         /**
-         * Possible UNC path component.
+         * Current position in {@linkcode path}.
          *
-         * @const {string} host
+         * @var {number} j
          */
-        const host: string = path.slice(last, j)
+        let j: number = 2
 
-        // matched!
-        last = j
+        /**
+         * Last visited position in {@linkcode path}.
+         *
+         * @var {number} last
+         */
+        let last: number = j
 
-        // match 1 or more path separators
-        while (j < path.length && isSep(path[j])) j++
+        // match 1 or more non-path separators
+        while (j < path.length && !isSep(path[j])) j++
 
         if (j < path.length && j !== last) {
+          /**
+           * Path component.
+           *
+           * @const {string} comp
+           */
+          const comp: string = path.slice(last, j)
+
           // matched!
           last = j
 
-          // match 1 or more non-path separators
-          while (j < path.length && !isSep(path[j])) j++
+          // match 1 or more path separators
+          while (j < path.length && isSep(path[j])) j++
 
-          // matched unc root only
-          if (j === path.length) {
-            return `${sep}${sep}${host}${sep}${path.slice(last)}${sep}`
-          }
+          if (j < path.length && j !== last) {
+            // matched!
+            last = j
 
-          // matched unc root with leftovers
-          if (j !== last) {
-            device = `${sep}${sep}${host}${sep}${path.slice(last, j)}`
-            rootEnd = j
+            // match 1 or more non-path separators
+            while (j < path.length && !isSep(path[j])) j++
+
+            if (j === path.length || j !== last) {
+              device = sepWindows.repeat(2) + comp
+
+              if (comp === dot || comp === '?') {
+                // matched device root (i.e. `//./PHYSICALDRIVE0`)
+                rootEnd = 4
+              } else if (j === path.length) {
+                // matched unc root only: return normalized version of UNC root
+                // since there is nothing left to process
+                device += sepWindows + path.slice(last) + sepWindows
+                return toPosix(device)
+              } else {
+                // matched unc root with leftovers
+                device += sepWindows + path.slice(last, j)
+                rootEnd = j
+              }
+            }
           }
         }
       }
+    } else if (DRIVE_PATH_REGEX.test(path)) {
+      device = path.slice(0, rootEnd = 2)
+      if ((absolute = isAbsolute(path))) rootEnd++
     }
-  } else if (DRIVE_PATH_REGEX.test(path)) {
-    device = path.slice(0, rootEnd = 2)
-    if (absolute) rootEnd++
+
+    /**
+     * Tail end of normalized path.
+     *
+     * @var {string} tail
+     */
+    let tail: string = ''
+
+    if (rootEnd < path.length) {
+      tail = normalizeString(path.slice(rootEnd), !absolute)
+    }
+
+    if (!tail.length && !absolute) tail = dot
+    if (tail.length && isSep(path[path.length - 1])) tail += sep
+
+    normalized = device + (absolute ? sep : '') + tail
   }
 
-  /**
-   * Tail end of normalized path.
-   *
-   * @var {string} tail
-   */
-  let tail: string = rootEnd < path.length
-    ? normalizeString(path.slice(rootEnd), !absolute)
-    : ''
-
-  if (!tail.length && !absolute) tail = dot
-  if (tail.length && isSep(path[path.length - 1])) tail += sep
-
-  return `${device}${absolute ? sep : ''}${tail}`
+  return toPosix(normalized)
 }
 
 export default normalize

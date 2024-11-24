@@ -4,32 +4,45 @@
  */
 
 import { DRIVE_PATH_REGEX } from '#internal/constants'
-import validateString from '#internal/validate-string'
+import validateURLString from '#internal/validate-url-string'
 import isSep from '#lib/is-sep'
+import toPath from '#lib/to-path'
 
 /**
- * Determine if `path` is absolute.
+ * Determine if `input` is absolute.
+ *
+ * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a `URL`,
+ * > it will be converted to a path using {@linkcode toPath}.
  *
  * @example
  *  isAbsolute('') // false
  * @example
  *  isAbsolute('../') // false
  * @example
- *  isAbsolute(process.cwd()) // true
+ *  isAbsolute(cwd()) // true
+ * @example
+ *  isAbsolute(pathToFileURL(cwd())) // true
+ * @example
+ *  isAbsolute(new URL('node:path')) // false
  *
  * @category
  *  core
  *
- * @param {string} path
- *  Path to check
+ * @this {void}
+ *
+ * @param {URL | string} input
+ *  The {@linkcode URL}, URL string, or path to check
  * @return {boolean}
- *  `true` if `path` is absolute, `false` otherwise
+ *  `true` if `input` is absolute, `false` otherwise
  */
-function isAbsolute(path: string): boolean {
-  validateString(path, 'path')
-  if (!path.length) return false
-  if (isSep(path[0])) return true
-  return path.length > 2 && DRIVE_PATH_REGEX.test(path) && isSep(path[2])
+function isAbsolute(this: void, input: URL | string): boolean {
+  validateURLString(input, 'input')
+  input = toPath(input)
+
+  if (!input.length) return false
+  if (isSep(input[0])) return true
+
+  return input.length > 2 && DRIVE_PATH_REGEX.test(input) && isSep(input[2])
 }
 
 export default isAbsolute
