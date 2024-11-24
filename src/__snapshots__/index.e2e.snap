@@ -9,6 +9,7 @@ exports[`e2e:pathe > should expose public api 1`] = `
   "delimiter",
   "dirname",
   "dot",
+  "extToValue",
   "extname",
   "extnames",
   "fileURLToPath",

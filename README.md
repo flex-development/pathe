@@ -92,6 +92,7 @@ import {
   delimiter,
   dirname,
   dot,
+  extToValue,
   extname,
   fileURLToPath,
   format,
@@ -128,6 +129,7 @@ This package exports the following identifiers:
 - [`delimiter`](./src/lib/delimiter.mts)
 - [`dirname`](./src/lib/dirname.mts)
 - [`dot`](./src/lib/dot.mts)
+- [`extToValue`](./src/lib/ext-to-value.mts)
 - [`extname`](./src/lib/extname.mts)
 - [`extnames`](./src/lib/extnames.mts)
 - [`fileURLToPath`](./src/lib/file-url-to-path.mts)

@@ -157,6 +157,34 @@ interface Pathe extends PosixPlatformPath {
   readonly dot: Dot
 
   /**
+   * Get a value for `input` based on its file extension.
+   *
+   * This algorithm picks the value with the longest matching file extension,
+   * so if `map` has the keys `'.mts'` and `'.d.mts'`, the value for `'.d.mts'`
+   * will be returned.
+   *
+   * @see {@linkcode EmptyString}
+   * @see {@linkcode Ext}
+   *
+   * @template {any} T
+   *  Map value
+   *
+   * @this {void}
+   *
+   * @param {URL | string} input
+   *  The {@linkcode URL}, URL string, or path to handle
+   * @param {Partial<Record<EmptyString | Ext, T>>} map
+   *  Extension map
+   * @return {T | undefined}
+   *  Value for `input` or `undefined`
+   */
+  extToValue<T>(
+    this: void,
+    input: URL | string,
+    map: Partial<Record<EmptyString | Ext, T>>
+  ): T | undefined
+
+  /**
    * Get a list of file extensions for `input`.
    *
    * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
