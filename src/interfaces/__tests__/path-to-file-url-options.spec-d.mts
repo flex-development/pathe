@@ -8,6 +8,7 @@ import type {
   PlatformOptions,
   ResolveWithOptions
 } from '@flex-development/pathe'
+import type { Nilable } from '@flex-development/tutils'
 
 describe('unit-d:interfaces/PathToFileUrlOptions', () => {
   it('should extend PlatformOptions', () => {
@@ -16,5 +17,11 @@ describe('unit-d:interfaces/PathToFileUrlOptions', () => {
 
   it('should extend ResolveWithOptions', () => {
     expectTypeOf<TestSubject>().toMatchTypeOf<ResolveWithOptions>()
+  })
+
+  it('should match [string?: boolean | null | undefined]', () => {
+    expectTypeOf<TestSubject>()
+      .toHaveProperty('string')
+      .toEqualTypeOf<Nilable<boolean>>()
   })
 })

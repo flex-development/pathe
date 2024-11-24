@@ -284,6 +284,40 @@ interface Pathe extends PosixPlatformPath {
   isURL(this: void, value: unknown): value is URL | string
 
   /**
+   * Convert a file `path` to a `file:` {@linkcode URL} string.
+   *
+   * > The following characters are percent-encoded when converting from file
+   * > path to a `URL`:
+   * >
+   * > - %: Only character not encoded by the `pathname` setter
+   * > - CR: Stripped out by the `pathname` setter (see [`whatwg/url#419`][419])
+   * > - LF: Stripped out by the `pathname` setter (see [`whatwg/url#419`][419])
+   * > - TAB: Stripped out by the `pathname` setter
+   *
+   * [419]: https://github.com/whatwg/url/issues/419
+   *
+   * @see {@linkcode ErrInvalidArgValue}
+   * @see {@linkcode PathToFileUrlOptions}
+   *
+   * @this {void}
+   *
+   * @param {string} path
+   *  The path to handle
+   * @param {Omit<PathToFileUrlOptions, 'string'> & { string: true }} options
+   *  Conversion options
+   * @param {true} options.string
+   *  Return `file:` URL string?
+   * @return {string}
+   *  `path` as `file:` URL string
+   * @throws {ErrInvalidArgValue}
+   */
+  pathToFileURL(
+    this: void,
+    path: string,
+    options: Omit<PathToFileUrlOptions, 'string'> & { string: true }
+  ): string
+
+  /**
    * Convert a file `path` to a `file:` {@linkcode URL}.
    *
    * > The following characters are percent-encoded when converting from file
