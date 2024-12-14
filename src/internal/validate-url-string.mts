@@ -10,7 +10,7 @@ import {
 } from '@flex-development/errnode'
 
 /**
- * Check if `value` is a {@linkcode URL} or string.
+ * Check if `value` is a {@linkcode URL} object or string.
  *
  * @internal
  *
@@ -19,9 +19,9 @@ import {
  * @param {string} name
  *  Name of invalid argument or property
  * @return {value is URL | string}
- *  `true` if `value` is a `URL` or string
+ *  `true` if `value` is `URL` object or string
  * @throws {ErrInvalidArgType}
- *  If `value` is not a `URL` or string
+ *  If `value` is not `URL` object or string
  */
 function validateURLString(
   value: unknown,

@@ -1,7 +1,7 @@
 /**
  * @file Internal - isURLObject
  * @module pathe/internal/isURLObject
- * @see https://github.com/nodejs/node/blob/v23.2.0/lib/internal/url.js#L755-L772
+ * @see https://github.com/nodejs/node/blob/v23.4.0/lib/internal/url.js#L755-L772
  */
 
 /**

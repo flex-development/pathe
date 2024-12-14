@@ -7,9 +7,10 @@ import process from '#internal/process'
 import type { WindowsDelimiter, WindowsSep } from '@flex-development/pathe'
 
 /**
- * Drive path regex.
+ * Regular expression matching a [drive path][drive-path].
  *
- * @see https://computerhope.com/jargon/d/drivelet.htm
+ * [drive-path]: https://computerhope.com/jargon/d/drivelet.htm
+ *
  * @see https://regex101.com/r/FsoDwJ
  *
  * @internal

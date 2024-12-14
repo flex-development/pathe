@@ -3,21 +3,18 @@
  * @module pathe/lib/basename
  */
 
+import canParseURL from '#internal/can-parse-url'
 import { DRIVE_PATH_REGEX } from '#internal/constants'
 import validateString from '#internal/validate-string'
 import validateURLString from '#internal/validate-url-string'
 import delimiter from '#lib/delimiter'
 import isSep from '#lib/is-sep'
-import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 
 /**
  * Get the last portion of `input`, similar to the Unix `basename` command.
  *
  * Trailing [directory separators][sep] are ignored.
- *
- * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a `URL`,
- * > it will be converted to a path using {@linkcode toPath}.
  *
  * [sep]: https://nodejs.org/api/path.html#pathsep
  *
@@ -44,7 +41,7 @@ function basename(
   }
 
   validateURLString(input, 'input')
-  input = toPosix(toPath(input))
+  input = String(toPosix(input))
 
   /**
    * Start index of basename.
@@ -67,9 +64,23 @@ function basename(
    */
   let separator: boolean = true
 
+  // check for url to skip scheme and authority (hostname, port, etc)
+  if (canParseURL(input)) {
+    // begin search at url pathname
+    start = input.lastIndexOf(new URL(input).pathname)
+
+    // input url does not include pathname -> input url is a url scheme
+    if (start === -1) start = input.length
+
+    // begin search after drive letter
+    if (DRIVE_PATH_REGEX.test(input.slice(start + 1))) start++
+  }
+
   // check for drive path so as not to mistake the next path separator as an
   // extra separator at the end of the path that can be disregarded
-  if (DRIVE_PATH_REGEX.test(input)) start = input.indexOf(delimiter) + 1
+  if (DRIVE_PATH_REGEX.test(input.slice(start))) {
+    start = input.indexOf(delimiter, start) + 1
+  }
 
   if (
     typeof suffix === 'string' &&

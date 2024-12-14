@@ -19,7 +19,10 @@
   ],
   "license": "BSD-3-Clause",
   "homepage": "https://github.com/flex-development/pathe",
-  "repository": "https://github.com/flex-development/pathe.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flex-development/pathe.git"
+  },
   "bugs": "https://github.com/flex-development/pathe/issues",
   "author": {
     "name": "Lexus Drumgold",
@@ -150,7 +153,7 @@
     "prepublishOnly": "toggle-scripts -prepack",
     "release": "bash ./scripts/release.sh",
     "remark": "remark .",
-    "test": "cross-env NODE_OPTIONS=\"--conditions pathe --experimental-strip-types --experimental-transform-types\" vitest run",
+    "test": "yarn clean:build; cross-env NODE_OPTIONS=\"--conditions pathe --experimental-strip-types --experimental-transform-types\" vitest run",
     "test:cov": "yarn test --coverage",
     "test:cov:reports": "yarn test:cov --merge-reports --mode=reports",
     "test:cov:ui": "yarn test:ui --coverage",
@@ -192,8 +195,8 @@
     "@typescript-eslint/eslint-plugin": "8.16.0",
     "@typescript-eslint/parser": "8.16.0",
     "@vates/toggle-scripts": "1.0.0",
-    "@vitest/coverage-v8": "2.1.5",
-    "@vitest/ui": "2.1.5",
+    "@vitest/coverage-v8": "3.0.0-beta.2",
+    "@vitest/ui": "3.0.0-beta.2",
     "chai": "5.1.2",
     "chai-string": "1.5.0",
     "consola": "3.2.3",
@@ -301,11 +304,13 @@
     "typescript-eslint": "8.16.0",
     "unified": "11.0.5",
     "vfile": "6.0.3",
-    "vitest": "2.1.5",
+    "vite": "6.0.3",
+    "vitest": "3.0.0-beta.2",
     "yaml-eslint-parser": "1.2.3"
   },
   "resolutions": {
-    "@flex-development/pkg-types": "4.1.0"
+    "@flex-development/pkg-types": "4.1.0",
+    "vite": "6.0.3"
   },
   "engines": {
     "node": ">=18.20.4"

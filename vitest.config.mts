@@ -5,10 +5,11 @@
  */
 
 import Notifier from '#tests/reporters/notifier'
+import VerboseReporter from '#tests/reporters/verbose'
 import ci from 'is-ci'
 import path from 'node:path'
 import type { ConfigEnv, ViteUserConfig } from 'vitest/config'
-import { BaseSequencer, type WorkspaceSpec } from 'vitest/node'
+import { BaseSequencer, type TestSpecification } from 'vitest/node'
 import tsconfig from './tsconfig.test.json' with { type: 'json' }
 
 /**
@@ -24,6 +25,11 @@ import tsconfig from './tsconfig.test.json' with { type: 'json' }
  */
 function config(env: ConfigEnv): ViteUserConfig {
   return {
+    environments: {
+      ssr: {
+        resolve: { conditions: tsconfig.compilerOptions.customConditions }
+      }
+    },
     resolve: { conditions: tsconfig.compilerOptions.customConditions },
     test: {
       allowOnly: !ci,
@@ -70,10 +76,15 @@ function config(env: ConfigEnv): ViteUserConfig {
       },
       passWithNoTests: true,
       reporters: JSON.parse(process.env['VITEST_UI'] ?? '0')
-        ? [new Notifier(), 'verbose']
+        ? [new Notifier(), new VerboseReporter()]
         : env.mode === 'reports'
-        ? ['verbose']
-        : [ci ? 'github-actions' : new Notifier(), 'blob', 'json', 'verbose'],
+        ? [new VerboseReporter()]
+        : [
+          ci ? 'github-actions' : new Notifier(),
+          'blob',
+          'json',
+          new VerboseReporter()
+        ],
       /**
        * Stores snapshots next to `file`'s directory.
        *
@@ -107,14 +118,14 @@ function config(env: ConfigEnv): ViteUserConfig {
            * @override
            * @async
            *
-           * @param {WorkspaceSpec[]} specs
+           * @param {TestSpecification[]} specs
            *  Workspace spec objects
-           * @return {Promise<WorkspaceSpec[]>}
+           * @return {Promise<TestSpecification[]>}
            *  Sorted `specs`
            */
           public override async sort(
-            specs: WorkspaceSpec[]
-          ): Promise<WorkspaceSpec[]> {
+            specs: TestSpecification[]
+          ): Promise<TestSpecification[]> {
             return new Promise(resolve => {
               return void resolve(specs.sort((a, b) => {
                 return a.moduleId.localeCompare(b.moduleId)
