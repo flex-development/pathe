@@ -1,9 +1,10 @@
 /**
  * @file Unit Tests - extname
  * @module pathe/lib/tests/unit/extname
- * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-extname.js
+ * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-path-extname.js
  */
 
+import DRIVE from '#fixtures/drive'
 import testSubject from '#lib/extname'
 import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
@@ -54,9 +55,18 @@ describe('unit:lib/extname', () => {
       ['file.ext/'],
       ['file.ext//'],
       ['file/'],
-      ['file//'],
-      [new URL(import.meta.url)]
+      ['file//']
     ])('should return extension of `input` (%j)', input => {
+      expect(testSubject(input)).to.eq(posix.extname(String(input)))
+    })
+
+    it.each<Parameters<typeof testSubject>>([
+      ['file:'],
+      ['file:' + posix.sep],
+      ['file:' + posix.sep.repeat(2)],
+      ['file:' + posix.sep.repeat(3)],
+      [new URL(import.meta.url)]
+    ])('should return extension of `input` url (%j)', input => {
       expect(testSubject(input)).to.eq(posix.extname(toPath(input)))
     })
   })
@@ -122,10 +132,20 @@ describe('unit:lib/extname', () => {
       ['file/'],
       ['file//'],
       ['file\\'],
-      ['file\\\\'],
-      [import.meta.url.replaceAll(posix.sep, win32.sep)]
+      ['file\\\\']
     ])('should return extension of `input` (%j)', input => {
-      expect(testSubject(input)).to.eq(toPosix(win32.extname(toPath(input))))
+      expect(testSubject(input)).to.eq(toPosix(win32.extname(String(input))))
+    })
+
+    it.each<Parameters<typeof testSubject>>([
+      ['file:' + win32.sep.repeat(3) + DRIVE + win32.sep],
+      ['file:' + win32.sep.repeat(3) + DRIVE + win32.sep + 'extname.spec.mts']
+    ])('should return extension of `input` url (%j)', input => {
+      // Arrange
+      const path: string = String(toPath(input, { windows: true }))
+
+      // Act + Expect
+      expect(testSubject(input)).to.eq(win32.extname(path))
     })
   })
 })

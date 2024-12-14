@@ -187,9 +187,6 @@ interface Pathe extends PosixPlatformPath {
   /**
    * Get a list of file extensions for `input`.
    *
-   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
-   * > `URL`, it will be converted to a path using {@linkcode toPath}.
-   *
    * @see {@linkcode Ext}
    * @see {@linkcode extname}
    *

@@ -3,12 +3,13 @@
  * @module pathe/lib/extname
  */
 
+import canParseURL from '#internal/can-parse-url'
 import { DRIVE_PATH_REGEX } from '#internal/constants'
 import validateURLString from '#internal/validate-url-string'
 import type basename from '#lib/basename'
+import delimiter from '#lib/delimiter'
 import dot from '#lib/dot'
 import isSep from '#lib/is-sep'
-import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 import type { EmptyString, Ext } from '@flex-development/pathe'
 
@@ -19,9 +20,6 @@ import type { EmptyString, Ext } from '@flex-development/pathe'
  * If there is no `.` in the last portion of `input`, or if there are no `.`
  * characters other than the first character of the {@linkcode basename} of
  * `input`, an empty string is returned.
- *
- * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a `URL`,
- * > it will be converted to a path using {@linkcode toPath}.
  *
  * @see {@linkcode EmptyString}
  * @see {@linkcode Ext}
@@ -38,23 +36,21 @@ import type { EmptyString, Ext } from '@flex-development/pathe'
  */
 function extname(this: void, input: URL | string): EmptyString | Ext {
   validateURLString(input, 'input')
-  input = toPosix(toPath(input))
-
-  if (!input.includes(dot)) return ''
-
-  /**
-   * Index to begin searching for extension.
-   *
-   * @var {number} offset
-   */
-  let offset: number = 0
+  input = String(toPosix(input))
 
   /**
    * Start index of {@linkcode input}'s basename.
    *
-   * @var {number} part
+   * @var {number} base
    */
-  let part: number = 0
+  let base: number = 0
+
+  /**
+   * Index to stop searching for extension.
+   *
+   * @var {number} offset
+   */
+  let offset: number = 0
 
   /**
    * State of characters, if any, before first dot character and after any path
@@ -85,10 +81,16 @@ function extname(this: void, input: URL | string): EmptyString | Ext {
    */
   let end: number = -1
 
+  // check for url
+  if (canParseURL(input)) {
+    offset = base = input.lastIndexOf(new URL(input).pathname)
+    if (DRIVE_PATH_REGEX.test(input.slice(offset + 1))) base = ++offset
+  }
+
   // check for drive path so as not to mistake the next path separator as an
   // extra separator at the end of the path that can be disregarded
-  if (input.length >= 2 && DRIVE_PATH_REGEX.test(input)) {
-    offset = part = 2
+  if (input.length >= 2 && DRIVE_PATH_REGEX.test(input.slice(offset))) {
+    offset = base = input.indexOf(delimiter, offset) + 1
   }
 
   // get start and end indices of extension
@@ -103,7 +105,7 @@ function extname(this: void, input: URL | string): EmptyString | Ext {
     if (isSep(char)) {
       if (!separator) {
         // stop if a non-trailing path separator was reached
-        part = i + 1
+        base = i + 1
         break
       }
 
@@ -133,7 +135,7 @@ function extname(this: void, input: URL | string): EmptyString | Ext {
     // non-dot character immediately before the dot
     predot === 0 ||
     // right-most trimmed path component is exactly '..'
-    (predot === 1 && start === end - 1 && start === part + 1)
+    (predot === 1 && start === end - 1 && start === base + 1)
   ) {
     return ''
   }

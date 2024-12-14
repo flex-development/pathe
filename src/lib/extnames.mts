@@ -5,15 +5,10 @@
 
 import validateURLString from '#internal/validate-url-string'
 import extname from '#lib/extname'
-import toPath from '#lib/to-path'
-import toPosix from '#lib/to-posix'
 import type { EmptyString, Ext } from '@flex-development/pathe'
 
 /**
  * Get a list of file extensions for `input`.
- *
- * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a `URL`,
- * > it will be converted to a path using {@linkcode toPath}.
  *
  * @see {@linkcode Ext}
  * @see {@linkcode extname}
@@ -43,20 +38,22 @@ function extnames(this: void, input: URL | string): Ext[] {
    *
    * @var {string} subpath
    */
-  let subpath: string = toPosix(toPath(input))
+  let subpath: string = String(input)
 
-  while (true) {
-    /**
-     * Current extension.
-     *
-     * @const {EmptyString | Ext} ext
-     */
-    const ext: EmptyString | Ext = extname(subpath)
+  if (subpath) {
+    while (true) {
+      /**
+       * Current extension.
+       *
+       * @const {EmptyString | Ext} ext
+       */
+      const ext: EmptyString | Ext = extname(subpath)
 
-    if (ext === '') break
+      if (ext === '') break
 
-    extensions.unshift(ext)
-    subpath = subpath.slice(0, subpath.lastIndexOf(ext))
+      extensions.unshift(ext)
+      subpath = subpath.slice(0, subpath.lastIndexOf(ext))
+    }
   }
 
   return extensions
