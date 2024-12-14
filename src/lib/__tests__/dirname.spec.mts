@@ -1,13 +1,15 @@
 /**
  * @file Unit Tests - dirname
  * @module pathe/lib/tests/unit/dirname
- * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-dirname.js
+ * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-path-dirname.js
  */
 
+import DRIVE from '#fixtures/drive'
+import process from '#internal/process'
+import cwd from '#lib/cwd'
 import testSubject from '#lib/dirname'
-import pathToFileURL from '#lib/path-to-file-url'
-import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
+import cwdWindows from '#tests/utils/cwd-windows'
 import { posix, win32 } from 'node:path'
 
 describe('unit:lib/dirname', () => {
@@ -21,14 +23,30 @@ describe('unit:lib/dirname', () => {
       ['a'],
       ['foo'],
       [posix.sep.repeat(4)],
-      [posix.sep],
-      [pathToFileURL('/test/dirname.mjs')]
+      [posix.sep]
     ])('should return directory name of `input` (%j)', input => {
-      expect(testSubject(input)).to.eq(posix.dirname(toPath(input)))
+      expect(testSubject(input)).to.eq(posix.dirname(String(input)))
+    })
+
+    it.each<[...Parameters<typeof testSubject>, string?]>([
+      ['file:'],
+      ['file:' + posix.sep],
+      ['file:' + posix.sep.repeat(2)],
+      ['file:' + posix.sep.repeat(3)],
+      ['file:' + posix.sep.repeat(2) + cwd(), 'file://' + posix.dirname(cwd())]
+    ])('should return directory name of `input` url (%j)', (
+      input,
+      expected
+    ) => {
+      expect(testSubject(input)).to.eq(expected ?? input)
     })
   })
 
   describe('windows', () => {
+    beforeEach(() => {
+      vi.spyOn(process, 'cwd').mockImplementation(cwdWindows)
+    })
+
     it.each<Parameters<typeof testSubject>>([
       [''],
       ['/a'],
@@ -63,15 +81,30 @@ describe('unit:lib/dirname', () => {
       ['c:foo\\bar\\'],
       ['c:foo\\bar\\baz'],
       ['dir\\file:stream'],
-      ['file:///test\\path-dirname.mjs'],
-      ['file:stream'],
       ['foo'],
       [posix.sep.repeat(4)],
       [posix.sep],
       [win32.sep.repeat(2)],
       [win32.sep]
     ])('should return directory name of `input` (%j)', input => {
-      expect(testSubject(input)).to.eq(toPosix(win32.dirname(toPath(input))))
+      expect(testSubject(input)).to.eq(toPosix(win32.dirname(String(input))))
+    })
+
+    it.each<[...Parameters<typeof testSubject>, string?]>([
+      ['file:' + win32.sep],
+      ['file:' + win32.sep.repeat(2)],
+      ['file:' + win32.sep.repeat(3)],
+      ['file:' + win32.sep.repeat(3) + DRIVE],
+      ['file:' + win32.sep.repeat(3) + DRIVE + win32.sep],
+      [
+        'file:' + win32.sep.repeat(3) + cwdWindows(),
+        'file:' + win32.sep.repeat(3) + win32.dirname(cwdWindows())
+      ]
+    ])('should return directory name of `input` url (%j)', (
+      input,
+      expected
+    ) => {
+      expect(testSubject(input)).to.eq(toPosix(expected ?? input))
     })
   })
 })
