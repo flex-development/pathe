@@ -6,7 +6,7 @@
 import { isWindows } from '#internal/constants'
 import domainToUnicode from '#internal/domain-to-unicode'
 import process from '#internal/process'
-import validateURLString from '#internal/validate-url-string'
+import validateFileURL from '#internal/validate-file-url'
 import isDeviceRoot from '#lib/is-device-root'
 import isSep from '#lib/is-sep'
 import sep from '#lib/sep'
@@ -14,7 +14,6 @@ import toPosix from '#lib/to-posix'
 import {
   ERR_INVALID_FILE_URL_HOST,
   ERR_INVALID_FILE_URL_PATH,
-  ERR_INVALID_URL_SCHEME,
   type ErrInvalidFileUrlHost,
   type ErrInvalidFileUrlPath,
   type ErrInvalidUrlScheme
@@ -49,9 +48,7 @@ function fileURLToPath(
   url: URL | string,
   options?: FileUrlToPathOptions | null | undefined
 ): string {
-  validateURLString(url, 'url')
-
-  if (!String(url).startsWith('file:')) throw new ERR_INVALID_URL_SCHEME('file')
+  validateFileURL(url, 'url')
   if (typeof url === 'string') url = new URL(url)
 
   /**

@@ -1,7 +1,7 @@
 /**
  * @file Unit Tests - fileURLToPath
  * @module pathe/lib/tests/unit/fileURLToPath
- * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-url-fileurltopath.js
+ * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-url-fileurltopath.js
  */
 
 import process from '#internal/process'
