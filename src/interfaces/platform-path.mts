@@ -5,7 +5,6 @@
 
 import type dot from '#lib/dot'
 import type resolveWith from '#lib/resolve-with'
-import type toPath from '#lib/to-path'
 import type {
   Delimiter,
   EmptyString,
@@ -245,9 +244,6 @@ interface PlatformPath {
    * If a zero-length string is passed as `from` or `to`, the current working
    * directory will be used instead of the zero-length strings.
    *
-   * > 👉 **Note**: If `from` or `to` is a {@linkcode URL}, or can be parsed to
-   * > a `URL`, they'll be converted to paths using {@linkcode toPath}.
-   *
    * @see {@linkcode RelativeOptions}
    *
    * @category
@@ -255,10 +251,10 @@ interface PlatformPath {
    *
    * @this {void}
    *
-   * @param {URL | string[] | string} from
-   *  Start path, path segments, or URL
-   * @param {URL | string[] | string} to
-   *  Destination path, path segments, or URL
+   * @param {string[] | string} from
+   *  Start path or path segments
+   * @param {string[] | string} to
+   *  Destination path or path segments
    * @param {RelativeOptions | null | undefined} [options]
    *  Relative path generation options
    * @return {string}
@@ -266,8 +262,8 @@ interface PlatformPath {
    */
   relative(
     this: void,
-    from: URL | string[] | string,
-    to: URL | string[] | string,
+    from: string[] | string,
+    to: string[] | string,
     options?: RelativeOptions | null | undefined
   ): string
 

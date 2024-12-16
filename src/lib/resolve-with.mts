@@ -36,6 +36,8 @@ import type { Cwd, ResolveWithOptions } from '@flex-development/pathe'
  *
  * @see {@linkcode ResolveWithOptions}
  *
+ * @todo url support
+ *
  * @category
  *  utils
  *

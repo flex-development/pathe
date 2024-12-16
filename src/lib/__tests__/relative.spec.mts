@@ -1,7 +1,7 @@
 /**
  * @file Unit Tests - relative
  * @module pathe/lib/tests/unit/relative
- * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-relative.js
+ * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-path-relative.js
  */
 
 import process from '#internal/process'
@@ -13,7 +13,7 @@ import { posix, win32 } from 'node:path'
 
 describe('unit:lib/relative', () => {
   describe('posix', () => {
-    it.each<[URL | string, URL | string]>([
+    it.each<[string, string]>([
       ['', ''],
       ['/Users/a/web/b/test/mails', '/Users/a/web/b'],
       ['/baz', '/baz-quux'],
@@ -30,7 +30,6 @@ describe('unit:lib/relative', () => {
       ['/var/lib', '/var'],
       ['/var/lib', '/var/apache'],
       ['/var/lib', '/var/lib'],
-      ['file:///package.json', new URL('file:///test/index.mjs')],
       [posix.sep, '/foo'],
       [posix.sep, '/var/lib']
     ])('should return relative path (%j, %j)', (from, to) => {
@@ -47,7 +46,7 @@ describe('unit:lib/relative', () => {
       vi.spyOn(process, 'cwd').mockImplementation(cwdWindows)
     })
 
-    it.each<[URL | string, URL | string]>([
+    it.each<[string, string]>([
       ['C:\\', 'C:\\foo'],
       ['C:\\baz', 'C:\\baz-quux'],
       ['C:\\baz', '\\\\foo\\bar\\baz'],

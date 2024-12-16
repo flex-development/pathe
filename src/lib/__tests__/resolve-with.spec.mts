@@ -1,7 +1,7 @@
 /**
  * @file Unit Tests - resolveWith
  * @module pathe/lib/tests/unit/resolveWith
- * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-resolve.js
+ * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-path-resolve.js
  */
 
 import DRIVE from '#fixtures/drive'
