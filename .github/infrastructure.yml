@@ -34,7 +34,7 @@ branches:
           - context: spelling
           - context: test (23)
           - context: typescript (5.6.3)
-          - context: typescript (5.7.1-rc)
+          - context: typescript (5.7.2)
         strict: true
       restrictions: null
 environments:
