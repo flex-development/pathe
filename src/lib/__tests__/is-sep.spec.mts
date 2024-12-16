@@ -3,9 +3,8 @@
  * @module pathe/lib/tests/unit/isSep
  */
 
-import { sepWindows } from '#internal/constants'
 import testSubject from '#lib/is-sep'
-import sep from '#lib/sep'
+import { posix, win32 } from 'node:path'
 
 describe('unit:lib/isSep', () => {
   it('should return `false` if `value` is not path separator', () => {
@@ -13,8 +12,8 @@ describe('unit:lib/isSep', () => {
   })
 
   it.each<Parameters<typeof testSubject>>([
-    [sep],
-    [sepWindows]
+    [posix.sep],
+    [win32.sep]
   ])('should return `true` if `value` is path separator (%j)', value => {
     expect(testSubject(value)).to.be.true
   })

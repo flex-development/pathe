@@ -224,9 +224,6 @@ interface PlatformPath {
    * Create an object whose properties represent significant elements of
    * `input`. Trailing directory separators are ignored.
    *
-   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
-   * > `URL`, it will be converted to a path using {@linkcode toPath}.
-   *
    * @see {@linkcode ParsedPath}
    *
    * @this {void}

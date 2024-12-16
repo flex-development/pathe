@@ -442,9 +442,6 @@ interface Pathe extends PosixPlatformPath {
   /**
    * Get the root of `input`.
    *
-   * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a
-   * > `URL`, it will be converted to a path using {@linkcode toPath}.
-   *
    * @this {void}
    *
    * @param {URL | string} input

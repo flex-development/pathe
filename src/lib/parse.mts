@@ -10,16 +10,12 @@ import isDeviceRoot from '#lib/is-device-root'
 import isSep from '#lib/is-sep'
 import removeExt from '#lib/remove-ext'
 import root from '#lib/root'
-import toPath from '#lib/to-path'
 import toPosix from '#lib/to-posix'
 import type { ParsedPath } from '@flex-development/pathe'
 
 /**
  * Create an object whose properties represent significant elements of `input`.
  * Trailing directory separators are ignored.
- *
- * > 👉 **Note**: If `input` is a {@linkcode URL}, or can be parsed to a `URL`,
- * > it will be converted to a path using {@linkcode toPath}.
  *
  * @see {@linkcode ParsedPath}
  *
@@ -35,7 +31,7 @@ import type { ParsedPath } from '@flex-development/pathe'
  */
 function parse(this: void, input: URL | string): ParsedPath {
   validateURLString(input, 'input')
-  input = toPath(input)
+  input = String(input)
 
   /**
    * Significant elements of {@linkcode input}.

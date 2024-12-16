@@ -3,13 +3,15 @@
  * @module pathe/lib/tests/unit/isDeviceRoot
  */
 
+import DEVICE_ROOT from '#fixtures/device-root'
+import DRIVE from '#fixtures/drive'
 import testSubject from '#lib/is-device-root'
-import { posix, win32 } from 'node:path'
+import { posix } from 'node:path'
 
 describe('unit:lib/isDeviceRoot', () => {
   it.each<Parameters<typeof testSubject>>([
     [''],
-    ['f:'],
+    [DRIVE],
     [import.meta.url],
     [null]
   ])('should return `false` if `value` is not device root (%#)', path => {
@@ -17,10 +19,10 @@ describe('unit:lib/isDeviceRoot', () => {
   })
 
   it.each<Parameters<typeof testSubject>>([
-    ['P:' + posix.sep],
-    ['W:' + win32.sep],
-    ['p:' + posix.sep],
-    ['w:' + posix.sep]
+    [DRIVE + posix.sep],
+    [DEVICE_ROOT],
+    [DRIVE.toLowerCase() + posix.sep],
+    [DEVICE_ROOT.toLowerCase()]
   ])('should return `true` if `value` is device root (%j)', path => {
     expect(testSubject(path)).to.be.true
   })
