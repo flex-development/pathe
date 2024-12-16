@@ -1,7 +1,7 @@
 /**
  * @file Unit Tests - isAbsolute
  * @module pathe/lib/tests/unit/isAbsolute
- * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-isabsolute.js
+ * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-path-isabsolute.js
  */
 
 import testSubject from '#lib/is-absolute'

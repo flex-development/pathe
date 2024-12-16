@@ -5,13 +5,12 @@
 
 import testSubject from '#lib/add-ext'
 import formatExt from '#lib/format-ext'
-import pathToFileURL from '#lib/path-to-file-url'
 
 describe('unit:lib/addExt', () => {
   it.each<[URL, string | null | undefined]>([
-    [pathToFileURL('dist/lib/add-ext.d'), '.mts'],
-    [pathToFileURL('src/lib/add-ext'), 'mjs']
-  ])('should return `input` with new extension (%#)', (input, ext) => {
+    [new URL('file:///dist/lib/add-ext.d'), '.mts'],
+    [new URL('file:///src/lib/add-ext'), 'mjs']
+  ])('should return `input` with new extension (%j, %j)', (input, ext) => {
     // Act
     const result = testSubject(input, ext)
 
@@ -22,9 +21,9 @@ describe('unit:lib/addExt', () => {
   })
 
   it.each<[URL, string | null | undefined]>([
-    [pathToFileURL('dist/lib/add-ext.mjs'), ''],
-    [pathToFileURL('dist/lib/add-ext.d.mts'), '.mts']
-  ])('should return `input` without modications (%#)', (input, ext) => {
+    [new URL('file:///dist/lib/add-ext.mjs'), ''],
+    [new URL('file:///dist/lib/add-ext.d.mts'), '.mts']
+  ])('should return `input` without modications (%j, %j)', (input, ext) => {
     // Arrange
     const clone: URL = new URL(input)
 

@@ -5,7 +5,6 @@
 
 import changeExt from '#lib/change-ext'
 import testSubject from '#lib/ext-to-value'
-import pathToFileURL from '#lib/path-to-file-url'
 import removeExt from '#lib/remove-ext'
 import type { EmptyString, Ext } from '@flex-development/pathe'
 import type { Loader } from 'esbuild'
@@ -21,7 +20,7 @@ describe('unit:lib/extToValue', () => {
     ['.npmrc', 'copy'],
     [changeExt(import.meta.url, 'cts'), undefined],
     [import.meta.url, 'ts'],
-    [pathToFileURL('dist/lib/ext-to-value.d.mts'), 'copy'],
+    [new URL('file:///dist/lib/ext-to-value.d.mts'), 'copy'],
     [removeExt(import.meta.url, 'spec.mts'), 'ts']
   ])('should return value based on file extension of `input` (%#)', (
     input,

@@ -1,7 +1,7 @@
 /**
  * @file Unit Tests - normalize
  * @module pathe/lib/tests/unit/normalize
- * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-normalize.js
+ * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-path-normalize.js
  */
 
 import testSubject from '#lib/normalize'

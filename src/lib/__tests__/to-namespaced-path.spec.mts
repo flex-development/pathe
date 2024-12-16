@@ -1,7 +1,7 @@
 /**
  * @file Unit Tests - toNamespacedPath
  * @module pathe/lib/tests/unit/toNamespacedPath
- * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-makelong.js
+ * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-path-makelong.js
  */
 
 import process from '#internal/process'

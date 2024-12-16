@@ -1,7 +1,7 @@
 /**
  * @file Functional Tests - matchesGlob
  * @module pathe/lib/tests/functional/matchesGlob
- * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-path-glob.js
+ * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-path-glob.js
  */
 
 import process from '#internal/process'

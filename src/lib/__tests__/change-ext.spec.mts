@@ -5,16 +5,15 @@
 
 import testSubject from '#lib/change-ext'
 import formatExt from '#lib/format-ext'
-import pathToFileURL from '#lib/path-to-file-url'
 import type { EmptyString } from '@flex-development/pathe'
 
 describe('unit:lib/changeExt', () => {
   it.each<[URL, string]>([
-    [pathToFileURL('/change-ext'), 'mjs'],
-    [pathToFileURL('/change-ext.'), '.mjs'],
-    [pathToFileURL('/change-ext.min.cjs'), '.mjs'],
-    [pathToFileURL('/change-ext.mts'), 'd.mts']
-  ])('should return `input` with changed extension (%#)', (input, ext) => {
+    [new URL('file:///change-ext'), 'mjs'],
+    [new URL('file:///change-ext.'), '.mjs'],
+    [new URL('file:///change-ext.min.cjs'), '.mjs'],
+    [new URL('file:///change-ext.mts'), 'd.mts']
+  ])('should return `input` with changed extension (%j, %j)', (input, ext) => {
     // Act
     const result = testSubject(input, ext)
 
@@ -24,10 +23,10 @@ describe('unit:lib/changeExt', () => {
     expect(result).to.have.property('href').endWith(result.pathname)
   })
 
-  it.each<[URL, (EmptyString | null | undefined)?]>([
-    [pathToFileURL('/change-ext.cjs'), ''],
-    [pathToFileURL('/change-ext.mjs'), null]
-  ])('should return `input` without extension (%#)', (input, ext) => {
+  it.each<[URL, EmptyString | null]>([
+    [new URL('file:///change-ext.cjs'), ''],
+    [new URL('file:///change-ext.mjs'), null]
+  ])('should return `input` without extension (%j, %j)', (input, ext) => {
     // Act
     const result = testSubject(input, ext)
 

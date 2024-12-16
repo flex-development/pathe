@@ -1,7 +1,7 @@
 /**
  * @file Unit Tests - pathToFileURL
  * @module pathe/lib/tests/unit/pathToFileURL
- * @see https://github.com/nodejs/node/blob/v23.2.0/test/parallel/test-url-pathtofileurl.js
+ * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-url-pathtofileurl.js
  */
 
 import DRIVE from '#fixtures/drive'
