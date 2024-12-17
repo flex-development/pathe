@@ -344,7 +344,7 @@ jobs:
           && echo "coverage=$(jq '${{ env.PCT }}' ${{ env.COVERAGE_SUMMARY }} -r)" >>$GITHUB_OUTPUT
       - id: pct
         name: Print coverage points
-        run: echo ${{ toJson(steps.test.outputs.coverage) }}
+        run: echo ${{ steps.test.outputs.coverage }}
       - id: report
         name: Upload report
         uses: actions/upload-artifact@v4.4.3
@@ -375,7 +375,7 @@ jobs:
           verbose: true
           working-directory: ${{ github.workspace }}
       - id: coverage-failure
-        if: ${{ toJson(steps.test.outputs.coverage) != 400 }}
+        if: steps.test.outputs.coverage != '400'
         name: Coverage threshold failure (${{ steps.test.outputs.coverage }})
         run: yarn test:cov:reports
   build:
