@@ -142,6 +142,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: checkout
+        if: github.actor != 'dependabot[bot]'
         name: Checkout ${{ env.REF_NAME }}
         uses: actions/checkout@v4.2.2
         with:
@@ -149,6 +150,7 @@ jobs:
           persist-credentials: false
           ref: ${{ env.REF }}
       - id: scan
+        if: github.actor != 'dependabot[bot]'
         name: Scan commits for secrets and policy breaches
         uses: GitGuardian/ggshield-action@v1.34.0
         env:
