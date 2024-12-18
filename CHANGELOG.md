@@ -1,3 +1,134 @@
+## [4.0.0](https://github.com/flex-development/pathe/compare/3.0.0...4.0.0) (2024-12-18)
+
+### ⚠ BREAKING CHANGES
+
+- url support
+
+### :package: Build
+
+- [[`86497f4`](https://github.com/flex-development/pathe/commit/86497f46752310c5cf30a912e6aa1559a51bc903)] **deps-dev:** Bump @arethetypeswrong/cli from 0.16.4 to 0.17.0 ([#397](https://github.com/flex-development/pathe/issues/397))
+- [[`c5f4227`](https://github.com/flex-development/pathe/commit/c5f422792f7e9190a1a78fe24b5ddc0ec281a8fd)] **deps-dev:** Bump @commitlint/cli from 19.5.0 to 19.6.0 in the commitlint group ([#412](https://github.com/flex-development/pathe/issues/412))
+- [[`1dde577`](https://github.com/flex-development/pathe/commit/1dde57781f21f9ae34d8a222d32660a42c718f05)] **deps-dev:** Bump @commitlint/cli from 19.6.0 to 19.6.1 in the commitlint group ([#433](https://github.com/flex-development/pathe/issues/433))
+- [[`419e9ae`](https://github.com/flex-development/pathe/commit/419e9ae66d36125311a452b9be23866abf6ab4fa)] **deps-dev:** Bump @faker-js/faker from 9.0.3 to 9.1.0 ([#377](https://github.com/flex-development/pathe/issues/377))
+- [[`bef3ad6`](https://github.com/flex-development/pathe/commit/bef3ad69852711e559b7c0690ec153383b1118cc)] **deps-dev:** Bump @faker-js/faker from 9.1.0 to 9.2.0 ([#388](https://github.com/flex-development/pathe/issues/388))
+- [[`c550a4d`](https://github.com/flex-development/pathe/commit/c550a4d6dc638568b76b14c2996556947f4b3977)] **deps-dev:** Bump @faker-js/faker from 9.2.0 to 9.3.0 ([#438](https://github.com/flex-development/pathe/issues/438))
+- [[`094a34f`](https://github.com/flex-development/pathe/commit/094a34f9789df2c9b5ca31ae523e94df2752b079)] **deps-dev:** Bump @flex-development/pkg-types from 4.0.0 to 4.1.0 in the flex-development group ([#341](https://github.com/flex-development/pathe/issues/341))
+- [[`bf7a177`](https://github.com/flex-development/pathe/commit/bf7a17778b0d344dd4eb860779e3b7b96880db55)] **deps-dev:** Bump @stylistic/eslint-plugin from 2.10.0 to 2.10.1 ([#384](https://github.com/flex-development/pathe/issues/384))
+- [[`eba2ba1`](https://github.com/flex-development/pathe/commit/eba2ba1071d3c849a8a3e1c6d4accdd976b0fc3f)] **deps-dev:** Bump @stylistic/eslint-plugin from 2.10.1 to 2.11.0 ([#415](https://github.com/flex-development/pathe/issues/415))
+- [[`83dc1d4`](https://github.com/flex-development/pathe/commit/83dc1d45f43987b8c95ec7ca0577bead82b04854)] **deps-dev:** Bump @stylistic/eslint-plugin from 2.11.0 to 2.12.1 ([#436](https://github.com/flex-development/pathe/issues/436))
+- [[`6990985`](https://github.com/flex-development/pathe/commit/6990985afe2e8e1e0afc926875772b8a3c4a1d10)] **deps-dev:** Bump @stylistic/eslint-plugin from 2.8.0 to 2.9.0 ([#346](https://github.com/flex-development/pathe/issues/346))
+- [[`e4ead1f`](https://github.com/flex-development/pathe/commit/e4ead1fcc03fdb3f1d723f1779747462fcd0829c)] **deps-dev:** Bump @stylistic/eslint-plugin from 2.9.0 to 2.10.0 ([#382](https://github.com/flex-development/pathe/issues/382))
+- [[`66c9013`](https://github.com/flex-development/pathe/commit/66c901358b8f610e147e160fa263c889b1299854)] **deps-dev:** Bump cspell from 8.14.4 to 8.15.4 ([#367](https://github.com/flex-development/pathe/issues/367))
+- [[`ccd11a3`](https://github.com/flex-development/pathe/commit/ccd11a3ae7638657fbeafb57b1dc4193db60a1aa)] **deps-dev:** Bump cspell from 8.15.4 to 8.15.5 ([#383](https://github.com/flex-development/pathe/issues/383))
+- [[`a922125`](https://github.com/flex-development/pathe/commit/a922125f79f37d3b5562ab4bc2127e5f91a933d6)] **deps-dev:** Bump cspell from 8.15.5 to 8.15.7 ([#390](https://github.com/flex-development/pathe/issues/390))
+- [[`b3c2a74`](https://github.com/flex-development/pathe/commit/b3c2a748513af9d5d71737763407e2369154a191)] **deps-dev:** Bump cspell from 8.15.7 to 8.16.0 ([#392](https://github.com/flex-development/pathe/issues/392))
+- [[`b4fb4fc`](https://github.com/flex-development/pathe/commit/b4fb4fce769c997dc9df1253616347dc8625ddd8)] **deps-dev:** Bump cspell from 8.16.0 to 8.16.1 ([#420](https://github.com/flex-development/pathe/issues/420))
+- [[`5cb37bb`](https://github.com/flex-development/pathe/commit/5cb37bbc7c5b4e61d447dfd3f318e70566ed7b4e)] **deps-dev:** Bump dprint from 0.47.2 to 0.47.4 ([#369](https://github.com/flex-development/pathe/issues/369))
+- [[`adc84c5`](https://github.com/flex-development/pathe/commit/adc84c5a2e9e327c30f4abd7dc11f07730c2a616)] **deps-dev:** Bump dprint from 0.47.4 to 0.47.5 ([#376](https://github.com/flex-development/pathe/issues/376))
+- [[`edb8641`](https://github.com/flex-development/pathe/commit/edb86418988736d9e45097aedbb3e1f4530da382)] **deps-dev:** Bump eslint-import-resolver-typescript from 3.6.3 to 3.7.0 ([#437](https://github.com/flex-development/pathe/issues/437))
+- [[`1b3aeb9`](https://github.com/flex-development/pathe/commit/1b3aeb9d065b2aee0b31a821c2678f255dcea102)] **deps-dev:** Bump eslint-plugin-import from 2.30.0 to 2.31.0 ([#343](https://github.com/flex-development/pathe/issues/343))
+- [[`f1b5c03`](https://github.com/flex-development/pathe/commit/f1b5c03f474737fafd06a49890cd03feb9c51e3e)] **deps-dev:** Bump eslint-plugin-jsdoc from 50.3.1 to 50.4.0 ([#359](https://github.com/flex-development/pathe/issues/359))
+- [[`1938c6b`](https://github.com/flex-development/pathe/commit/1938c6bd8c1b08967e7b2f1b6487aed7aa7b4aba)] **deps-dev:** Bump eslint-plugin-jsdoc from 50.4.0 to 50.4.1 ([#363](https://github.com/flex-development/pathe/issues/363))
+- [[`2be10ee`](https://github.com/flex-development/pathe/commit/2be10eebb590efcf102e7bcb6ed968849f146bb3)] **deps-dev:** Bump eslint-plugin-jsdoc from 50.4.1 to 50.4.3 ([#365](https://github.com/flex-development/pathe/issues/365))
+- [[`db0e0f2`](https://github.com/flex-development/pathe/commit/db0e0f2c809db2639f728af2c855683e04877d9b)] **deps-dev:** Bump eslint-plugin-jsdoc from 50.4.3 to 50.5.0 ([#400](https://github.com/flex-development/pathe/issues/400))
+- [[`16c1ac5`](https://github.com/flex-development/pathe/commit/16c1ac5be0cbec8e64a7e9889945728c2a7606a6)] **deps-dev:** Bump eslint-plugin-jsdoc from 50.5.0 to 50.6.1 ([#430](https://github.com/flex-development/pathe/issues/430))
+- [[`6146bfa`](https://github.com/flex-development/pathe/commit/6146bfa97870984d8842df6260ae8229e524b991)] **deps-dev:** Bump eslint-plugin-jsonc from 2.16.0 to 2.17.0 ([#394](https://github.com/flex-development/pathe/issues/394))
+- [[`b7bdd74`](https://github.com/flex-development/pathe/commit/b7bdd746b77e0ad280326311357ea2307b8f00dd)] **deps-dev:** Bump eslint-plugin-jsonc from 2.17.0 to 2.18.1 ([#398](https://github.com/flex-development/pathe/issues/398))
+- [[`df530dc`](https://github.com/flex-development/pathe/commit/df530dcf536a8c2312e4639eda39a8433a64b9fd)] **deps-dev:** Bump eslint-plugin-jsonc from 2.18.1 to 2.18.2 ([#419](https://github.com/flex-development/pathe/issues/419))
+- [[`1d81048`](https://github.com/flex-development/pathe/commit/1d81048377aa653fc0e4405bef2cfb43926973f1)] **deps-dev:** Bump eslint-plugin-n from 17.10.3 to 17.11.0 ([#353](https://github.com/flex-development/pathe/issues/353))
+- [[`7f3e813`](https://github.com/flex-development/pathe/commit/7f3e813a7fad44ff582113a6d8a68c67c75f92a3)] **deps-dev:** Bump eslint-plugin-n from 17.11.0 to 17.11.1 ([#356](https://github.com/flex-development/pathe/issues/356))
+- [[`d614e7e`](https://github.com/flex-development/pathe/commit/d614e7edd4563f2dd9da6f6459378f9d5765f112)] **deps-dev:** Bump eslint-plugin-n from 17.11.1 to 17.12.0 ([#381](https://github.com/flex-development/pathe/issues/381))
+- [[`a9f3717`](https://github.com/flex-development/pathe/commit/a9f3717c7ff7f83b8f79f19057294a1978c11c88)] **deps-dev:** Bump eslint-plugin-n from 17.12.0 to 17.13.0 ([#393](https://github.com/flex-development/pathe/issues/393))
+- [[`c239865`](https://github.com/flex-development/pathe/commit/c239865b87ce8b80a962a7b371b898424a323594)] **deps-dev:** Bump eslint-plugin-n from 17.13.0 to 17.13.1 ([#395](https://github.com/flex-development/pathe/issues/395))
+- [[`166c09a`](https://github.com/flex-development/pathe/commit/166c09ac9308b5c67a2e6150af16561c24f98d6e)] **deps-dev:** Bump eslint-plugin-n from 17.13.1 to 17.14.0 ([#409](https://github.com/flex-development/pathe/issues/409))
+- [[`06ac51f`](https://github.com/flex-development/pathe/commit/06ac51f3ec7958baa62d9b0c0b0c0956a0e5d2c0)] **deps-dev:** Bump eslint-plugin-promise from 7.1.0 to 7.2.1 ([#424](https://github.com/flex-development/pathe/issues/424))
+- [[`6ccc805`](https://github.com/flex-development/pathe/commit/6ccc805ce1d24d7a41c3cef797b465b1fd124fe4)] **deps-dev:** Bump eslint-plugin-unicorn from 55.0.0 to 56.0.0 ([#344](https://github.com/flex-development/pathe/issues/344))
+- [[`80f5b12`](https://github.com/flex-development/pathe/commit/80f5b1226032b76e200b5d302bfe509eb0bd2080)] **deps-dev:** Bump eslint-plugin-unicorn from 56.0.0 to 56.0.1 ([#421](https://github.com/flex-development/pathe/issues/421))
+- [[`16cafca`](https://github.com/flex-development/pathe/commit/16cafca748ad6f33058b704e4ddd3a668271a51e)] **deps-dev:** Bump eslint-plugin-yml from 1.14.0 to 1.15.0 ([#385](https://github.com/flex-development/pathe/issues/385))
+- [[`b3ab1ab`](https://github.com/flex-development/pathe/commit/b3ab1abc57e7ad3d3e53d16cc87815123bb88bd6)] **deps-dev:** Bump globals from 15.10.0 to 15.11.0 ([#351](https://github.com/flex-development/pathe/issues/351))
+- [[`936a23f`](https://github.com/flex-development/pathe/commit/936a23f5bbbe2b634ea4136568eb9ab38f73a63f)] **deps-dev:** Bump globals from 15.11.0 to 15.12.0 ([#391](https://github.com/flex-development/pathe/issues/391))
+- [[`0c049ad`](https://github.com/flex-development/pathe/commit/0c049ad9cdd04ea5a60eceef159aa78571edf253)] **deps-dev:** Bump globals from 15.9.0 to 15.10.0 ([#340](https://github.com/flex-development/pathe/issues/340))
+- [[`c4cbd34`](https://github.com/flex-development/pathe/commit/c4cbd349fd45ed8156e598d96bb059476af448a6)] **deps-dev:** Bump husky from 9.1.6 to 9.1.7 ([#422](https://github.com/flex-development/pathe/issues/422))
+- [[`f588f17`](https://github.com/flex-development/pathe/commit/f588f177f1d07e8fc5939d37967abaa93e932e15)] **deps-dev:** Bump is-ci from 3.0.1 to 4.1.0 ([#435](https://github.com/flex-development/pathe/issues/435))
+- [[`d19142b`](https://github.com/flex-development/pathe/commit/d19142b18d99d9ad6cf2b36fed34c078c40e4b5d)] **deps-dev:** Bump prettier from 3.3.3 to 3.4.0 ([#416](https://github.com/flex-development/pathe/issues/416))
+- [[`0bd0c2c`](https://github.com/flex-development/pathe/commit/0bd0c2c02a75f75eefc3c57faf5ee7bbb9c27526)] **deps-dev:** Bump prettier from 3.4.0 to 3.4.1 ([#418](https://github.com/flex-development/pathe/issues/418))
+- [[`8c38361`](https://github.com/flex-development/pathe/commit/8c38361893a49ef2f31c4d52279cc13c621ff6a2)] **deps-dev:** Bump remark-validate-links from 13.0.1 to 13.0.2 in the remark group ([#387](https://github.com/flex-development/pathe/issues/387))
+- [[`88306cf`](https://github.com/flex-development/pathe/commit/88306cf601126a840d807fbe4d5a1204d222bd38)] **deps-dev:** Bump the eslint group across 1 directory with 2 updates ([#432](https://github.com/flex-development/pathe/issues/432))
+- [[`0da6d64`](https://github.com/flex-development/pathe/commit/0da6d640209ad6789c8869e0a25513da11dfc44e)] **deps-dev:** Bump the eslint group with 2 updates ([#345](https://github.com/flex-development/pathe/issues/345))
+- [[`e58e7ed`](https://github.com/flex-development/pathe/commit/e58e7ed5fae096c8ef7a8a3c1be42a76b2f9bab0)] **deps-dev:** Bump the eslint group with 2 updates ([#368](https://github.com/flex-development/pathe/issues/368))
+- [[`52daa1d`](https://github.com/flex-development/pathe/commit/52daa1de748a3d4aff83bdb9c022e9b557aed78a)] **deps-dev:** Bump the eslint group with 2 updates ([#386](https://github.com/flex-development/pathe/issues/386))
+- [[`efce04c`](https://github.com/flex-development/pathe/commit/efce04c9b3fdfaf1db205243df71c969b8eb642d)] **deps-dev:** Bump the eslint group with 2 updates ([#413](https://github.com/flex-development/pathe/issues/413))
+- [[`31a22cf`](https://github.com/flex-development/pathe/commit/31a22cf88780681864fde2c1852826889fd544c0)] **deps-dev:** Bump the typescript-eslint group across 1 directory with 3 updates ([#406](https://github.com/flex-development/pathe/issues/406))
+- [[`06f8b94`](https://github.com/flex-development/pathe/commit/06f8b94deb1a0ef04e49de9e1ef324bb4247a420)] **deps-dev:** Bump the typescript-eslint group with 3 updates ([#350](https://github.com/flex-development/pathe/issues/350))
+- [[`5e668e5`](https://github.com/flex-development/pathe/commit/5e668e5f39878c813455f61cb919bc4f58ceace5)] **deps-dev:** Bump the typescript-eslint group with 3 updates ([#361](https://github.com/flex-development/pathe/issues/361))
+- [[`289550c`](https://github.com/flex-development/pathe/commit/289550ccdda50c6375eb63389921cb025911dba9)] **deps-dev:** Bump the typescript-eslint group with 3 updates ([#366](https://github.com/flex-development/pathe/issues/366))
+- [[`a26e2a7`](https://github.com/flex-development/pathe/commit/a26e2a7117ebaed882dc4cb55a855879ea7b82cd)] **deps-dev:** Bump the typescript-eslint group with 3 updates ([#370](https://github.com/flex-development/pathe/issues/370))
+- [[`9ec7919`](https://github.com/flex-development/pathe/commit/9ec7919ba0c93fb2c0c6a073510de7e6d03e0543)] **deps-dev:** Bump the typescript-eslint group with 3 updates ([#378](https://github.com/flex-development/pathe/issues/378))
+- [[`b56e126`](https://github.com/flex-development/pathe/commit/b56e126b640d839062d23778752185ecf69ccddd)] **deps-dev:** Bump the typescript-eslint group with 3 updates ([#380](https://github.com/flex-development/pathe/issues/380))
+- [[`a43c639`](https://github.com/flex-development/pathe/commit/a43c639a1c89f103f1a0ac035601e31bf5af1c43)] **deps-dev:** Bump the typescript-eslint group with 3 updates ([#389](https://github.com/flex-development/pathe/issues/389))
+- [[`7351ce0`](https://github.com/flex-development/pathe/commit/7351ce001bed2fb890eca1b924e55abf5c6cc4ed)] **deps-dev:** Bump the typescript-eslint group with 3 updates ([#396](https://github.com/flex-development/pathe/issues/396))
+- [[`64072ee`](https://github.com/flex-development/pathe/commit/64072ee7d3bef0011b955acea4470294d988502a)] **deps-dev:** Bump the typescript-eslint group with 3 updates ([#414](https://github.com/flex-development/pathe/issues/414))
+- [[`bd9f7a3`](https://github.com/flex-development/pathe/commit/bd9f7a37965ece9c4e2da5122c05628eb4b83276)] **deps-dev:** Bump the typescript-eslint group with 3 updates ([#434](https://github.com/flex-development/pathe/issues/434))
+- [[`05b9453`](https://github.com/flex-development/pathe/commit/05b94533be81a055fe05de28aacc1677da5d8613)] **deps-dev:** Bump the vitest group with 3 updates ([#342](https://github.com/flex-development/pathe/issues/342))
+- [[`513689a`](https://github.com/flex-development/pathe/commit/513689a302fca8dadad2bff6339b6b692439abf3)] **deps-dev:** Bump the vitest group with 3 updates ([#362](https://github.com/flex-development/pathe/issues/362))
+- [[`7788c06`](https://github.com/flex-development/pathe/commit/7788c0638d96c1a5aa88996c8ec1f8314b478c36)] **deps-dev:** Bump the vitest group with 3 updates ([#401](https://github.com/flex-development/pathe/issues/401))
+- [[`f16c6ab`](https://github.com/flex-development/pathe/commit/f16c6ab774986e3924c52202c3764c03d7961af3)] **deps-dev:** bump typescript from 5.7.1-rc to 5.7.2
+- [[`15c6436`](https://github.com/flex-development/pathe/commit/15c643683e97e7cca8be44d621b9a327a05f1f1d)] **deps:** Bump @eslint/plugin-kit from 0.2.0 to 0.2.3 ([#404](https://github.com/flex-development/pathe/issues/404))
+- [[`cdfd125`](https://github.com/flex-development/pathe/commit/cdfd1255e180f92af2eb3e2782d9937f6c96af5e)] **deps:** Bump cross-spawn from 7.0.3 to 7.0.6 ([#410](https://github.com/flex-development/pathe/issues/410))
+- [[`1159a6d`](https://github.com/flex-development/pathe/commit/1159a6d1aeafb66373becdd41c7bb0e8e880903a)] **deps:** Bump nanoid from 3.3.7 to 3.3.8 ([#431](https://github.com/flex-development/pathe/issues/431))
+- [[`bd0f60c`](https://github.com/flex-development/pathe/commit/bd0f60caddf64817c68360abe59a8a6766f0decb)] **yarn:** bump yarn from 4.5.1 to 4.5.3
+
+### :robot: Continuous Integration
+
+- [[`3e6a1c4`](https://github.com/flex-development/pathe/commit/3e6a1c45be5e9d2643471525e0756ab8eb26af48)] **deps:** Bump actions/cache from 4.0.2 to 4.1.0 ([#347](https://github.com/flex-development/pathe/issues/347))
+- [[`e067faa`](https://github.com/flex-development/pathe/commit/e067faae576e599c9018516bec7b93f6c106e1e2)] **deps:** Bump actions/cache from 4.1.0 to 4.1.1 ([#355](https://github.com/flex-development/pathe/issues/355))
+- [[`04c5e9b`](https://github.com/flex-development/pathe/commit/04c5e9b730b3bee5aaf8fa25f8e5cc074f52a3b6)] **deps:** Bump actions/cache from 4.1.1 to 4.1.2 ([#371](https://github.com/flex-development/pathe/issues/371))
+- [[`028dd8f`](https://github.com/flex-development/pathe/commit/028dd8f3e06937f9a1fb07ebf81c072b98b1a774)] **deps:** Bump actions/cache from 4.1.2 to 4.2.0 ([#428](https://github.com/flex-development/pathe/issues/428))
+- [[`9c94e51`](https://github.com/flex-development/pathe/commit/9c94e516126d2b5b0e0ea84884b51e5d998f8b61)] **deps:** Bump actions/checkout from 4.2.0 to 4.2.1 ([#349](https://github.com/flex-development/pathe/issues/349))
+- [[`4967225`](https://github.com/flex-development/pathe/commit/496722555a02127ec138142f40480a901e6f506f)] **deps:** Bump actions/checkout from 4.2.1 to 4.2.2 ([#372](https://github.com/flex-development/pathe/issues/372))
+- [[`9454959`](https://github.com/flex-development/pathe/commit/9454959a109c7d49bc6d57079702a14ece886b87)] **deps:** Bump actions/setup-node from 4.0.4 to 4.1.0 ([#373](https://github.com/flex-development/pathe/issues/373))
+- [[`a7bc1c1`](https://github.com/flex-development/pathe/commit/a7bc1c1d14a1da8a625ac7456f083ec43ae00312)] **deps:** Bump actions/upload-artifact from 4.4.0 to 4.4.1 ([#348](https://github.com/flex-development/pathe/issues/348))
+- [[`e0f2245`](https://github.com/flex-development/pathe/commit/e0f2245a26ca6281bf6da2d55593cb19b5ab8918)] **deps:** Bump actions/upload-artifact from 4.4.1 to 4.4.3 ([#357](https://github.com/flex-development/pathe/issues/357))
+- [[`11dfacc`](https://github.com/flex-development/pathe/commit/11dfaccba808de1e596d7c74fd9be21b0ec58f67)] **deps:** Bump codecov/codecov-action from 4.5.0 to 4.6.0 ([#339](https://github.com/flex-development/pathe/issues/339))
+- [[`89576c2`](https://github.com/flex-development/pathe/commit/89576c2274521b190c83eb90d719e6f27476e10e)] **deps:** Bump codecov/codecov-action from 4.6.0 to 5.0.7 ([#408](https://github.com/flex-development/pathe/issues/408))
+- [[`dd6e8b9`](https://github.com/flex-development/pathe/commit/dd6e8b92887ad4adbf4866b8f496e5cb3fe3f963)] **deps:** bump codecov/codecov-action from 5.0.7 to 5.1.1
+- [[`2ef359e`](https://github.com/flex-development/pathe/commit/2ef359e68a5c60e04ac4333ab7849f6c7cd057de)] **deps:** Bump crazy-max/ghaction-import-gpg from 6.1.0 to 6.2.0 ([#375](https://github.com/flex-development/pathe/issues/375))
+- [[`ebc45ce`](https://github.com/flex-development/pathe/commit/ebc45ce6689704ac20e01fe9eb031711863234b2)] **deps:** Bump jchen1/wait-for-green from 1.0.8 to 2.0.0 ([#374](https://github.com/flex-development/pathe/issues/374))
+- [[`6763740`](https://github.com/flex-development/pathe/commit/676374038e708e256149f767ef8f64b0cb441456)] **workflows:** [`ci`] fix `gitguardian` job
+- [[`fdbbdad`](https://github.com/flex-development/pathe/commit/fdbbdad5dbdd32ede7b28b6d22e649ee2bc72a86)] **workflows:** [`ci`] fix coverage failure check
+- [[`37b41c1`](https://github.com/flex-development/pathe/commit/37b41c14a9f1868cbb9065d963b54a742c4e181f)] **workflows:** [`ci`] fix gitguardian env
+- [[`ea4a1b7`](https://github.com/flex-development/pathe/commit/ea4a1b739e25ee2441a8e3ebdc4f1c266342dbda)] **workflows:** [`ci`] print coverage points
+- [[`9a343bf`](https://github.com/flex-development/pathe/commit/9a343bf8604c3346de413c10f56bac2c09e02ab3)] **workflows:** [`ci`] skip `gitguardian` job for [@dependabot](https://github.com/dependabot)
+- [[`69a8921`](https://github.com/flex-development/pathe/commit/69a8921aa91e6eb676ac3f9eb3d08f143a081809)] **workflows:** [`ci`] update gitguardian scan
+
+### :sparkles: Features
+
+- [[`6bb30a5`](https://github.com/flex-development/pathe/commit/6bb30a575ce049ba1bef9c23370db0b35fef68cf)] [`pathToFileURL`] url string support
+- [[`77e0b13`](https://github.com/flex-development/pathe/commit/77e0b1308ed9dfa8ea3f7af49a89607069fdc9f5)] `extToValue`
+- [[`edaa955`](https://github.com/flex-development/pathe/commit/edaa955764bae0a724783e4478010036eeab2bc7)] url support
+
+### :house_with_garden: Housekeeping
+
+- [[`45f6416`](https://github.com/flex-development/pathe/commit/45f641600da2db7fdf1d6a5100881d58393ac450)] refactor project architecture
+- [[`548557e`](https://github.com/flex-development/pathe/commit/548557e33193fb456e946dcc89902ed15453805b)] **tests:** `#tests/reporters/notifier`
+
+### :mechanical_arm: Refactors
+
+- [[`5485f82`](https://github.com/flex-development/pathe/commit/5485f8258ce351b47fea4f1f870caa3c7446c6f6)] **lib:** [`basename`] url support
+- [[`fbda65e`](https://github.com/flex-development/pathe/commit/fbda65e765ead46f357d273c6bb60f3c480aa593)] **lib:** [`dirname`] url support
+- [[`02b7eb3`](https://github.com/flex-development/pathe/commit/02b7eb3cce310c449dfa937a65a15547f26b941d)] **lib:** [`extname`] url support
+- [[`702dfdc`](https://github.com/flex-development/pathe/commit/702dfdcbb971a4439e0e71f247e38dd303413990)] **lib:** [`fileURLToPath`] `input` validation
+- [[`6b8a3be`](https://github.com/flex-development/pathe/commit/6b8a3be613e7e3c51429e3344f4f51caae8267f3)] **lib:** [`parse`] url support
+- [[`4dbc19d`](https://github.com/flex-development/pathe/commit/4dbc19d36cbf17691b61d0f10f42f024e46e459e)] **lib:** [`relative`] drop partial url support
+
+### :wastebasket: Reverts
+
+- [[`f8ea637`](https://github.com/flex-development/pathe/commit/f8ea637abd511d3631d2671cea27302cc85e5666)] [`isAbsolute`] url support
+
+### :white_check_mark: Testing
+
+- [[`bc0f582`](https://github.com/flex-development/pathe/commit/bc0f5824d16a71da6f2f41b82b4b117b7926cfc5)] **lib:** refactor
+
 ## [3.0.0](https://github.com/flex-development/pathe/compare/2.0.0...3.0.0) (2024-10-01)
 
 ### ⚠ BREAKING CHANGES
@@ -413,5 +544,6 @@
 ### :white_check_mark: Testing
 
 - [[`8f3d59e`](https://github.com/flex-development/pathe/commit/8f3d59e16201db971eaf02580bdaaa2c58d84f4b)] **lib:** add type tests
+
 
 
