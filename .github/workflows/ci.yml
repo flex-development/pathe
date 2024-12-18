@@ -142,16 +142,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: checkout
-        if: github.actor != 'dependabot[bot]'
-        name: Checkout ${{ env.REF_NAME }}
+        name: Checkout
         uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
-          persist-credentials: false
-          ref: ${{ env.REF }}
       - id: scan
-        if: github.actor != 'dependabot[bot]'
-        name: Scan commits for secrets and policy breaches
+        name: Scan commits with ggshield
         uses: GitGuardian/ggshield-action@v1.34.0
         env:
           GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
@@ -160,7 +156,7 @@ jobs:
           GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
           GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
         with:
-          args: --all-policies --ignore-known-secrets --show-secrets --verbose
+          args: --all-policies --format sarif --show-secrets --with-incident-details --verbose
   format:
     needs:
       - commitlint
