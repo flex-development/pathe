@@ -170,7 +170,7 @@
     "punycode.js": "2.3.1"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "0.17.0",
+    "@arethetypeswrong/cli": "0.17.1",
     "@commitlint/cli": "19.6.1",
     "@commitlint/types": "19.5.0",
     "@eslint/js": "9.17.0",
