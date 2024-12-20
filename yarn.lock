@@ -1642,7 +1642,7 @@ __metadata:
     "@vitest/ui": "npm:3.0.0-beta.2"
     chai: "npm:5.1.2"
     chai-string: "npm:1.5.0"
-    consola: "npm:3.2.3"
+    consola: "npm:3.3.0"
     cross-env: "npm:7.0.3"
     cspell: "npm:8.17.1"
     devlop: "npm:1.1.0"
@@ -3800,6 +3800,13 @@ __metadata:
   version: 3.2.3
   resolution: "consola@npm:3.2.3"
   checksum: 10/02972dcb048c337357a3628438e5976b8e45bcec22fdcfbe9cd17622992953c4d695d5152f141464a02deac769b1d23028e8ac87f56483838df7a6bbf8e0f5a2
+  languageName: node
+  linkType: hard
+
+"consola@npm:3.3.0":
+  version: 3.3.0
+  resolution: "consola@npm:3.3.0"
+  checksum: 10/c8d8ee57328eaafe03ce711e6651aaa975c344aedd0a1b0cce6f931453bc8bc8a5336d95f5534099b3c24481d43b26afd6f22637ad319c43731408996503cc3b
   languageName: node
   linkType: hard
 
