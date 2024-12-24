@@ -4,7 +4,7 @@
  * @see https://github.com/nodejs/node/blob/v23.4.0/test/parallel/test-path-glob.js
  */
 
-import process from '#internal/process'
+import cwd from '#lib/cwd'
 import testSubject from '#lib/matches-glob'
 import toPosix from '#lib/to-posix'
 import micromatch from 'micromatch'
@@ -55,8 +55,7 @@ describe('functional:lib/matchesGlob', () => {
     expect(spy.mock.lastCall?.[1]).to.eq(toPosix(pattern))
     expect(spy.mock.lastCall?.[2]).to.eql({
       ...options,
-      basename: options?.basename ?? true,
-      cwd: process.cwd(),
+      cwd: cwd(),
       windows: false
     })
   })

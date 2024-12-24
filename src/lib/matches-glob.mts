@@ -3,9 +3,9 @@
  * @module pathe/lib/matchesGlob
  */
 
-import process from '#internal/process'
 import validateString from '#internal/validate-string'
 import validateURLString from '#internal/validate-url-string'
+import cwd from '#lib/cwd'
 import toPosix from '#lib/to-posix'
 import micromatch from 'micromatch'
 
@@ -54,8 +54,7 @@ function matchesGlob(
 
   return micromatch.isMatch(toPosix(String(input)), pattern, {
     ...options,
-    basename: options?.basename ?? true,
-    cwd: options?.cwd ?? process.cwd(),
+    cwd: options?.cwd ?? cwd(),
     windows: false
   })
 }
