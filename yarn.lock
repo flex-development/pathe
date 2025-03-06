@@ -1548,10 +1548,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@faker-js/faker@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@faker-js/faker@npm:9.5.0"
-  checksum: 10/7dfcdf81a01b41f04e6b3a40b1c164658f1d309af8a8585ce36409758d1ee0de02e875c5e2a7163c88225ef5679386ca9706a64c800b525d8f2747967b2171ed
+"@faker-js/faker@npm:9.5.1":
+  version: 9.5.1
+  resolution: "@faker-js/faker@npm:9.5.1"
+  checksum: 10/d1bf2ff96f05a0effa1f98eb68f18694d3aedfcaf8570cfe09a43dbc79a99444ef1baead5b385f69b121b7da440160ba68e554f123a97f7bc1e7e11f2b1bc466
   languageName: node
   linkType: hard
 
@@ -1836,7 +1836,7 @@ __metadata:
     "@commitlint/cli": "npm:19.7.1"
     "@commitlint/types": "npm:19.5.0"
     "@eslint/js": "npm:9.20.0"
-    "@faker-js/faker": "npm:9.5.0"
+    "@faker-js/faker": "npm:9.5.1"
     "@flex-development/commitlint-config": "npm:1.0.1"
     "@flex-development/errnode": "npm:3.1.1"
     "@flex-development/ext-regex": "npm:2.0.0"
