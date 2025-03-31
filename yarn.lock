@@ -1970,7 +1970,7 @@ __metadata:
     typescript-eslint: "npm:8.26.0"
     unified: "npm:11.0.5"
     vfile: "npm:6.0.3"
-    vite: "npm:6.1.2"
+    vite: "npm:6.1.3"
     vitest: "npm:3.0.7"
     yaml-eslint-parser: "npm:1.2.3"
   languageName: unknown
@@ -11609,9 +11609,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:6.1.2":
-  version: 6.1.2
-  resolution: "vite@npm:6.1.2"
+"vite@npm:6.1.3":
+  version: 6.1.3
+  resolution: "vite@npm:6.1.3"
   dependencies:
     esbuild: "npm:^0.24.2"
     fsevents: "npm:~2.3.3"
@@ -11657,7 +11657,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/7816600723167a0e05b3c87dd96b1d80f4e8eb870ac20a3102e935f3ea7a7a764f17e34973bb2dc22d4cbdce69e2ee2ff299fe6852b7b10958b80e0c67a3bf02
+  checksum: 10/5f36159326daaee39ae0fa98565b58533ddd9cb51f5d539e735aaf075b28bee3e4deb9ea02f2f03c9dd71fd014f9cad7846ffc92a08e3a55b3fd22e5ea5b2b3f
   languageName: node
   linkType: hard
 
