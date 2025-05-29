@@ -53,6 +53,7 @@
       "pathe": "./src/index.mts",
       "default": "./dist/index.mjs"
     },
+    "./index": null,
     "./package.json": "./package.json",
     "./posix": {
       "pathe": "./src/posix.mts",
@@ -61,6 +62,10 @@
     "./win32": {
       "pathe": "./src/win32.mts",
       "default": "./dist/win32.mjs"
+    },
+    "./*": {
+      "pathe": "./src/lib/*.mts",
+      "default": "./dist/lib/*.mjs"
     }
   },
   "imports": {
