@@ -200,8 +200,8 @@
     "@typescript-eslint/eslint-plugin": "8.26.0",
     "@typescript-eslint/parser": "8.26.0",
     "@vates/toggle-scripts": "1.0.0",
-    "@vitest/coverage-v8": "3.0.7",
-    "@vitest/ui": "3.0.7",
+    "@vitest/coverage-v8": "4.0.18",
+    "@vitest/ui": "4.0.18",
     "chai": "5.2.0",
     "chai-string": "1.5.0",
     "consola": "3.4.0",
@@ -310,7 +310,7 @@
     "unified": "11.0.5",
     "vfile": "6.0.3",
     "vite": "6.1.6",
-    "vitest": "3.0.7",
+    "vitest": "4.0.18",
     "yaml-eslint-parser": "1.2.3"
   },
   "resolutions": {
