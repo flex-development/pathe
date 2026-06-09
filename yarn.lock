@@ -1586,6 +1586,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/builtin-modules@npm:2.1.2":
+  version: 2.1.2
+  resolution: "@flex-development/builtin-modules@npm:2.1.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fbuiltin-modules%2F2.1.2%2Ff4d6b61c135889cf80f743e370b1576ee25dfac2"
+  checksum: 10/62ce59ebf6710e750fc306cf641674ea29c5c4a0d33e3360d99120248fbb7643a944301f438e59e8207ba79319bff566e5a1adb0dc6ac92433097b1fc36e57a8
+  languageName: node
+  linkType: hard
+
 "@flex-development/commitlint-config@npm:1.0.1":
   version: 1.0.1
   resolution: "@flex-development/commitlint-config@npm:1.0.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fcommitlint-config%2F1.0.1%2F802e285802fe8188c2f02f68114ca31a20b6eb6d"
@@ -1750,6 +1757,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/is-builtin@npm:3.2.0":
+  version: 3.2.0
+  resolution: "@flex-development/is-builtin@npm:3.2.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fis-builtin%2F3.2.0%2F555baad0f0c1a9b329b3b6e5aaa763490d2394ae"
+  dependencies:
+    "@flex-development/builtin-modules": "npm:2.1.2"
+  checksum: 10/3f52c5bd289b9518720b31d50458f1f9416523e502969f659174d8054b208b17a38d88e5d2e51402f56ca07c4f7d63e786745f6ced558a8f478a55ca0e97d67a
+  languageName: node
+  linkType: hard
+
 "@flex-development/mkbuild@npm:1.0.0-alpha.23":
   version: 1.0.0-alpha.23
   resolution: "@flex-development/mkbuild@npm:1.0.0-alpha.23::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fmkbuild%2F1.0.0-alpha.23%2F01fc88d62df2030b9fcc7a780061d20542e086a9"
@@ -1815,6 +1831,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/mlly@npm:1.0.0-beta.7":
+  version: 1.0.0-beta.7
+  resolution: "@flex-development/mlly@npm:1.0.0-beta.7::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fmlly%2F1.0.0-beta.7%2F9346eeecb5a0f1201fac408b946c3328457dda48"
+  dependencies:
+    "@flex-development/errnode": "npm:3.1.1"
+    "@flex-development/is-builtin": "npm:3.2.0"
+    "@flex-development/pathe": "npm:4.0.2"
+    "@flex-development/pkg-types": "npm:4.1.0"
+    "@flex-development/when": "npm:1.0.0"
+    devlop: "npm:1.1.0"
+  checksum: 10/47db6af2758948fdf7b4b610bb8fd287566dacbd82bb719a8f21bcd6445e878d47ed1ed20dbcdf0c30601efa9ed9b666e7cb11f5e4d336dafb2833cd40d36e94
+  languageName: node
+  linkType: hard
+
 "@flex-development/pathe@npm:1.0.3":
   version: 1.0.3
   resolution: "@flex-development/pathe@npm:1.0.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fpathe%2F1.0.3%2F097d5bd49df40304b86645ee9fd50be7711eac56"
@@ -1835,6 +1865,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/pathe@npm:4.0.2":
+  version: 4.0.2
+  resolution: "@flex-development/pathe@npm:4.0.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fpathe%2F4.0.2%2Fb527dc789ae450a7480f6de2ce04c70a36d4c887"
+  dependencies:
+    "@flex-development/errnode": "npm:3.1.1"
+    "@types/micromatch": "npm:4.0.9"
+    micromatch: "npm:4.0.8"
+    punycode.js: "npm:2.3.1"
+  checksum: 10/1a26f63150fbc5d7fb98f300324703ea2df44d11b02c3b05ea5104eca6515b6633a74b54105a4813ce641d4f71e04b4657f41f3059457e0b40822f5f958350b5
+  languageName: node
+  linkType: hard
+
 "@flex-development/pathe@workspace:.":
   version: 0.0.0-use.local
   resolution: "@flex-development/pathe@workspace:."
@@ -1849,7 +1891,7 @@ __metadata:
     "@flex-development/ext-regex": "npm:2.0.0"
     "@flex-development/grease": "npm:3.0.0-alpha.9"
     "@flex-development/mkbuild": "npm:1.0.0-alpha.23"
-    "@flex-development/mlly": "npm:1.0.0-alpha.18"
+    "@flex-development/mlly": "npm:1.0.0-beta.7"
     "@flex-development/pkg-types": "npm:4.1.0"
     "@flex-development/tsconfig-utils": "npm:2.0.2"
     "@flex-development/tutils": "npm:6.0.0-alpha.25"
@@ -2095,6 +2137,13 @@ __metadata:
   peerDependencies:
     typescript: ">=4.7"
   checksum: 10/161901c611f0049464cc53e128b8285f12a9dc6ef551a8c8a4bd47d9e2d73afcc53c25fbcd18189dcda28a460ea64e8801398159b6daaaff63d0552d140f1f02
+  languageName: node
+  linkType: hard
+
+"@flex-development/when@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@flex-development/when@npm:1.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fwhen%2F1.0.0%2F37778450c4ee38bf0ab55476f645744bece9aa8c"
+  checksum: 10/3e71b9a00a93964223b6f36819553c226264ab2375933f6d8681dfd2302b3a21dc21aeed3d5230699d6bb35bd41e95872be5f45e8deadcb1fda4b43e35372e54
   languageName: node
   linkType: hard
 
