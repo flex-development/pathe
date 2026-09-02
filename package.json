@@ -310,7 +310,7 @@
     "unified": "11.0.5",
     "vfile": "6.0.3",
     "vite": "6.1.6",
-    "vitest": "3.0.7",
+    "vitest": "3.2.6",
     "yaml-eslint-parser": "1.2.3"
   },
   "resolutions": {
